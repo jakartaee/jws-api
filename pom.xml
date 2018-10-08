@@ -16,13 +16,9 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
 
-    <groupId>jakarta.jws</groupId>
-    <artifactId>jakarta.jws-api</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
-    
     <properties>
         <non.final>false</non.final>        
         <extension.name>javax.jws</extension.name>
@@ -33,10 +29,27 @@
         <findbugs.exclude>exclude.xml</findbugs.exclude>
         <findbugs.threshold>Low</findbugs.threshold>
     </properties>
+
+    <groupId>jakarta.jws</groupId>
+    <artifactId>jakarta.jws-api</artifactId>
+    <version>1.1.1-SNAPSHOT</version>
     <name>${extension.name} API</name>
     <description>Java EE Web Services Metadata API</description>
-    
     <url>http://glassfish.java.net</url>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/eclipse-ee4j/jws-api.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/jws-api.git</developerConnection>
+        <url>https://github.com/eclipse-ee4j/jws-api</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>Eclipse Distribution License - v 1.0</name>
+            <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <developers>
         <developer>
@@ -53,30 +66,24 @@
         <name>GlassFish Community</name>
         <url>https://glassfish.java.net</url>
     </organization>
-    <licenses>
-        <license>
-            <name>Eclipse Distribution License - v 1.0</name>
-            <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+
     <issueManagement>
         <system>github</system>
         <url>https://github.com/eclipse-ee4j/jws-api/issues</url>
     </issueManagement>
+
     <mailingLists>
         <mailingList>
-            <name>GlassFish Users</name>
-            <archive>users@glassfish.java.net</archive>
+            <name>Eclipse Project for JAX-WS mailing list</name>
+            <post>jaxws-dev@eclipse.org</post>
+            <subscribe>https://accounts.eclipse.org/mailing-list/jaxws-dev</subscribe>
+            <unsubscribe>https://accounts.eclipse.org/mailing-list/jaxws-dev</unsubscribe>
+            <archive>https://dev.eclipse.org/mhonarc/lists/jaxws-dev/</archive>
         </mailingList>
     </mailingLists>
-    <scm>
-        <connection>scm:git:ssh://git@github.com/eclipse-ee4j/jws-api.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/jws-api.git</developerConnection>
-        <url>https://github.com/eclipse-ee4j/jws-api</url>
-    </scm>
 
     <build>
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -87,7 +94,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.7.0</version>
+                    <version>3.8.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.glassfish.build</groupId>
@@ -119,8 +126,19 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.0.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.0.0-M2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                </plugin>
             </plugins>
         </pluginManagement>
+
         <resources>
             <resource>
                 <directory>src/main/java</directory>
@@ -136,6 +154,7 @@
                 </excludes>
             </resource>
         </resources>        
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -316,5 +335,7 @@
                 </configuration>
             </plugin>
         </plugins>
+
     </build>
+
 </project>
