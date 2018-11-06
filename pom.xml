@@ -20,6 +20,8 @@
     </parent>
 
     <properties>
+        <release.spec.feedback>jaxws-dev@eclipse.org</release.spec.feedback>
+        <release.spec.date>Jun 2013</release.spec.date>
         <non.final>false</non.final>        
         <extension.name>javax.jws</extension.name>
         <spec.version>1.1</spec.version>
@@ -28,7 +30,7 @@
         <findbugs.exclude>exclude.xml</findbugs.exclude>
         <findbugs.threshold>Low</findbugs.threshold>
         <legal.doc.source>${project.basedir}</legal.doc.source>
-        <vendor.name>Eclipse Project for JAX-WS</vendor.name>
+        <vendor.name>Oracle Corporation</vendor.name>
     </properties>
 
     <groupId>jakarta.jws</groupId>
@@ -36,7 +38,7 @@
     <version>1.1.1-SNAPSHOT</version>
     <name>${extension.name} API</name>
     <description>Java EE Web Services Metadata API</description>
-    <url>http://glassfish.java.net</url>
+    <url>https://github.com/eclipse-ee4j/jws-api</url>
 
     <scm>
         <connection>scm:git:ssh://git@github.com/eclipse-ee4j/jws-api.git</connection>
@@ -289,7 +291,18 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <doclint>none</doclint>
+                    <nodeprecated>false</nodeprecated>
+                    <use>false</use>
+                    <author>true</author>
+                    <version>true</version>
+                    <header><![CDATA[<br>JWS&nbsp;API&nbsp;v${project.version}]]>
+                    </header>
+                    <bottom><![CDATA[<br>
+Copyright &#169; {inceptionYear}&#x2013;{currentYear} Oracle and/or its affiliates.
+All rights reserved.<br>Comments to: <a href="mailto:${release.spec.feedback}">${release.spec.feedback}</a>.]]>
+                    </bottom>
+                    <detectJavaApiLink>false</detectJavaApiLink>
                     <groups>
                         <group>
                             <title>Web Services Metadata for the JavaTM Platform API Documentation</title>
