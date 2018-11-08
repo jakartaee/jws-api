@@ -22,8 +22,8 @@
     <properties>
         <release.spec.feedback>jaxws-dev@eclipse.org</release.spec.feedback>
         <release.spec.date>Jun 2013</release.spec.date>
-        <non.final>false</non.final>        
-        <extension.name>javax.jws</extension.name>
+        <non.final>false</non.final>
+        <extension.name>jakarta.jws</extension.name>
         <spec.version>1.1</spec.version>
         <implementation.vendor.id>org.glassfish</implementation.vendor.id>
         <findbugs.version>2.3.1</findbugs.version>
@@ -151,7 +151,7 @@
                     <exclude>META-INF/README</exclude>
                 </excludes>
             </resource>
-        </resources>        
+        </resources>
 
         <plugins>
             <plugin>
@@ -225,11 +225,15 @@
                     <execution>
                         <goals>
                             <goal>set-spec-properties</goal>
-                            <goal>check-module</goal>
+                            <!-- TODO:
+                            glassfish-spec-version-maven-plugin needs to be updated
+                            in order to check 'jakarta.' prefixed values in manifest entries
+                            -->
+                            <!--<goal>check-module</goal>-->
                         </goals>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
@@ -242,12 +246,13 @@
                         <Bundle-SymbolicName>${spec.bundle.symbolic-name}</Bundle-SymbolicName>
                         <Extension-Name>${spec.extension.name}</Extension-Name>
                         <Implementation-Version>${spec.implementation.version}</Implementation-Version>
-                        <Specification-Version>${spec.specification.version}</Specification-Version>                         
+                        <Specification-Version>${spec.specification.version}</Specification-Version>
                         <Bundle-Description>
                            Web Services Metadata for the JavaTM Platform ${spec.version} API Design Specification
                         </Bundle-Description>
                         <Specification-Vendor>${vendor.name}</Specification-Vendor>
-			<_include>-${basedir}/osgi.bundle</_include>
+                        <_include>-${basedir}/osgi.bundle</_include>
+                        <_noee>true</_noee>
                     </instructions>
                 </configuration>
                 <executions>
@@ -282,7 +287,7 @@
                     <execution>
                        <id>attach-sources</id>
                        <goals>
-                           <goal>jar-no-fork</goal> 
+                           <goal>jar-no-fork</goal>
                        </goals>
                     </execution>
                 </executions>
@@ -310,7 +315,7 @@ All rights reserved.<br>Comments to: <a href="mailto:${release.spec.feedback}">$
                         </group>
                     </groups>
                 </configuration>
-            </plugin>     
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -347,7 +352,7 @@ All rights reserved.<br>Comments to: <a href="mailto:${release.spec.feedback}">$
                                     <excludeFilterFile>${findbugs.exclude}</excludeFilterFile>
                                 </configuration>
                             </plugin>
-                        </plugins>                        
+                        </plugins>
                     </reporting>
                 </configuration>
             </plugin>
