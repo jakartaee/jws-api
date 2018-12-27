@@ -35,7 +35,7 @@
 
     <groupId>jakarta.jws</groupId>
     <artifactId>jakarta.jws-api</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2-SNAPSHOT</version>
     <name>${extension.name} API</name>
     <description>Java EE Web Services Metadata API</description>
     <url>https://github.com/eclipse-ee4j/jws-api</url>
