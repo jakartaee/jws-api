@@ -1,13 +1,13 @@
-# Notices for Eclipse Project for JAX-WS
+# Notices for Eclipse Jakarta XML Web Services
 
-This content is produced and maintained by the Eclipse Project for JAX-WS
+This content is produced and maintained by the Eclipse Jakarta XML Web Services
 project.
 
 * Project home: https://projects.eclipse.org/projects/ee4j.jaxws
 
 ## Trademarks
 
-Eclipse Project for JAX-WS is a trademark of the Eclipse Foundation.
+ Jakarta XML Web Services is a trademark of the Eclipse Foundation.
 
 ## Copyright
 
@@ -18,8 +18,8 @@ source code repository logs.
 ## Declared Project Licenses
 
 This program and the accompanying materials are made available under the terms
-of the Eclipse Distribution License v. 1.0 which is available
-at http://www.eclipse.org/org/documents/edl-v10.php.
+of the Eclipse Distribution License v. 1.0 which is available at
+http://www.eclipse.org/org/documents/edl-v10.php.
 
 SPDX-License-Identifier: BSD-3-Clause
 
