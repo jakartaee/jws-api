@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Customizes a method that is exposed as a Web Service operation.
  * The associated method must be public and its parameters return value,
- * and exceptions must follow the rules defined in JAX-RPC 1.1, section 5.
+ * and exceptions must follow the rules defined in Jakarta XML Web Services Specification, section 5.
  *
  *  The method is not required to throw java.rmi.RemoteException.
  *
