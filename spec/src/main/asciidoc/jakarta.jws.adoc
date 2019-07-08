@@ -1,0 +1,4 @@
+== Introduction
+
+Jakarta Web Services Metadata defines the syntax and semantics of Java Web Service (JWS) metadata and default values.
+This specification does not define a Java environment in which Web Services are run.
