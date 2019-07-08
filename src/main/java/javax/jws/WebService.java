@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -45,7 +45,7 @@ public @interface WebService {
      * endpoint interface (through the endpointInterface attribute), the targetNamespace is used for only the
      * wsdl:service (and associated XML elements).
      *
-     * @specdefault Implementation-defined, as described in JAX-WS 2.0 [5], section 3.2.
+     * @specdefault Implementation-defined, as described in Jakarta XML Web Services Specification [5], section 3.2.
      */
     String targetNamespace() default "";
 

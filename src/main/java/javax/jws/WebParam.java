@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -80,7 +80,7 @@ public @interface WebParam {
      * The direction in which the parameter is flowing (One of IN, OUT, or INOUT).
      * <p>
      * The OUT and INOUT modes may only be specified for parameter types that conform to the definition of Holder types
-     * (JAX-WS 2.0 [5], section 2.3.3).  Parameters that are Holder Types MUST be OUT or INOUT.
+     * (Jakarta XML Web Services Specification [5], section 2.3.3).  Parameters that are Holder Types MUST be OUT or INOUT.
      *
      * @specdefault
      *   INOUT if a Holder type.<br>
