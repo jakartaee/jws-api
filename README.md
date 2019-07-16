@@ -35,3 +35,8 @@ that they apply to all files in the workspace.
 
 You should always read the license file included with every download, and read
 the license text included in every source file.
+
+## Contributing
+
+We use [contribution policy](CONTRIBUTING.md), which means we can only accept contributions under
+the terms of [Eclipse Contributor Agreement](http://www.eclipse.org/legal/ECA.php).
