@@ -86,7 +86,7 @@ public @interface WebService {
     String wsdlLocation() default "";
 
     /**
-     * The complete name of the service endpoint interface defining the service�s abstract Web Service contract.
+     * The complete name of the service endpoint interface defining the service's abstract Web Service contract.
      * <p>
      * This annotation allows the developer to separate the interface contract from the implementation.  If this
      * annotation is present, the service endpoint interface is used to determine the abstract WSDL contract (portType

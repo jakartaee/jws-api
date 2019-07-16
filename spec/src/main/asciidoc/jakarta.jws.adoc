@@ -1,4 +1,6 @@
 == Introduction
 
-Jakarta Web Services Metadata defines the syntax and semantics of Java Web Service (JWS) metadata and default values.
-This specification does not define a Java environment in which Web Services are run.
+Jakarta Web Services Metadata defines programming model for Web Services in Java,
+use of metadata, non-normative processing model for metadata annotated web service
+source file, runtime requirements for a container and annotations used for WSDL,
+binding and configuration.

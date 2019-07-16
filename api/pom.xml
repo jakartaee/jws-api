@@ -20,6 +20,7 @@
     </parent>
 
     <properties>
+        <copyright.exclude>${project.basedir}/copyright-exclude</copyright.exclude>
         <copyright.ignoreyear>false</copyright.ignoreyear>
         <copyright.scmonly>true</copyright.scmonly>
         <copyright.update>false</copyright.update>
@@ -42,7 +43,7 @@
 
     <groupId>jakarta.jws</groupId>
     <artifactId>jakarta.jws-api</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.3-SNAPSHOT</version>
     <name>Jakarta Web Services Metadata API</name>
     <description>Jakarta Web Services Metadata API</description>
     <url>https://github.com/eclipse-ee4j/jws-api</url>
@@ -154,6 +155,7 @@
                 <groupId>org.glassfish.copyright</groupId>
                 <artifactId>glassfish-copyright-maven-plugin</artifactId>
                 <configuration>
+                    <excludeFile>${copyright.exclude}</excludeFile>
                     <!-- skip files not under SCM-->
                     <scmOnly>${copyright.scmonly}</scmOnly>
                     <!-- for use with repair -->
@@ -165,7 +167,7 @@
                     <execution>
                         <phase>validate</phase>
                         <goals>
-                            <goal>copyright</goal>
+                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -315,26 +317,35 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <doclint>none</doclint>
                     <nodeprecated>false</nodeprecated>
-                    <use>false</use>
+                    <use>true</use>
                     <author>true</author>
                     <version>true</version>
+                    <description>Jakarta Web Services Metadata API documentation</description>
+                    <doctitle>Jakarta Web Services Metadata API documentation</doctitle>
+                    <windowtitle>Jakarta Web Services Metadata API documentation</windowtitle>
                     <header><![CDATA[<br>Jakarta Web Services Metadata API v${project.version}]]>
                     </header>
                     <bottom><![CDATA[
 Comments to: <a href="mailto:${release.spec.feedback}">${release.spec.feedback}</a>.<br>
 Copyright &#169; {inceptionYear}&#x2013;{currentYear} Oracle and/or its affiliates. All rights reserved.<br>
-Use is subject to <a href="{@docRoot}/doc-files/EFSL.html" target="_top">license terms</a>.]]>
+Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.]]>
                     </bottom>
                     <detectJavaApiLink>false</detectJavaApiLink>
                     <docfilessubdirs>true</docfilessubdirs>
                     <groups>
                         <group>
-                            <title>Jakarta Web Services Metadata API Documentation</title>
+                            <title>Jakarta Web Services Metadata API Packages</title>
                             <packages>javax.jws</packages>
                         </group>
                     </groups>
+                    <tags>
+                        <tag>
+                            <name>specdefault</name>
+                            <placement>a</placement>
+                            <head>Default:</head>
+                        </tag>
+                    </tags>
                 </configuration>
             </plugin>
             <plugin>
