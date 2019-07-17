@@ -1,13 +1,21 @@
-# Notices for Eclipse Jakarta XML Web Services
+[//]: # " Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved. "
+[//]: # "  "
+[//]: # " This program and the accompanying materials are made available under the "
+[//]: # " terms of the Eclipse Distribution License v. 1.0, which is available at "
+[//]: # " http://www.eclipse.org/org/documents/edl-v10.php. "
+[//]: # "  "
+[//]: # " SPDX-License-Identifier: BSD-3-Clause "
 
-This content is produced and maintained by the Eclipse Jakarta XML Web Services
+# Notices for Jakarta Web Services Metadata
+
+This content is produced and maintained by the Jakarta XML Web Services
 project.
 
 * Project home: https://projects.eclipse.org/projects/ee4j.jaxws
 
 ## Trademarks
 
- Jakarta XML Web Services is a trademark of the Eclipse Foundation.
+Jakarta XML Web Services is a trademark of the Eclipse Foundation.
 
 ## Copyright
 
