@@ -29,7 +29,6 @@
         <spotbugs.version>3.1.11</spotbugs.version>
 
         <release.spec.feedback>jaxws-dev@eclipse.org</release.spec.feedback>
-        <release.spec.date>Jun 2013</release.spec.date>
         <non.final>false</non.final>
         <extension.name>jakarta.jws</extension.name>
         <spec.version>1.1</spec.version>
