@@ -8,10 +8,10 @@
 
 # Jakarta Web Services Metadata project
 
-Jakarta Web Services Metadata defines programming model for Web Services in Java,
-use of metadata, non-normative processing model for metadata annotated web service
-source file, runtime requirements for a container and annotations used for WSDL,
-binding and configuration.
+Jakarta Web Services Metadata defines a programming model for Web Services in Java,
+use of metadata, a non-normative processing model for metadata annotated web service
+source files, runtime requirements for a container, and annotations used for WSDL,
+binding, and configuration.
 
 This project is part of [Jakarta XML Web Services project](https://projects.eclipse.org/projects/ee4j.jaxws).
 
