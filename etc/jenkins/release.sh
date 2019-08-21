@@ -10,10 +10,10 @@
 
 #
 # Arguments:
-#  $3 - API_VERSION
-#  $4 - NEXT_API_VERSION
-#  $5 - DRY_RUN
-#  $6 - OVERWRITE
+#  $1 - API_VERSION
+#  $2 - NEXT_API_VERSION
+#  $3 - DRY_RUN
+#  $4 - OVERWRITE
 
 API_VERSION="${1}"
 NEXT_API_VERSION="${2}"
