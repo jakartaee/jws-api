@@ -42,7 +42,7 @@
 
     <groupId>jakarta.jws</groupId>
     <artifactId>jakarta.jws-api</artifactId>
-    <version>1.1.3-SNAPSHOT</version>
+    <version>2.1.0-SNAPSHOT</version>
     <name>Jakarta Web Services Metadata API</name>
     <description>Jakarta Web Services Metadata API</description>
     <url>https://github.com/eclipse-ee4j/jws-api</url>

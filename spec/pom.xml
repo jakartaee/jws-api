@@ -28,7 +28,7 @@
     <groupId>jakarta.jws</groupId>
     <artifactId>jakarta.jws-spec</artifactId>
     <packaging>pom</packaging>
-    <version>1.1-SNAPSHOT</version>
+    <version>2.1-SNAPSHOT</version>
     <name>Jakarta Web Services Metadata Specification</name>
 
     <properties>
