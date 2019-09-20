@@ -337,7 +337,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <release>11</release>
-                    <doclint>none</doclint>
+                    <docfilessubdirs>true</docfilessubdirs>
                     <nodeprecated>false</nodeprecated>
                     <use>true</use>
                     <author>true</author>
