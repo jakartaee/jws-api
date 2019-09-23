@@ -12,7 +12,5 @@
 # Arguments:
 #  N/A
 
-echo '-[ Jakarta Web Services Metadata Specification Build ]--------------------------'
-(cd spec && mvn -U -C -Psnapshots,oss-release -Dstatus='DRAFT' clean install deploy)
 echo '-[ Jakarta Web Services Metadata API Build ]------------------------------------'
-(cd api && mvn -U -C -Psnapshots,oss-release clean install spotbugs:spotbugs deploy)
+(cd api && mvn -U -C -B -Psnapshots,oss-release clean install spotbugs:spotbugs deploy)
