@@ -13,4 +13,4 @@
 #  N/A
 
 echo '-[ Jakarta Web Services Metadata API Build ]------------------------------------'
-(cd api && mvn -U -C -B -Psnapshots,oss-release clean install spotbugs:spotbugs deploy)
+(cd api && mvn -U -C -B -Poss-release clean deploy spotbugs:spotbugs)
