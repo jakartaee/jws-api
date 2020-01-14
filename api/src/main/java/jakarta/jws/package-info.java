@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,6 +9,6 @@
  */
 
 /**
- * This package defines annotations for SOAP binding definition within light-weight web services programming model.
+ * This package defines annotations for light-weight web services programming model.
  */
-package javax.jws.soap;
+package jakarta.jws;

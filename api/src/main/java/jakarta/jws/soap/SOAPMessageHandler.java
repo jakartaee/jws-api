@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -8,7 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package javax.jws.soap;
+package jakarta.jws.soap;
 
 @Deprecated public @interface SOAPMessageHandler {
 
@@ -35,7 +35,7 @@ package javax.jws.soap;
     /**
      * List of SOAP headers processed by the handler.  Each element in this array contains a QName which defines the
      * header element processed by the handler.  The QNames are specified using the string notation described in the
-     * documentation for javax.xml.namespace.QName.valueOf(String qNameAsString)
+     * documentation for jakarta.xml.namespace.QName.valueOf(String qNameAsString)
      */
     String[] headers() default {};
 };
