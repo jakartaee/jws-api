@@ -35,7 +35,7 @@ package jakarta.jws.soap;
     /**
      * List of SOAP headers processed by the handler.  Each element in this array contains a QName which defines the
      * header element processed by the handler.  The QNames are specified using the string notation described in the
-     * documentation for jakarta.xml.namespace.QName.valueOf(String qNameAsString)
+     * documentation for javax.xml.namespace.QName.valueOf(String qNameAsString)
      */
     String[] headers() default {};
 };
