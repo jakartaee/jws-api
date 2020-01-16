@@ -16,7 +16,8 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
+        <relativePath/>
     </parent>
 
     <properties>
@@ -120,12 +121,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -135,7 +136,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.0.0-M2</version>
+                    <version>3.0.0-M3</version>
                 </plugin>
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
@@ -201,7 +202,6 @@
                         </goals>
                         <configuration>
                             <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
-                            <timestampFormat>{0,date,yyyy-MM-dd'T'HH:mm:ssZ}</timestampFormat>
                             <shortRevisionLength>7</shortRevisionLength>
                             <revisionOnScmFailure>false</revisionOnScmFailure>
                         </configuration>
@@ -287,6 +287,7 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
+                        <_removeheaders>Bnd-LastModified,Include-Resource,Build-Jdk,Built-By</_removeheaders>
                         <Bundle-Version>${spec.bundle.version}</Bundle-Version>
                         <Bundle-SymbolicName>${spec.bundle.symbolic-name}</Bundle-SymbolicName>
                         <Extension-Name>${spec.extension.name}</Extension-Name>
@@ -296,7 +297,7 @@
                             Jakarta Web Services Metadata API ${spec.version} Design Specification
                         </Bundle-Description>
                         <Specification-Vendor>${vendor.name}</Specification-Vendor>
-                        <Implementation-Build-Id>${scmBranch}-${buildNumber}, ${timestamp}</Implementation-Build-Id>
+                        <Implementation-Build-Id>${scmBranch}-${buildNumber}</Implementation-Build-Id>
                     </instructions>
                 </configuration>
                 <executions>
@@ -327,7 +328,7 @@
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>
-                            <Implementation-Build-Id>${scmBranch}-${buildNumber}, ${timestamp}</Implementation-Build-Id>
+                            <Implementation-Build-Id>${scmBranch}-${buildNumber}</Implementation-Build-Id>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -337,6 +338,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <release>11</release>
+                    <notimestamp>true</notimestamp>
                     <docfilessubdirs>true</docfilessubdirs>
                     <nodeprecated>false</nodeprecated>
                     <use>true</use>
@@ -349,7 +351,7 @@
                     </header>
                     <bottom><![CDATA[
 Comments to: <a href="mailto:${release.spec.feedback}">${release.spec.feedback}</a>.<br>
-Copyright &#169; 2019 Eclipse Foundation. All rights reserved.<br>
+Copyright &#169; 2019, 2020 Eclipse Foundation. All rights reserved.<br>
 Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.]]>
                     </bottom>
                     <groups>
