@@ -364,7 +364,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                     <groups>
                         <group>
                             <title>Jakarta Web Services Metadata API Packages</title>
-                            <packages>javax.jws*</packages>
+                            <packages>jakarta.jws*</packages>
                         </group>
                     </groups>
                     <tags>
