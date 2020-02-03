@@ -11,7 +11,7 @@
 /**
  * Jakarta Web Services Metadata API.
  */
-module java.jws {
+module jakarta.jws {
     exports jakarta.jws;
     exports jakarta.jws.soap;
 }
