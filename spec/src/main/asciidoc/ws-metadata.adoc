@@ -2,7 +2,7 @@
 // Copyright (c) 2017, 2020 Contributors to the Eclipse Foundation
 //
 
-== Introduction
+== Scope
 
 Jakarta Web Services Metadata defines a programming model for Web Services in Java,
 use of metadata, a non-normative processing model for metadata annotated web service
