@@ -26,3 +26,4 @@ include::license-efsl.adoc[]
 // == Jakarta Web Services Metadata
 :sectnums:
 include::ws-metadata.adoc[]
+include::WebServicesMetadata.adoc[]
