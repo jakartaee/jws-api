@@ -21,7 +21,31 @@
 
   <xsd:annotation>
     <xsd:documentation>
-      jakartaee_web_services_metadata_handler.xsd v3.0.0
+      This is the XML Schema for the Handler chain configuration descriptor.
+      The configuration file must be in the classpath within the JAR/WAR file.
+
+      All Handler chain configuration descriptors
+      should indicate the descriptor schema by using the Jakarta EE
+      namespace:
+
+      http://jakarta.ee/xml/ns/jakartaee
+
+      and by indicating the version of the schema by
+      using the version element as shown below:
+
+        <handler-chains xmlns="http://jakarta.ee/xml/ns/jakartaee"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://jakarta.ee/xml/ns/jakartaee
+              http://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_metadata_handler_3_0.xsd"
+          version="3.0">
+          ...
+        </handler-chains>
+
+      The instance documents may indicate the published version of
+      the schema using the xsi:schemaLocation attribute for Jakarta EE
+      namespace with the following location:
+
+      http://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_metadata_handler_3_0.xsd
     </xsd:documentation>
   </xsd:annotation>
 
