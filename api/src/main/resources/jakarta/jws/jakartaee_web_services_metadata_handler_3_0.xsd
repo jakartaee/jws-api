@@ -12,8 +12,8 @@
 -->
 
 <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://jakarta.ee/xml/ns/jakartaee"
-            xmlns:jakartaee="http://jakarta.ee/xml/ns/jakartaee"
+            targetNamespace="https://jakarta.ee/xml/ns/jakartaee"
+            xmlns:jakartaee="https://jakarta.ee/xml/ns/jakartaee"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified"
@@ -28,15 +28,15 @@
       should indicate the descriptor schema by using the Jakarta EE
       namespace:
 
-      http://jakarta.ee/xml/ns/jakartaee
+      https://jakarta.ee/xml/ns/jakartaee
 
       and by indicating the version of the schema by
       using the version element as shown below:
 
-        <handler-chains xmlns="http://jakarta.ee/xml/ns/jakartaee"
+        <handler-chains xmlns="https://jakarta.ee/xml/ns/jakartaee"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://jakarta.ee/xml/ns/jakartaee
-              http://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_metadata_handler_3_0.xsd"
+          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+              https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_metadata_handler_3_0.xsd"
           version="3.0">
           ...
         </handler-chains>
@@ -45,7 +45,7 @@
       the schema using the xsi:schemaLocation attribute for Jakarta EE
       namespace with the following location:
 
-      http://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_metadata_handler_3_0.xsd
+      https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_metadata_handler_3_0.xsd
     </xsd:documentation>
   </xsd:annotation>
 
