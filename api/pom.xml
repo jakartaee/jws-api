@@ -27,7 +27,7 @@
         <copyright.update>false</copyright.update>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>3.1.12.2</spotbugs.version>
+        <spotbugs.version>4.0.0</spotbugs.version>
 
         <release.spec.feedback>jaxws-dev@eclipse.org</release.spec.feedback>
         <non.final>false</non.final>
@@ -96,7 +96,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.glassfish.copyright</groupId>
@@ -111,12 +111,17 @@
                 <plugin>
                     <groupId>org.glassfish.build</groupId>
                     <artifactId>spec-version-maven-plugin</artifactId>
-                    <version>2.0</version>
+                    <version>2.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>4.2.1</version>
+                    <configuration>
+                        <instructions>
+                            <_noextraheaders>true</_noextraheaders>
+                        </instructions>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -131,7 +136,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -287,7 +292,6 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <_removeheaders>Bnd-LastModified,Include-Resource,Build-Jdk,Built-By</_removeheaders>
                         <Bundle-Version>${spec.bundle.version}</Bundle-Version>
                         <Bundle-SymbolicName>${spec.bundle.symbolic-name}</Bundle-SymbolicName>
                         <Extension-Name>${spec.extension.name}</Extension-Name>
@@ -297,7 +301,7 @@
                             Jakarta Web Services Metadata API ${spec.version} Design Specification
                         </Bundle-Description>
                         <Specification-Vendor>${vendor.name}</Specification-Vendor>
-                        <Implementation-Build-Id>${scmBranch}-${buildNumber}</Implementation-Build-Id>
+                        <Implementation-Build-Id>${buildNumber}</Implementation-Build-Id>
                     </instructions>
                 </configuration>
                 <executions>
@@ -325,10 +329,11 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <addDefaultEntries>false</addDefaultEntries>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>
-                            <Implementation-Build-Id>${scmBranch}-${buildNumber}</Implementation-Build-Id>
+                            <Implementation-Build-Id>${buildNumber}</Implementation-Build-Id>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -337,14 +342,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <release>8</release>
-                    <additionalOptions>
-                        <additionalOption>--frames</additionalOption>
-                    </additionalOptions>
-                    <sourceFileExcludes>
-                        <sourceFileExclude>module-info.java</sourceFileExclude>
-                    </sourceFileExcludes>
+                    <archive>
+                        <manifest>
+                            <addDefaultEntries>false</addDefaultEntries>
+                        </manifest>
+                    </archive>
+                    <release>11</release>
                     <notimestamp>true</notimestamp>
                     <docfilessubdirs>true</docfilessubdirs>
                     <nodeprecated>false</nodeprecated>
