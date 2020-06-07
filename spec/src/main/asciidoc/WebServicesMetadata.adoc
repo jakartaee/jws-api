@@ -365,26 +365,21 @@ illustrated in the following example. The example uses JSR-175 syntax
 and the _annotation type_ declarations defined in the javax.jws and
 javax.jws.soap packages.
 
-import javax.jws.WebService; +
+[source, java]
+----
+import javax.jws.WebService;
 import javax.jws.WebMethod;
 
 @WebService
-
 public class HelloWorldService
-
-\{
-
-@WebMethod
-
-public String helloWorld()
-
-\{
-
-return "Hello World!";
-
+{
+   @WebMethod
+   public String helloWorld()
+   {
+     return "Hello World!";
+   }
 }
-
-}
+----
 
 Most of these metadata tags have reasonable defaults, which are
 explicitly called out in Section 4. Most of these metadata tags have
@@ -648,55 +643,39 @@ package with an implementation-defined name.
 
 ==== Annotation Type Definition
 
+[source,java]
+----
 @Retention(value=RetentionPolicy.RUNTIME)
-
-@Target(\{TYPE})
-
-public @interface WebService \{
-
-String name() default "";
-
-String targetNamespace() default "";
-
-String serviceName() default "";
-
-String portName() default "";
-
-String wsdlLocation() default "";
-
-String endpointInterface() default "";
-
+@Target({TYPE})
+public @interface WebService {
+  String name() default "";
+  String targetNamespace() default "";
+  String serviceName() default "";
+  String portName() default "";
+  String wsdlLocation() default "";
+  String endpointInterface() default "";
 };
+----
 
-==== Example +
-Java source:*
+==== Example
+*Java source:*
 
+[source,java]
+----
 /**
-
 * Annotated Implementation Object
-
 */
-
 @WebService(
-
-name = "EchoService",
-
-targetNamespace =
-"http://www.openuri.org/2004/04/HelloWorld[[.underline]#http://www.openuri.org/2004/04/HelloWorld#]"
-
+  name = "EchoService",
+  targetNamespace = "http://www.openuri.org/2004/04/HelloWorld"
 )
-
-public class EchoServiceImpl \{
-
-@WebMethod
-
-public String echo(String input) \{
-
-return input;
-
+public class EchoServiceImpl {
+   @WebMethod
+   public String echo(String input) {
+      return input;
+   }
 }
-
-}
+----
 
 === Annotation: javax.jws.WebMethod
 
@@ -754,64 +733,50 @@ This member-value is not allowed on endpoint interfaces.
 
 ==== Annotation Type Definition
 
+[source,java]
+----
 @Retention(value=RetentionPolicy.RUNTIME)
-
-@Target(\{METHOD})
-
-public @interface WebMethod \{
-
-String operationName() default "";
-
-String action() default "" ;
-
-boolean exclude() default false;
-
+@Target({METHOD})
+public @interface WebMethod {
+  String operationName() default "";
+  String action() default "" ;
+  boolean exclude() default false;
 };
+----
 
 ==== Example
 *Java source:*
 
+[source,java]
+----
 @WebService
-
-public class MyWebService \{
-
-@WebMethod(operationName = "echoString", action="urn:EchoString")
-
-public String echo(String input) \{
-
-return input;
-
+public class MyWebService {
+   @WebMethod(operationName = "echoString", action="urn:EchoString")
+   public String echo(String input) {
+      return input;
+   }
 }
-
-}
+----
 
 *Resulting WSDL:*
 
+[source, xml]
+----
 <definitions>
-
-<portType name="MyWebService">
-
-<operation name="echoString"/>
-
-<input message="echoString"/>
-
-<output message="echoStringResponse"/>
-
-</operation>
-
-</portType>
-
-<binding name="PingServiceHttpSoap" type="MyWebService">
-
-<operation name="echoString">
-
-<soap:operation soapAction="urn:EchoString"/>
-
-</operation>
-
-</binding>
-
+   <portType name="MyWebService">
+      <operation name="echoString"/>
+         <input message="echoString"/>
+         <output message="echoStringResponse"/>
+      </operation>
+   </portType>
+   
+   <binding name="PingServiceHttpSoap" type="MyWebService">
+      <operation name="echoString">
+         <soap:operation soapAction="urn:EchoString"/>
+      </operation>
+   </binding>
 </definitions>
+----
 
 === Annotation: javax.jws.Oneway 
 
@@ -827,45 +792,43 @@ exceptions or has any INOUT or OUT parameters.
 
 ==== Annotation Type Definition
 
+[source,java]
+----
 @Retention(value=RetentionPolicy.RUNTIME)
-
-@Target(\{METHOD})
-
-public @interface Oneway \{
-
+@Target({METHOD})
+public @interface Oneway {
 };
+----
 
 ==== Example
 *Java source:*
 
+[source,java]
+----
 @WebService
+public class PingService {
 
-public class PingService \{
-
-@WebMethod
-
-@Oneway
-
-public void ping() \{
-
-}
-
+   @WebMethod
+   @Oneway
+   public void ping() {
+   }
 };
+----
 
-Resulting WSDL:
+*Resulting WSDL:*
 
+[source,xml]
+----
 <definitions>
-
-<message name="ping"/>
-
-<portType name="PingService"> +
-<operation name="ping"> +
-<input message="ping"/> +
-</operation>
-
-</portType>
-
+   <message name="ping"/>
+   
+   <portType name="PingService">
+      <operation name="ping">
+         <input message="ping"/>
+      </operation>
+   </portType>
 </definitions>
+----
 
 === Annotation: javax.jws.WebParam
 
@@ -1006,213 +969,142 @@ False
 
 ==== Annotation Type Definition
 
+[source,java]
+----
 @Retention(value=RetentionPolicy.RUNTIME)
+@Target({PARAMETER})
+public @interface WebParam {
 
-@Target(\{PARAMETER})
-
-public @interface WebParam \{
-
-public enum Mode \{
-
-IN,
-
-OUT,
-
-INOUT
-
+   public enum Mode {
+      IN,
+      OUT,
+      INOUT
+   };
+   
+   String name() default "";
+   String partName() default "";
+   String targetNamespace() default "";
+   Mode mode() default Mode.IN;
+   boolean header() default false;
 };
-
-String name() default "";
-
-String partName() default "";
-
-String targetNamespace() default "";
-
-Mode mode() default Mode.IN;
-
-boolean header() default false;
-
-};
+----
 
 ==== Example 
 *Java Source:*
 
-@WebService(targetNamespace="http://www.openuri.org/jsr181/WebParamExam[[.underline]#http://www.openuri.org/jsr181/WebParamExam#]
-
-ple")
-
+[source,java]
+----
+@WebService(targetNamespace="http://www.openuri.org/jsr181/WebParamExample")
 @SOAPBinding(style=SOAPBinding.Style.RPC)
+public class PingService {
 
-public class PingService \{
+   @WebMethod(operationName = "PingOneWay")
+   @Oneway
+   public void ping(PingDocument ping) {
+   }
+   
+   @WebMethod(operationName = "PingTwoWay") 
+   public void ping(
+     @WebParam(mode=WebParam.Mode.INOUT)
+        PingDocumentHolder ping) {
+   }
 
-@WebMethod(operationName = "PingOneWay")
-
-@Oneway
-
-public void ping(PingDocument ping) \{
-
-}
-
-@WebMethod(operationName = "PingTwoWay") public void ping(
-
-@WebParam(mode=WebParam.Mode.INOUT) +
-PingDocumentHolder ping) \{
-
-}
-
-@WebMethod(operationName = "SecurePing")
-
-@Oneway
-
-public void ping(
-
-PingDocument ping,
-
-@WebParam(header=true)
-
-SecurityHeader secHeader) \{
-
-}
-
+   @WebMethod(operationName = "SecurePing")
+   @Oneway
+   public void ping(
+      PingDocument ping,
+      @WebParam(header=true)
+         SecurityHeader secHeader) {
+   }
 };
+----
 
 *Resulting WSDL:*
 
+[source,xml]
+----
 <definitions
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:tns="http://www.openuri.org/jsr181/WebParamExample"
+  xmlns:wsdl="http://www.openuri.org/jsr181/WebParamExample"
+  xmlns:s="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  targetNamespace="http://www.openuri.org/jsr181/WebParamExample">
 
-xmlns="http://schemas.xmlsoap.org/wsdl/[[.underline]#http://schemas.xmlsoap.org/wsdl/#]"
+  <types>
+     <s:schema elementFormDefault="qualified"
+targetNamespace="http://www.openuri.org/jsr181/WebParamExample">
+        <s:complexType name="PingDocument">
+           . . .
+        </s:complexType>
+        <s:complexType name="SecurityHeader">
+           . . .
+        </s:complexType>
+        <s:element name="SecurityHeader" type="SecurityHeader"/>
+     </s:schema>
+  </types>
 
-xmlns:tns="http://www.openuri.org/jsr181/WebParamExample[[.underline]#http://www.openuri.org/jsr181/WebParamExample#]"
-
-xmlns:wsdl="http://www.openuri.org/jsr181/WebParamExample[[.underline]#http://www.openuri.org/jsr181/WebParamExample#]"
-xmlns:s="http://www.w3.org/2001/XMLSchema[[.underline]#http://www.w3.org/2001/XMLSchema#]"
-xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/[[.underline]#http://schemas.xmlsoap.org/wsdl/soap/#]"
-targetNamespace="http://www.openuri.org/jsr181/WebParamExample[[.underline]#http://www.openuri.org/jsr181/WebParamExample#]">
-
-<types>
-
-<s:schema elementFormDefault="qualified"
-
-targetNamespace="http://www.openuri.org/jsr181/WebParamExample[[.underline]#http://www.openuri.org/jsr181/WebParamExample#]">
-<s:complexType name="PingDocument">
-
-. . .
-
-</s:complexType>
-
-<s:complexType name="SecurityHeader">
-
-. . .
-
-</s:complexType>
-
-<s:element name="SecurityHeader" type="SecurityHeader"/>
-
-</s:schema>
-
-</ types>
-
-<message name="PingOneWay">
-
-<part name="arg0" type="tns:PingDocument"/>
-
-</message>
-
-<message name="PingTwoWay">
-
-<part name="arg0" type="tns:PingDocument"/>
-
-</message>
-
-<message name="PingTwoWayResponse">
-
-<part name="arg0" type="tns:PingDocument"/>
-
-</message>
-
-<message name="SecurePing">
-
-<part name="arg0" type="tns:PingDocument"/> <part name="arg1"
-element="tns:SecurityHeader"/> </message>
-
-<portType name="PingService">
-
-<operation name="PingOneWay">
-
-<input message="tns:PingOneWay"/> +
-</operation>
-
-<operation name="PingTwoWay">
-
-<input message="tns:PingTwoWay"/>
-
-<output message="tns:PingTwoWayResponse"/>
-
-</operation>
-
-<operation name="SecurePing">
-
-<input message="tns:SecurePing"/> +
-</operation>
-
-</portType>
-
-<binding name="PingServiceHttpSoap" type="tns:PingService">
-<soap:binding style="rpc"
-
-transport="http://schemas.xmlsoap.org/soap/http[[.underline]#http://schemas.xmlsoap.org/soap/http#]"/>
-<operation name="PingOneWay">
-
-<soap:operation
-soapAction="http://openuri.org/PingOneWay[[.underline]#http://openuri.org/PingOneWay#]"/>
-
-<input>
-
-<soap:body parts="arg0" use="literal"/>
-
-</input>
-
-</operation>
-
-<operation name="PingTwoWay">
-
-<soap:operation
-soapAction="http://openuri.org/PingTwoWay[[.underline]#http://openuri.org/PingTwoWay#]"/>
-
-<input>
-
-<soap:body parts="arg0" use="literal"/>
-
-</input>
-
-<output>
-
-<soap:body parts="arg0" use="literal"/>
-
-</output>
-
-</operation>
-
-<operation name="SecurePing">
-
-<soap:operation
-soapAction="http://openuri.org/SecurePing[[.underline]#http://openuri.org/SecurePing#]"/>
-
-<input>
-
-<soap:body parts="arg0" use="literal"/>
-
-<soap:header message="SecurePing" part="arg1"
-
-use="literal"/>
-
-</input>
-
-</operation>
-
-</binding>
-
+  <message name="PingOneWay">
+     <part name="arg0" type="tns:PingDocument"/>
+  </message>
+  
+  <message name="PingTwoWay">
+     <part name="arg0" type="tns:PingDocument"/>
+  </message>
+  
+  <message name="PingTwoWayResponse">
+     <part name="arg0" type="tns:PingDocument"/>
+  </message>
+  
+  <message name="SecurePing">
+     <part name="arg0" type="tns:PingDocument"/>
+     <part name="arg1" element="tns:SecurityHeader"/>
+  </message>
+  
+  <portType name="PingService">
+     <operation name="PingOneWay">
+        <input message="tns:PingOneWay"/> +
+     </operation>
+     
+     <operation name="PingTwoWay">
+        <input message="tns:PingTwoWay"/>
+        <output message="tns:PingTwoWayResponse"/>
+     </operation>
+     
+     <operation name="SecurePing">
+        <input message="tns:SecurePing"/> +
+     </operation>
+  </portType>
+  
+  <binding name="PingServiceHttpSoap" type="tns:PingService">
+     <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+     <operation name="PingOneWay">
+        <soap:operation soapAction="http://openuri.org/PingOneWay"/>
+        <input>
+           <soap:body parts="arg0" use="literal"/>
+        </input>
+     </operation>
+         
+     <operation name="PingTwoWay">
+        <soap:operation soapAction="http://openuri.org/PingTwoWay"/>
+        <input>
+           <soap:body parts="arg0" use="literal"/>
+        </input>
+        <output>
+           <soap:body parts="arg0" use="literal"/>
+        </output>
+     </operation>
+     
+     <operation name="SecurePing">
+        <soap:operation soapAction="http://openuri.org/SecurePing"/>
+        <input>
+           <soap:body parts="arg0" use="literal"/>
+           <soap:header message="SecurePing" part="arg1" use="literal"/>
+        </input>
+     </operation>
+  </binding>
 </definitions>
+----
 
 === Annotation: javax.jws.WebResult
 
@@ -1351,122 +1243,85 @@ False
 
 ==== Annotation Type Definition
 
+[source,java]
+----
 @Retention(value=RetentionPolicy.RUNTIME)
-
-@Target(\{METHOD})
-
-public @interface WebResult \{
-
-String name() default "";
-
-String partName() default "";
-
-String targetNamespace() default "";
-
-boolean header() default false;
-
+@Target({METHOD})
+public @interface WebResult {
+  String name() default "";
+  String partName() default "";
+  String targetNamespace() default "";
+  boolean header() default false;
 };
+----
 
 ==== Example
 *Java Source:*
 
+[source,java]
+----
 @WebService
+public class CustomerService {
 
-public class CustomerService \{
-
-@WebMethod
-
-@WebResult(name="CustomerRecord")
-
-public CustomerRecord locateCustomer(
-
-@WebParam(name="FirstName") String firstName,
-
-@WebParam(name="LastName") String lastName,
-
-@WebParam(name="Address") USAddress addr)
-
-}
-
+   @WebMethod
+   @WebResult(name="CustomerRecord")
+   public CustomerRecord locateCustomer(
+      @WebParam(name="FirstName") String firstName,
+      @WebParam(name="LastName") String lastName,
+      @WebParam(name="Address") USAddress addr) {
+   }
 };
+----
 
 *Resulting WSDL:*
 
+[source,xml]
+----
 <definitions>
+   <types>
+      <complexType name="CustomerRecord">
+         ...
+      </complexType>
+      
+      <complexType name="USAddress">
+         ...
+      </complexType>
+     
+      <element name="locateCustomer">
+        <complexType>
+          <sequence>
+            <element name="FirstName" type="xs:string"/>
+            <element name="LastName" type="xs:string"/>
+            <element name="Address" type="USAddress"/>
+          </sequence>
+        </complexType>
+     </element>
 
-<types>
+     <element name="locateCustomerResponse">
+       <complexType>
+         <sequence>
+            <element name="CustomerRecord" type="CustomerRecord"/>
+         </sequence>
+       </complexType>
+     </element>
+    </types>
+    
+    <message name="locateCustomer">
+       <part name="parameters" element="tns:locateCustomer"/>
+    </message>
+    
+    <message name="locateCustomerResponse">
+       <part name="parameters" element="tns:locateCustomerResponse"/>
+    </message>
 
-<complexType name="CustomerRecord">
-
-...
-
-</complexType>
-
-<complexType name="USAddress">
-
-...
-
-</complexType>
-
-<element name="locateCustomer">
-
-<complexType>
-
-<sequence>
-
-<element name="FirstName" type="xs:string"/>
-
-<element name="LastName" type="xs:string"/>
-
-<element name="Address" type="USAddress"/>
-
-</sequence>
-
-</complexType>
-
-</element>
-
-<element name="locateCustomerResponse">
-
-<complexType>
-
-<sequence>
-
-<element name="CustomerRecord" type="CustomerRecord"/>
-
-</sequence>
-
-</complexType>
-
-</element>
-
-</types>
-
-<message name="locateCustomer">
-
-<part name="parameters" element="tns:locateCustomer"/>
-
-</message>
-
-<message name="locateCustomerResponse">
-
-<part name="parameters" element="tns:locateCustomerResponse"/>
-
-</message>
-
-<portType name="CustomerService">
-
-<operation name="locateCustomer">
-
-<input message="tns:locateCustomer"/>
-
-<output message="tns:locateCustomerResponse"/>
-
-</operation>
-
-</portType>
-
+    <portType name="CustomerService">
+       <operation name="locateCustomer">
+          <input message="tns:locateCustomer"/>
+          <output message="tns:locateCustomerResponse"/>
+       </operation>
+    </portType>
 </definitions>
+----
 
 === Annotation: javax.jws.HandlerChain
 
@@ -1544,17 +1399,15 @@ a|
 
 ==== Annotation Type Definition
 
+[source,java]
+----
 @Retention(value=RetentionPolicy.RUNTIME)
-
-@Target(\{TYPE, METHOD, FIELD})
-
-public @interface HandlerChain \{
-
-String file();
-
-String name() default "";
-
+@Target({TYPE, METHOD, FIELD})
+public @interface HandlerChain {
+  String file();
+  String name() default "";
 };
+----
 
 ==== Examples +
 
@@ -1564,172 +1417,96 @@ Example 1
 
 Located in /home/mywork/src/com/jsr181/examples/
 
+[source,java]
+----
 package com.jsr181.examples
 
 @WebService
-
 @HandlerChain(file="config/ProjectHandlers.xml")
-
-public class MyWebService \{
-
+public class MyWebService {
 };
+----
 
 *Handler Chain Configuration File*
-*Located in /home/mywork/src/com/jsr181/examples/config/*
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?> <bindings
-wsdlLocation="http://localhost:8080/jaxrpc-fromwsdl_handler/test?wsdl[[.underline]#http://localhost:8080/jaxrpc-fromwsdl_handler/test?wsdl#]"
+Located in /home/mywork/src/com/jsr181/examples/config/
 
-xmlns="http://java.sun.com/xml/ns/jaxws[[.underline]#http://java.sun.com/xml/ns/jaxws#]">
-
-<bindings node="ns1:definitions"
-
-xmlns:ns1="http://schemas.xmlsoap.org/wsdl/[[.underline]#http://schemas.xmlsoap.org/wsdl/#]"> +
-<package name="fromwsdl.handler.client"/> +
-</bindings>
-
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?> 
 <bindings
-
-node="ns1:definitions/ns1:types/xs:schema[@targetNamespace='urn:test:ty
-pes']"
-
-xmlns:xs="http://www.w3.org/2001/XMLSchema[[.underline]#http://www.w3.org/2001/XMLSchema#]" +
-xmlns:ns1="http://schemas.xmlsoap.org/wsdl/[[.underline]#http://schemas.xmlsoap.org/wsdl/#]">
-
-<ns2:schemaBindings
-xmlns:ns2="http://java.sun.com/xml/ns/jaxb[[.underline]#http://java.sun.com/xml/ns/jaxb#]">
-<ns2:package name="fromwsdl.handler.client"/>
-
-</ns2:schemaBindings>
-
-</bindings>
-
-<bindings>
-
-<handler-chains
-xmlns="http://java.sun.com/xml/ns/javaee[[.underline]#http://java.sun.com/xml/ns/javaee#]">
-
-<handler-chain>
-
-<handler>
-
-<handler-
-
-class>fromwsdl.handler.common.BaseLogicalHandler</handler-class>
-
-<init-param>
-
-<param-name>handlerName</param-name>
-
-<param-value>client0</param-value>
-
-</init-param>
-
-</handler>
-
-</handler-chain>
-
-<handler-chain>
-
-<port-name-pattern xmlns:ns2="urn:test">ns2:Report*</port-name-
-
-pattern>
-
-<handler>
-
-<handler-
-
-class>fromwsdl.handler.common.BaseLogicalHandler</handler-class>
-
-<init-param>
-
-<param-name>handlerName</param-name>
-
-<param-value>client2</param-value>
-
-</init-param>
-
-</handler>
-
-</handler-chain>
-
-<handler-chain>
-
-<port-name-pattern
-
-xmlns:ns2="urn:test">ns2:ReportServicePort</port-name-pattern>
-
-<handler>
-
-<handler-
-
-class>fromwsdl.handler.common.BaseSOAPHandler</handler-class>
-
-<init-param>
-
-<param-name>handlerName</param-name>
-
-<param-value>client6</param-value>
-
-</init-param>
-
-</handler>
-
-</handler-chain>
-
-<handler-chain>
-
-<protocol-bindings>##SOAP11_HTTP</protocol-bindings>
-
-<handler>
-
-<handler-
-
-class>fromwsdl.handler.common.BaseSOAPHandler</handler-class>
-
-<init-param>
-
-<param-name>handlerName</param-name>
-
-<param-value>client7</param-value>
-
-</init-param>
-
-<soap-role>http://sun.com/client/role1[[.underline]#http://sun.com/client/role1#]</soap-role>
-
-<soap-role>http://sun.com/client/role2[[.underline]#http://sun.com/client/role2#]</soap-role>
-
-</handler>
-
-</handler-chain>
-
-<handler-chain>
-
-<protocol-bindings>##SOAP11_HTTP</protocol-bindings>
-
-<handler>
-
-<handler-
-
-class>fromwsdl.handler.common.BaseLogicalHandler</handler-class>
-
-<init-param>
-
-<param-name>handlerName</param-name>
-
-<param-value>client3</param-value>
-
-</init-param>
-
-</handler>
-
-</handler-chain>
-
-</handler-chains>
-
-</bindings>
-
+  wsdlLocation="http://localhost:8080/jaxrpc-fromwsdl_handler/test?wsdl"
+  xmlns="http://java.sun.com/xml/ns/jaxws">
+  
+  <bindings node="ns1:definitions" xmlns:ns1="http://schemas.xmlsoap.org/wsdl/">
+    <package name="fromwsdl.handler.client"/>
+  </bindings>
+
+  <bindings node="ns1:definitions/ns1:types/xs:schema[@targetNamespace='urn:test:types']"
+      xmlns:xs="http://www.w3.org/2001/XMLSchema" +
+      xmlns:ns1="http://schemas.xmlsoap.org/wsdl/">
+    <ns2:schemaBindings xmlns:ns2="http://java.sun.com/xml/ns/jaxb">
+       <ns2:package name="fromwsdl.handler.client"/>
+    </ns2:schemaBindings>
+  </bindings>
+  
+  <bindings>
+    <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+      <handler-chain>
+        <handler>
+          <handler-class>fromwsdl.handler.common.BaseLogicalHandler</handler-class>
+          <init-param>
+            <param-name>handlerName</param-name>
+            <param-value>client0</param-value>
+          </init-param>
+        </handler>
+      </handler-chain>
+      <handler-chain>
+        <port-name-pattern xmlns:ns2="urn:test">ns2:Report*</port-name-pattern>
+        <handler>
+          <handler-class>fromwsdl.handler.common.BaseLogicalHandler</handler-class>
+          <init-param>
+            <param-name>handlerName</param-name>
+            <param-value>client2</param-value>
+          </init-param>
+        </handler>
+      </handler-chain>
+      <handler-chain>
+        <port-name-pattern xmlns:ns2="urn:test">ns2:ReportServicePort</port-name-pattern>
+        <handler>
+          <handler-class>fromwsdl.handler.common.BaseSOAPHandler</handler-class>
+          <init-param>
+            <param-name>handlerName</param-name>
+            <param-value>client6</param-value>
+          </init-param>
+        </handler>
+      </handler-chain>
+      <handler-chain>
+        <protocol-bindings>##SOAP11_HTTP</protocol-bindings>
+        <handler>
+          <handler-class>fromwsdl.handler.common.BaseSOAPHandler</handler-class>
+          <init-param>
+            <param-name>handlerName</param-name>
+            <param-value>client7</param-value>
+          </init-param>
+          <soap-role>http://sun.com/client/role1</soap-role>
+          <soap-role>http://sun.com/client/role2</soap-role>
+        </handler>
+      </handler-chain>
+      <handler-chain>
+        <protocol-bindings>##SOAP11_HTTP</protocol-bindings>
+        <handler>
+          <handler-class>fromwsdl.handler.common.BaseLogicalHandler</handler-class>
+          <init-param>
+            <param-name>handlerName</param-name>
+            <param-value>client3</param-value>
+          </init-param>
+        </handler>
+      </handler-chain>
+    </handler-chains>
+  </bindings>
 </bindings
+----
 
 === Annotation: javax.jws.soap.SOAPBinding
 
@@ -1802,42 +1579,31 @@ WRAPPED
 
 ==== Annotation Type Definition
 
+[source,java]
+----
 @Retention(value=RetentionPolicy.RUNTIME)
+@Target({TYPE, METHOD})
+public @interface SOAPBinding {
+   public enum Style {
+      DOCUMENT,
+      RPC
+   };
 
-@Target(\{TYPE, METHOD})
+   public enum Use {
+      LITERAL, 
+      ENCODED
+   };
+   
+   public enum ParameterStyle {
+       BARE,
+       WRAPPED
+   }
 
-public @interface SOAPBinding \{
-
-public enum Style \{
-
-DOCUMENT,
-
-RPC
-
-};
-
-public enum Use \{
-
-LITERAL, +
-ENCODED
-
-};
-
-public enum ParameterStyle \{
-
-BARE,
-
-WRAPPED
-
+   Style style() default Style.DOCUMENT;
+   Use use() default Use.LITERAL;
+   ParameterStyle parameterStyle() default ParameterStyle.WRAPPED;
 }
-
-Style style() default Style.DOCUMENT;
-
-Use use() default Use.LITERAL;
-
-ParameterStyle parameterStyle() default ParameterStyle.WRAPPED;
-
-}
+----
 
 ==== Examples
 
@@ -1845,322 +1611,208 @@ Example 1 – RPC/LITERAL
 
 *Java source:*
 
-@WebService(targetNamespace="http://www.openuri.org/jsr181/SoapBindingE[[.underline]#http://www.openuri.org/jsr181/SoapBindingE#]
-
-xample1")
-
+[source,java]
+----
+@WebService(targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample1")
 @SOAPBinding(
-
-style = SOAPBinding.Style.RPC,
-
-use = SOAPBinding.Use.LITERAL)
-
-public class ExampleService \{
-
-@WebMethod
-
-public String concat(String first, String second, String third) \{
-
-return first + second + third;
-
+    style = SOAPBinding.Style.RPC,
+    use = SOAPBinding.Use.LITERAL)
+public class ExampleService {
+   @WebMethod
+   public String concat(String first, String second, String third) {
+      return first + second + third;
+   }
 }
-
-}
+----
 
 *Resulting WSDL:*
 
+[source, xml]
+----
 <definitions
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:tns="http://www.openuri.org/jsr181/SoapBindingExample1"
+  xmlns:s="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample1">
 
-xmlns="http://schemas.xmlsoap.org/wsdl/[[.underline]#http://schemas.xmlsoap.org/wsdl/#]"
-
-xmlns:tns="http://www.openuri.org/jsr181/SoapBindingExample1[[.underline]#http://www.openuri.org/jsr181/SoapBindingExample1#]"
-xmlns:s="http://www.w3.org/2001/XMLSchema[[.underline]#http://www.w3.org/2001/XMLSchema#]"
-xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/[[.underline]#http://schemas.xmlsoap.org/wsdl/soap/#]"
-targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample1[[.underline]#http://www.openuri.org/jsr181/SoapBindingExample1#]">
-
-<message name="concat">
-
-<part name="first" type="xs:string"/> +
-<part name="second" type="xs:string"/> +
-<part name="third" type="xs:string"/> +
-</message>
-
-<message name="concatResponse">
-
-<part name="return" type="xs:string"/>
-
-</message>
-
-<portType name="ExampleService">
-
-<operation name="concat">
-
-<input message="tns:concat"/>
-
-<output message="tns:concatResponse"/>
-
-</operation
-
-</portType>
-
-<binding name="ExampleServiceHttpSoap" type="ExampleService">
-
-<soap:binding style="rpc"
-
-transport="http://schemas.xmlsoap.org/soap/http[[.underline]#http://schemas.xmlsoap.org/soap/http#]"/>
-
-<operation name="concat">
-
-<soap:operation
-
-soapAction="http://www.openuri.org/jsr181/SoapBindingExample1/concat[[.underline]#http://www.openuri.org/jsr181/SoapBindingExample1/concat#]"/>
-
-<input>
-
-<soap:body parts="first second third" use="literal"/>
-
-</input>
-
-<output>
-
-<soap:body parts="return" use="literal"/>
-
-</output>
-
-</binding>
-
+  <message name="concat">
+     <part name="first" type="xs:string"/> +
+     <part name="second" type="xs:string"/> +
+     <part name="third" type="xs:string"/> +
+  </message>
+  
+  <message name="concatResponse">
+     <part name="return" type="xs:string"/>
+  </message>
+  
+  <portType name="ExampleService">
+     <operation name="concat">
+       <input message="tns:concat"/>
+       <output message="tns:concatResponse"/>
+     </operation>
+  </portType>
+  
+  <binding name="ExampleServiceHttpSoap" type="ExampleService">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http[[.underline]#http://schemas.xmlsoap.org/soap/http#]"/>
+    <operation name="concat">
+      <soap:operation soapAction="http://www.openuri.org/jsr181/SoapBindingExample1/concat"/>
+      <input>
+        <soap:body parts="first second third" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="return" use="literal"/>
+      </output>
+    </operation>
+   </binding>
 </definitions>
+----
 
 Example 2 – DOCUMENT/LITERAL/BARE
 
 *Java source:*
 
-@WebService(targetNamespace="http://www.openuri.org/jsr181/SoapBindingE[[.underline]#http://www.openuri.org/jsr181/SoapBindingE#]
-
-xample2")
-
+[source,java]
+----
+@WebService(targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample2")
 @SOAPBinding(parameterStyle=SOAPBinding.ParameterStyle.BARE)
+public class DocBareService {
 
-public class DocBareService \{
-
-@WebMethod( operationName="SubmitPO" )
-
-public SubmitPOResponse submitPO(SubmitPORequest submitPORequest) \{
-
+   @WebMethod( operationName="SubmitPO" )
+   public SubmitPOResponse submitPO(SubmitPORequest submitPORequest) {
+   }
 }
-
-}
+----
 
 *Resulting WSDL:*
 
+[source,xml]
+----
 <definitions
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:tns="http://www.openuri.org/jsr181/SoapBindingExample2"
+  xmlns:s="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample2">
 
-xmlns="http://schemas.xmlsoap.org/wsdl/[[.underline]#http://schemas.xmlsoap.org/wsdl/#]"
-
-xmlns:tns="http://www.openuri.org/jsr181/SoapBindingExample2[[.underline]#http://www.openuri.org/jsr181/SoapBindingExample2#]"
-xmlns:s="http://www.w3.org/2001/XMLSchema[[.underline]#http://www.w3.org/2001/XMLSchema#]"
-xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/[[.underline]#http://schemas.xmlsoap.org/wsdl/soap/#]"
-targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample2[[.underline]#http://www.openuri.org/jsr181/SoapBindingExample2#]">
-
-<types>
-
-<s:schema elementFormDefault="qualified"
-
-targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample2[[.underline]#http://www.openuri.org/jsr181/SoapBindingExample2#]">
-
-<s:element name="SubmitPORequest">
-
-. . .
-
-</s:element>
-
-<s:element name="SubmitPOResponse">
-
-. . .
-
-</s:element>
-
-</s:schema> +
-</types>
-
-<message name="SubmitPO">
-
-<part name="parameters" element="tns:SubmitPORequest"/>
-
-</message>
-
-<message name="SubmitPOResponse">
-
-<part name="parameters" element="tns:SubmitPOResponse"/>
-
-</message>
-
-<portType name="DocBareService">
-
-<operation name="SubmitPO">
-
-<input message="tns:SubmitPO"/>
-
-<output message="tns:SubmitPOResponse"/>
-
-</operation
-
-</portType>
-
-<binding name="DocBareServiceHttpSoap" type="ExampleService">
-
-<soap:binding style="document"
-
-transport="http://schemas.xmlsoap.org/soap/http[[.underline]#http://schemas.xmlsoap.org/soap/http#]"/>
-
-<operation name="SubmitPO">
-
-<soap:operation
-
-soapAction="http://www.openuri.org/jsr181/SoapBindingExample2/SubmitPO[[.underline]#http://www.openuri.org/jsr181/SoapBindingExample2/SubmitPO#]"
-
-/>
-
-<input>
-
-<soap:body parts="parameters" use="literal"/>
-
-</input>
-
-<output>
-
-<soap:body parts="parameters" use="literal"/>
-
-</output>
-
-</binding>
-
+  <types>
+     <s:schema elementFormDefault="qualified" targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample2">
+        <s:element name="SubmitPORequest">
+            . . .
+        </s:element>
+        <s:element name="SubmitPOResponse">
+            . . .
+        </s:element>
+     </s:schema> 
+  </types>
+  
+  <message name="SubmitPO">
+     <part name="parameters" element="tns:SubmitPORequest"/>
+  </message>
+  
+  <message name="SubmitPOResponse">
+     <part name="parameters" element="tns:SubmitPOResponse"/>
+  </message>
+  
+  <portType name="DocBareService">
+     <operation name="SubmitPO">
+        <input message="tns:SubmitPO"/>
+        <output message="tns:SubmitPOResponse"/>
+     </operation>
+  </portType>
+  
+  <binding name="DocBareServiceHttpSoap" type="ExampleService">
+     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+     <operation name="SubmitPO">
+        <soap:operation soapAction="http://www.openuri.org/jsr181/SoapBindingExample2/SubmitPO />
+        <input>
+           <soap:body parts="parameters" use="literal"/>
+        </input>
+        <output>
+           <soap:body parts="parameters" use="literal"/>
+        </output>
+     </operation>
+  </binding>
 </definitions>
+----
 
 Example 3 – DOCUMENT/LITERAL/WRAPPED
 
 *Java source:*
 
-@WebService(targetNamespace="http://www.openuri.org/jsr181/[[.underline]#http://www.openuri.org/jsr181/#]
-
-SoapBindingExample3")
-
+[source,java]
+----
+@WebService(targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample3")
 @SOAPBinding(
+  style = SOAPBinding.Style.DOCUMENT,
+  use = SOAPBinding.Use.LITERAL,
+  parameterStyle = SOAPBinding.ParameterStyle.WRAPPED) 
+public class DocWrappedService {
 
-style = SOAPBinding.Style.DOCUMENT,
-
-use = SOAPBinding.Use.LITERAL,
-
-parameterStyle = SOAPBinding.ParameterStyle.WRAPPED) public class
-DocWrappedService
-
-@WebMethod(operationName = "SubmitPO")
-
-@WebResult(name="PurchaseOrderAck")
-
-public PurchaseOrderAck submitPO(
-
-@WebParam(name="PurchaseOrder") PurchaseOrder purchaseOrder) \{
-
+   @WebMethod(operationName = "SubmitPO")
+   @WebResult(name="PurchaseOrderAck")
+   public PurchaseOrderAck submitPO(
+       @WebParam(name="PurchaseOrder") PurchaseOrder purchaseOrder) {
+   }
 }
-
-}
+----
 
 *Resulting WSDL:*
 
+[source,xml]
+----
 <definitions
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:tns="http://www.openuri.org/jsr181/SoapBindingExample3"
+  xmlns:s="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample3">
 
-xmlns="http://schemas.xmlsoap.org/wsdl/[[.underline]#http://schemas.xmlsoap.org/wsdl/#]"
+  <types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample3">
+       <s:element name="SubmitPO">
+         <complexType>
+           <sequence>
+             <element name="PurchaseOrder" type="tns:PurchaseOrder"/>
+                . . .
+       </s:element>
 
-xmlns:tns="http://www.openuri.org/jsr181/SoapBindingExample3[[.underline]#http://www.openuri.org/jsr181/SoapBindingExample3#]"
-xmlns:s="http://www.w3.org/2001/XMLSchema[[.underline]#http://www.w3.org/2001/XMLSchema#]"
-xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/[[.underline]#http://schemas.xmlsoap.org/wsdl/soap/#]"
-targetNamespace="http://www.openuri.org/jsr181/[[.underline]#http://www.openuri.org/jsr181/#]
+       <s:element name="SubmitPOResponse">
+           . . .
+       </s:element>
+       
+    </s:schema>
+  </types>
+  
+  <message name="SubmitPO">
+     <part name="parameters" element="tns:SubmitPO"/>
+  </message>
+  
+  <message name="SubmitPOResponse">
+     <part name="parameters" type="tns:SubmitPOResponse"/>
+  </message>
 
-SoapBindingExample3">
-
-<types>
-
-<s:schema elementFormDefault="qualified"
-
-targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample3[[.underline]#http://www.openuri.org/jsr181/SoapBindingExample3#]">
-
-<s:element name="SubmitPO">
-
-<complexType>
-
-<sequence>
-
-<element name="PurchaseOrder"
-
-type="tns:PurchaseOrder"/>
-
-. . .
-
-</s:element>
-
-<s:element name="SubmitPOResponse">
-
-. . .
-
-</s:element>
-
-</s:schema> +
-</types>
-
-<message name="SubmitPO">
-
-<part name="parameters" element="tns:SubmitPO"/>
-
-</message>
-
-<message name="SubmitPOResponse">
-
-<part name="parameters" type="tns:SubmitPOResponse"/>
-
-</message>
-
-<portType name="DocWrappedService">
-
-<operation name="SubmitPO">
-
-<input message="tns:SubmitPO"/>
-
-<output message="tns:SubmitPOResponse"/>
-
-</operation
-
-</portType>
-
-<binding name="ExampleServiceHttpSoap" type="ExampleService">
-
-<soap:binding style="document"
-
-transport="http://schemas.xmlsoap.org/soap/http[[.underline]#http://schemas.xmlsoap.org/soap/http#]"/>
-
-<operation name="SubmitPO">
-
-<soap:operation
-
-soapAction="http://www.openuri.org/jsr181/SoapBindingExample3/SubmitPO[[.underline]#http://www.openuri.org/jsr181/SoapBindingExample3/SubmitPO#]"
-
-/>
-
-<input>
-
-<soap:body parts="parameters" use="literal"/>
-
-</input>
-
-<output>
-
-<soap:body parts="parameters" use="literal"/>
-
-</output>
-
-</binding>
-
+  <portType name="DocWrappedService">
+     <operation name="SubmitPO">
+        <input message="tns:SubmitPO"/>
+        <output message="tns:SubmitPOResponse"/>
+     </operation
+  </portType>
+  
+  <binding name="ExampleServiceHttpSoap" type="ExampleService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="SubmitPO">
+      <soap:operation soapAction="http://www.openuri.org/jsr181/SoapBindingExample3/SubmitPO" />
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameters" use="literal"/>
+      </output>
+    </operation>     
+  </binding>
 </definitions>
+----
 
 === Annotation: javax.jws.soap.SOAPMessageHandlers
 
@@ -2189,10 +1841,7 @@ JAX-WS defines a service endpoint interface as the Java representation
 of an abstract WSDL contract. A service endpoint interface MAY include
 the following JSR-181 annotations to customize its mapping to WSDL:
 
-* @WebService.name, @WebService.targetNamespace, and
-
-@WebService.wsdlLocation
-
+* @WebService.name, @WebService.targetNamespace, and @WebService.wsdlLocation
 * @WebMethod (all annotation elements)
 * @Oneway
 * @WebParam (all annotation elements)
@@ -2392,283 +2041,183 @@ followed by the resulting WSDL:
 
 *Java source:*
 
+[source, java]
+----
 import javax.jws.*;
-
 import javax.jws.soap.*;
 
 @WebService(
-
-name="ExampleWebService",
-
-targetNamespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]")
+  name="ExampleWebService",
+  targetNamespace="http://openuri.org/11/2003/ExampleWebService")
 @SOAPBinding(style=SOAPBinding.Style.RPC, use=SOAPBinding.Use.LITERAL)
-public class ExampleWebServiceImpl \{
+public class ExampleWebServiceImpl {
 
-@WebMethod(action="urn:login") +
-@WebResult(name="Token") +
-public LoginToken login(
+   @WebMethod(action="urn:login")
+   @WebResult(name="Token") +
+   public LoginToken login(
+      @WebParam(name="UserName") String username,
+      @WebParam(name="Password") String password) {
+     // ...
+   }
 
-@WebParam(name="UserName") String username,
+   @WebMethod (action="urn:createCustomer")
+   @WebResult(name="CustomerId")
+   public String createCustomer(
+      @WebParam(name="Customer") Customer customer,
+      @WebParam(name="Token", header=true) LoginToken token) {
+      // ...
+   }
 
-@WebParam(name="Password") String password) \{
-
-// ...
-
-}
-
-@WebMethod (action="urn:createCustomer")
-
-@WebResult(name="CustomerId")
-
-public String createCustomer(
-
-@WebParam(name="Customer") Customer customer,
-
-@WebParam(name="Token", header=true) LoginToken token) \{
-
-// ...
-
-}
-
-@WebMethod(action="urn:notifyTransfer")
-
-@Oneway
-
-public void notifyTransfer(
-
-@WebParam(name="CustomerId") String customerId,
-
-@WebParam(name="TransferData") TransferDocument transferData,
-
-@WebParam(name="Token", header=true) LoginToken token) \{
-
-}
-
+   @WebMethod(action="urn:notifyTransfer")
+   @Oneway
+   public void notifyTransfer(
+      @WebParam(name="CustomerId") String customerId,
+      @WebParam(name="TransferData") TransferDocument transferData,
+      @WebParam(name="Token", header=true) LoginToken token) {
+   }
 };
+----
 
 *Resulting WSDL:*
 
+[source, xml]
+----
 <definitions
-
-name="ExampleWebServiceImplServiceDefinitions"
-
-targetNamespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]"
-xmlns="http://schemas.xmlsoap.org/wsdl/[[.underline]#http://schemas.xmlsoap.org/wsdl/#]"
-xmlns:tns="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]"
-xmlns:xs="http://www.w3.org/2001/XMLSchema[[.underline]#http://www.w3.org/2001/XMLSchema#]"
-xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/[[.underline]#http://schemas.xmlsoap.org/wsdl/soap/#]">
-
-<types>
-
-<xs:schema elementFormDefault="qualified"
-
-targetNamespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]">
-
-<xs:complexType name="LoginToken">
-
-...
-
-</xs:complexType>
-
-<xs:complexType name="Customer">
-
-...
-
-</xs:complexType>
-
-<xs:complexType name="TransferDocument">
-
-...
-
-</xs:complexType>
-
-<xs:element name="Token" type="LoginToken"/>
-
-</xs:schema> +
-</types>
-
-<message name="createCustomer">
-
-<part name="Customer" type="tns:Customer"/> +
-<part element="tns:Token" name="token"/> +
-</message>
-
-<message name="createCustomerResponse">
-
-<part name="CustomerId" type="xs:string"/> </message>
-
-<message name="notifyTransfer">
-
-<part name="CustomerId" type="xs:string"/>
-
-<part name="TransferData" type="tns:TransferDocument"/>
-
-<part name="token" element="tns:Token"/>
-
-</message>
-
-<message name="login">
-
-<part name="UserName" type="xs:string"/> <part name="Password"
-type="xs:string"/> </message>
-
-<message name="loginResponse">
-
-<part name="Token" type="tns:LoginToken"/>
-
-</message>
-
-<portType name="ExampleWebService">
-
-<operation name="createCustomer"
-
-parameterOrder="Customer token">
-
-<input message="tns:createCustomer"/>
-
-<output message="tns:createCustomerResponse"/>
-
-</operation>
-
-<operation name="notifyTransfer"
-
-parameterOrder="CustomerId TransferData token"> +
-<input message="tns:notifyTransfer"/>
-
-</operation>
-
-<operation name="login"
-
-parameterOrder="UserName Password"> +
-<input message="tns:login"/>
-
-<output message="tns:loginResponse"/> +
-</operation>
-
-</portType>
-
-<binding name="ExampleWebServiceImplServiceSoapBinding"
-type="tns:ExampleWebService">
-
-<soap:binding style="rpc"
-
-transport="http://schemas.xmlsoap.org/soap/http[[.underline]#http://schemas.xmlsoap.org/soap/http#]"/>
-
-<operation name="createCustomer">
-
-<soap:operation soapAction="urn:createCustomer" style="rpc"/>
-
-<input>
-
-<soap:body
-
-namespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]"
-
-parts="Customer"
-
-use="literal"/>
-
-<soap:header
-
-message="tns:createCustomer"
-
-part="token"
-
-use="literal"/>
-
-</input>
-
-<output>
-
-<soap:body
-
-namespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]"
-
-parts="CustomerId"
-
-use="literal"/>
-
-</output>
-
-</operation>
-
-<operation name="notifyTransfer">
-
-<soap:operation soapAction="urn:notifyTransfer" style="rpc"/>
-
-<input>
-
-<soap:body
-
-namespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]"
-
-parts="CustomerId TransferData"
-
-use="literal"/>
-
-<soap:header
-
-message="tns:notifyTransfer"
-
-part="token"
-
-use="literal"/>
-
-</input>
-
-</operation>
-
-<operation name="login">
-
-<soap:operation soapAction="urn:login" style="rpc"/>
-
-<input>
-
-<soap:body
-
-namespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]"
-
-parts="UserName Password"
-
-use="literal"/>
-
-</input>
-
-<output>
-
-<soap:body
-
-namespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]"
-
-parts="Token"
-
-use="literal"/>
-
-</output>
-
-</operation>
-
-</binding>
-
-<service name="ExampleWebServiceImplService">
-
-<port
-
-binding="s1:ExampleWebServiceImplServiceSoapBinding"
-
-name="ExampleWebServiceSoapPort">
-
-<soap:address
-
-location="http://localhost:7001/ExampleWebServiceImpl/ExampleWebService[[.underline]#http://localhost:7001/ExampleWebServiceImpl/ExampleWebService#]
-
-Impl"/>
-
-</port>
-
-</service>
-
+  name="ExampleWebServiceImplServiceDefinitions"
+  targetNamespace="http://openuri.org/11/2003/ExampleWebService"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:tns="http://openuri.org/11/2003/ExampleWebService"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+  <types>
+    <xs:schema elementFormDefault="qualified"
+       targetNamespace="http://openuri.org/11/2003/ExampleWebService">
+    
+      <xs:complexType name="LoginToken">
+         ...
+      </xs:complexType>
+
+      <xs:complexType name="Customer">
+         ...
+      </xs:complexType>
+    
+      <xs:complexType name="TransferDocument">
+         ...
+      </xs:complexType>
+    
+      <xs:element name="Token" type="LoginToken"/>
+    
+    </xs:schema> 
+  </types>
+  
+  <message name="createCustomer">
+    <part name="Customer" type="tns:Customer"/>
+    <part element="tns:Token" name="token"/>
+  </message>
+  
+  <message name="createCustomerResponse">
+    <part name="CustomerId" type="xs:string"/>
+  </message>
+  
+  <message name="notifyTransfer">
+    <part name="CustomerId" type="xs:string"/>
+    <part name="TransferData" type="tns:TransferDocument"/>
+    <part name="token" element="tns:Token"/>
+  </message>
+
+  <message name="login">
+    <part name="UserName" type="xs:string"/>
+    <part name="Password" type="xs:string"/>
+  </message>
+  
+  <message name="loginResponse">
+    <part name="Token" type="tns:LoginToken"/>
+  </message>
+  
+  <portType name="ExampleWebService">
+    <operation name="createCustomer" parameterOrder="Customer token">
+      <input message="tns:createCustomer"/>
+      <output message="tns:createCustomerResponse"/>
+    </operation>
+
+    <operation name="notifyTransfer" parameterOrder="CustomerId TransferData token">
+      <input message="tns:notifyTransfer"/>
+    </operation>
+
+    <operation name="login" parameterOrder="UserName Password"> +
+      <input message="tns:login"/>
+      <output message="tns:loginResponse"/> +
+    </operation>
+
+  </portType>
+
+  <binding name="ExampleWebServiceImplServiceSoapBinding"
+      type="tns:ExampleWebService">
+    <soap:binding style="rpc"
+      transport="http://schemas.xmlsoap.org/soap/http"/>
+    
+    <operation name="createCustomer">
+      <soap:operation soapAction="urn:createCustomer" style="rpc"/>
+      <input>
+        <soap:body
+          namespace="http://openuri.org/11/2003/ExampleWebService"
+          parts="Customer"
+          use="literal"/>
+        <soap:header
+          message="tns:createCustomer"
+          part="token"
+          use="literal"/>
+      </input>
+      <output>
+        <soap:body
+          namespace="http://openuri.org/11/2003/ExampleWebService"
+          parts="CustomerId"
+          use="literal"/>
+      </output>
+    </operation>
+    
+    <operation name="notifyTransfer">
+      <soap:operation soapAction="urn:notifyTransfer" style="rpc"/>
+      <input>
+        <soap:body
+           namespace="http://openuri.org/11/2003/ExampleWebService"
+           parts="CustomerId TransferData"
+           use="literal"/>
+        <soap:header
+           message="tns:notifyTransfer"
+           part="token"
+           use="literal"/>
+      </input>
+    </operation>
+    
+    <operation name="login">
+      <soap:operation soapAction="urn:login" style="rpc"/>
+      <input>
+        <soap:body
+           namespace="http://openuri.org/11/2003/ExampleWebService"
+           parts="UserName Password"
+           use="literal"/>
+      </input>
+      <output>
+        <soap:body
+           namespace="http://openuri.org/11/2003/ExampleWebService"
+           parts="Token"
+           use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  
+  <service name="ExampleWebServiceImplService">
+    <port
+      binding="s1:ExampleWebServiceImplServiceSoapBinding"
+      name="ExampleWebServiceSoapPort">
+      <soap:address
+        location="http://localhost:7001/ExampleWebServiceImpl/ExampleWebServiceImpl"/>
+    </port>
+  </service>
 </definitions>
+----
 
 === Document Literal Style
 
@@ -2677,324 +2226,198 @@ followed by the resulting WSDL:
 
 *Java source:*
 
+[source,java]
+----
 import javax.jws.*;
-
 import javax.jws.soap.*;
 
 @WebService(
-
-name="ExampleWebService",
-
-targetNamespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]")
+  name="ExampleWebService",
+  targetNamespace="http://openuri.org/11/2003/ExampleWebService")
 @SOAPBinding(style=SOAPBinding.Style.DOCUMENT,
-use=SOAPBinding.Use.LITERAL) public class ExampleWebServiceImpl \{
+  use=SOAPBinding.Use.LITERAL)
+public class ExampleWebServiceImpl {
 
-@WebMethod(action="urn:login")
+   @WebMethod(action="urn:login")
+   @WebResult(name="Token") +
+   public LoginToken login(
+      @WebParam(name="UserName") String username,
+      @WebParam(name="Password") String password) {
+     // ...
+   }
 
-@WebResult(name="Token") +
-public LoginToken login(
+   @WebMethod (action="urn:createCustomer")
+   @WebResult(name="CustomerId")
+   public String createCustomer(
+      @WebParam(name="Customer") Customer customer,
+      @WebParam(name="Token", header=true) LoginToken token) {
+      // ...
+   }
 
-@WebParam(name="UserName") String username,
-
-@WebParam(name="Password") String password) \{
-
-// ...
-
-}
-
-@WebMethod (action="urn:createCustomer")
-
-@WebResult(name="CustomerId")
-
-public String createCustomer(
-
-@WebParam(name="Customer") Customer customer,
-
-@WebParam(name="Token", header=true) LoginToken token) \{
-
-// ...
-
-}
-
-@WebMethod(action="urn:notifyTransfer")
-
-@Oneway
-
-public void notifyTransfer(
-
-@WebParam(name="CustomerId") String customerId,
-@WebParam(name="TransferData") TransferDocument transferData,
-@WebParam(name="Token", header=true) LoginToken token) \{
-
-}
+   @WebMethod(action="urn:notifyTransfer")
+   @Oneway
+   public void notifyTransfer(
+      @WebParam(name="CustomerId") String customerId,
+      @WebParam(name="TransferData") TransferDocument transferData,
+      @WebParam(name="Token", header=true) LoginToken token) {
+   }
 
 };
+----
 
 *Resulting WSDL:*
 
+[source,xml]
+----
 <?xml version='1.0' encoding='UTF-8'?>
-
 <definitions
-
-name="ExampleWebServiceImplServiceDefinitions"
-
-targetNamespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]"
-xmlns="http://schemas.xmlsoap.org/wsdl/[[.underline]#http://schemas.xmlsoap.org/wsdl/#]"
-xmlns:tns="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]"
-xmlns:xs="http://www.w3.org/2001/XMLSchema[[.underline]#http://www.w3.org/2001/XMLSchema#]"
-xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/[[.underline]#http://schemas.xmlsoap.org/wsdl/soap/#]">
-
-<types>
-
-<xs:schema attributeFormDefault="unqualified"
-
-targetNamespace="http://openuri.org/11/2003/ExampleWebService[[.underline]#http://openuri.org/11/2003/ExampleWebService#]">
-
-<xs:complexType name="LoginToken">
-
-...
-
-</xs:complexType>
-
-<xs:complexType name="Customer">
-
-...
-
-</xs:complexType>
-
-<xs:complexType name="TransferDocument">
-
-...
-
-</xs:complexType>
-
-<xs:element name="Token" type="tns:LoginToken"/>
-
-<xs:element name="createCustomer">
-
-<xs:complexType>
-
-<xs:sequence>
-
-<xs:element name="Customer" type="tns:Customer"/>
-
-</xs:sequence>
-
-</xs:complexType>
-
-</xs:element>
-
-<xs:element name="createCustomerResponse">
-
-<xs:complexType>
-
-<xs:sequence>
-
-<xs:element name="CustomerId" type="xs:string"/>
-
-</xs:sequence>
-
-</xs:complexType>
-
-</xs:element>
-
-<xs:element name="notifyTransfer">
-
-<xs:complexType>
-
-<xs:sequence>
-
-<xs:element name="CustomerId" type="xs:string"/>
-
-<xs:element name="TransferData"
-
-type="tns:TransferDocument"/>
-
-</xs:sequence>
-
-</xs:complexType>
-
-</xs:element>
-
-<xs:element name="login">
-
-<xs:complexType>
-
-<xs:sequence>
-
-<xs:element name="UserName" type="xs:string"/>
-
-<xs:element name="Password" type="xs:string"/>
-
-</xs:sequence>
-
-</xs:complexType>
-
-</xs:element>
-
-<xs:element name="loginResponse">
-
-<xs:complexType>
-
-<xs:sequence>
-
-<xs:element name="Token" type="tns:LoginToken"/>
-
-</xs:sequence>
-
-</xs:complexType>
-
-</xs:element>
-
-</xs:schema> +
-</types>
-
-<message name="createCustomer">
-
-<part element="tns:createCustomer" name="parameters"/>
-
-<part element="tns:Token" name="token"/>
-
-</message>
-
-<message name="createCustomerResponse">
-
-<part element="tns:createCustomerResponse" name="parameters"/>
-
-</message>
-
-<message name="notifyTransfer">
-
-<part element="tns:notifyTransfer" name="parameters"/>
-
-<part element="tns:Token" name="token"/>
-
-</message>
-
-<message name="login">
-
-<part element="tns:login" name="parameters"/>
-
-</message>
-
-<message name="loginResponse">
-
-<part element="tns:loginResponse" name="parameters"/>
-
-</message>
-
-<portType name="ExampleWebService">
-
-<operation name="createCustomer" parameterOrder="parameters token">
-
-<input message="tns:createCustomer"/>
-
-<output message="tns:createCustomerResponse"/>
-
-</operation>
-
-<operation name="notifyTransfer" parameterOrder="token">
-
-<input message="tns:notifyTransfer"/>
-
-</operation>
-
-<operation name="login" parameterOrder="parameters">
-
-<input message="tns:login"/>
-
-<output message="tns:loginResponse"/>
-
-</operation>
-
-</portType>
-
-<binding name="ExampleWebServiceImplServiceSoapBinding"
-type="tns:ExampleWebService">
-
-<soap:binding style="document"
-
-transport="http://schemas.xmlsoap.org/soap/http[[.underline]#http://schemas.xmlsoap.org/soap/http#]"/>
-
-<operation name="createCustomer">
-
-<soap:operation soapAction="urn:createCustomer"
-
-style="document"/>
-
-<input>
-
-<soap:body parts="parameters" use="literal"/>
-
-<soap:header message="tns:createCustomer" part="token"
-
-use="literal"/>
-
-</input>
-
-<output>
-
-<soap:body parts="parameters" use="literal"/>
-
-</output>
-
-</operation>
-
-<operation name="notifyTransfer">
-
-<soap:operation soapAction="urn:notifyTransfer"
-
-style="document"/>
-
-<input>
-
-<soap:body parts="parameters" use="literal"/>
-
-<soap:header message="tns:notifyTransfer" part="token"
-
-use="literal"/>
-
-</input>
-
-</operation>
-
-<operation name="login">
-
-<soap:operation soapAction="urn:login" style="document"/>
-
-<input>
-
-<soap:body parts="parameters" use="literal"/>
-
-</input>
-
-<output>
-
-<soap:body parts="parameters" use="literal"/>
-
-</output>
-
-</operation>
-
-</binding>
-
-<service name="ExampleWebServiceImplService">
-
-<port binding="tns:ExampleWebServiceImplServiceSoapBinding"
-
-name="ExampleWebServiceSoapPort">
-
-<soap:address
-
-location="http://localhost:7001/ExampleWebServiceImpl/ExampleWebService[[.underline]#http://localhost:7001/ExampleWebServiceImpl/ExampleWebService#]
-
-Impl"/>
-
-</port>
-
+  name="ExampleWebServiceImplServiceDefinitions"
+  targetNamespace="http://openuri.org/11/2003/ExampleWebService"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:tns="http://openuri.org/11/2003/ExampleWebService"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+
+  <types>
+    <xs:schema attributeFormDefault="unqualified"
+        targetNamespace="http://openuri.org/11/2003/ExampleWebService">
+      
+      <xs:complexType name="LoginToken">
+          ...
+      </xs:complexType>
+      
+      <xs:complexType name="Customer">
+          ...
+      </xs:complexType>
+      
+      <xs:complexType name="TransferDocument">
+          ...
+      </xs:complexType>
+      
+      <xs:element name="Token" type="tns:LoginToken"/>
+      
+      <xs:element name="createCustomer">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Customer" type="tns:Customer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="createCustomerResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="CustomerId" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="notifyTransfer">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="CustomerId" type="xs:string"/>
+            <xs:element name="TransferData" type="tns:TransferDocument"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      
+      <xs:element name="login">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="UserName" type="xs:string"/>
+            <xs:element name="Password" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+     
+      <xs:element name="loginResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Token" type="tns:LoginToken"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+
+  <message name="createCustomer">
+    <part element="tns:createCustomer" name="parameters"/>
+    <part element="tns:Token" name="token"/>
+  </message>
+  
+  <message name="createCustomerResponse">
+    <part element="tns:createCustomerResponse" name="parameters"/>
+  </message>
+
+  <message name="notifyTransfer">
+    <part element="tns:notifyTransfer" name="parameters"/>
+    <part element="tns:Token" name="token"/>
+   </message>
+
+  <message name="login">
+    <part element="tns:login" name="parameters"/>
+  </message>
+  
+  <message name="loginResponse">
+    <part element="tns:loginResponse" name="parameters"/>
+  </message>
+  
+  <portType name="ExampleWebService">
+    <operation name="createCustomer" parameterOrder="parameters token">
+      <input message="tns:createCustomer"/>
+      <output message="tns:createCustomerResponse"/>
+    </operation>
+
+    <operation name="notifyTransfer" parameterOrder="token">
+      <input message="tns:notifyTransfer"/>
+    </operation>
+    
+    <operation name="login" parameterOrder="parameters">
+      <input message="tns:login"/>
+      <output message="tns:loginResponse"/>
+    </operation>
+  </portType>
+  
+  <binding name="ExampleWebServiceImplServiceSoapBinding" type="tns:ExampleWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="createCustomer">
+      <soap:operation soapAction="urn:createCustomer" style="document"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+        <soap:header message="tns:createCustomer" part="token" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameters" use="literal"/>
+      </output>
+    </operation>
+    
+    <operation name="notifyTransfer">
+      <soap:operation soapAction="urn:notifyTransfer" style="document"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+        <soap:header message="tns:notifyTransfer" part="token" use="literal"/>
+      </input>
+    </operation>
+
+    <operation name="login">
+      <soap:operation soapAction="urn:login" style="document"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="parameters" use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="ExampleWebServiceImplService">
+    <port binding="tns:ExampleWebServiceImplServiceSoapBinding" name="ExampleWebServiceSoapPort">
+      <soap:address
+           location="http://localhost:7001/ExampleWebServiceImpl/ExampleWebServiceImpl"/>
+    </port>
 </service>
-
 </definitions>
+----
 
 == References
 
