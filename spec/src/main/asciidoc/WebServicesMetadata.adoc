@@ -51,7 +51,7 @@ applications, even though they may deploy in very different Java
 environments. This consistency ensures portability of JSR-181 compliant
 Java files.
 
-=== 1.1 Expert Group Members
+=== Expert Group Members
 
 The following people have been part of the JSR-181 Expert Group
 
@@ -95,7 +95,7 @@ Evan Simeone (PalmSource)
 
 Brian Zotter (BEA Systems)
 
-=== 1.2 Acknowledgements
+=== Acknowledgements
 
 Manoj Cheenath (BEA Systems), Don Ferguson (BEA Systems), Chris Fry (BEA
 Systems), Neal Yin (BEA Systems), Beverley Talbott (BEA Systems), Matt
@@ -103,13 +103,13 @@ Mihic, Jim Trezzo, Doug Kohlert (Sun Microsystems), Jitendra Kotamraju
 (Sun Microsystems), and Rama Pulavarthi (Sun Microsystems) have all
 provided valuable technical input to this specification.
 
-=== 1.3 Conventions
+=== Conventions
 
 The keywords ‘MUST’, ‘MUST NOT’, ‘REQUIRED’, ‘SHALL’, ‘SHALL NOT’,
 ‘SHOULD’, ‘SHOULD NOT’, ‘RECOMMENDED’, ‘MAY’, and ‘OPTIONAL’ in this
 document are to be interpreted as described in RFC 2119[11].
 
-=== 1.4 Objectives
+=== Objectives
 
 The following objectives describe the scope of this specification:
 
@@ -138,7 +138,7 @@ within existing specifications (JAX-WS 2.0 [5] provides finer control
 over the resultant Web Service). The goal is to make it easy to build
 the most common types of Web Services.
 
-== 2 Concepts
+== Concepts
 
 This section summarizes the following concepts and processes of the
 JSR-181 specification:
@@ -151,7 +151,7 @@ JSR-181 specification:
 
 The metadata is formally described in section 4.
 
-=== 2.1 Programming Model Overview
+=== Programming Model Overview
 
 JSR-181, along with JAX-WS and JSR-109, defines a programming model for
 building a Web Service. A developer who builds a Web Service with these
@@ -165,13 +165,13 @@ this model by allowing the developer to write only the service
 implementation bean - _actual business logic_ – and use annotations to
 generate the remaining artifacts.
 
-=== 2.2 Development Models
+=== Development Models
 
 JSR-181 defines several different models of Web Service development.
 Only the Start with Java development model is REQUIRED by
 implementations.
 
-== 2.2.1 Start with Java
+==== Start with Java
 
 Following the “Start with Java” development model, the developer begins
 by writing a Java class to expose as a Web Service. The developer then
@@ -193,7 +193,7 @@ an annotated service implementation bean. The WSDL produced from this
 service implementation bean imports or directly includes the schema
 definitions that match the Java types used by the service.
 
-== 2.2.2 Start with WSDL
+==== Start with WSDL
 
 Following the “start with WSDL” development model, the developer uses
 JSR-181 to implement a predefined WSDL interface. Typically, this
@@ -206,7 +206,7 @@ implements the service endpoint interface. In this model, JSR-181
 annotations supply implementation details that are left out of the
 original WSDL contract, such as binding or service location information.
 
-== 2.2.3 Start with WSDL and Java
+==== Start with WSDL and Java
 
 Following the “start with WSDL and Java” development model, the
 developer uses JSR-181 annotations to associate a service implementation
@@ -223,7 +223,7 @@ feedback by highlighting the offending annotations, while a command line
 tool might generate warnings or fail to process a service implementation
 bean that does not match the associated WSDL.
 
-=== 2.3 Processor Responsibilities
+=== Processor Responsibilities
 
 The term “JSR-181 processor” denotes the code that processes the
 annotations in a JSR-181 JWS file to create a runnable Web Service.
@@ -245,7 +245,7 @@ runtime container directly off the Java source or class file. Each
 implementation is conformant with JSR-181 as long as it produces a Web
 Service with the proper runtime behavior.
 
-=== 2.4 Runtime Responsibilities
+=== Runtime Responsibilities
 
 The runtime environment provides lifecycle management, concurrency
 management, transport services, and security services. This
@@ -279,7 +279,7 @@ feature allows customization of externally modifiable properties at
 deployment or runtime, without requiring access to the source file for
 modification and recompilation.
 
-=== 2.5 Metadata Use
+=== Metadata Use
 
 The metadata that annotates the service implementation bean conforms to
 the JSR-175 specification and the specific JSR-181 _annotation type_
@@ -301,7 +301,7 @@ metadata that this JSR designates as runtime-visible is also accessible
 through the standard java.lang.reflect classes from the run-time
 environment.
 
-== 2.5.1 Error Checking
+==== Error Checking
 
 Although the compiler can check for syntax and type errors by using the
 annotation type declaration, syntactically valid metadata may still
@@ -334,7 +334,7 @@ met.
 *Note:* Certain types of errors MAY only be caught when the Web Service
 is deployed or run.
 
-== 2.5.2 Default Values
+==== Default Values
 
 JSR-181 defines appropriate defaults for most annotation members. This
 feature exempts the JWS author from providing tags for the most common
@@ -354,7 +354,7 @@ in Section 4. For example, when the JSR-181 processor encounters a
 behaves as though the name of the Web Service were the name of the Java
 class.
 
-=== 2.6 Web Services Metadata
+=== Web Services Metadata
 
 JSR-181 metadata describes declaratively how the logic of a service
 implementation bean is exposed over networking protocols as a Web
@@ -393,7 +393,9 @@ The JWS author can avoid providing tags for the most common Web Service
 definitions.
 
 Sections 2.6.1 through 2.6.3 describe the types of annotations provided
-by JSR-181. *2.6.1 WSDL Mapping Annotations*
+by JSR-181. 
+
+==== WSDL Mapping Annotations
 
 WSDL mapping annotations control the mapping from Java source onto WSDL
 constructs. As described in _2.2 Development Models_, this specification
@@ -403,7 +405,7 @@ shape of the WSDL generated from the Java source. In “start with WSDL,”
 the WSDL mapping annotations associate the Java source with pre-existing
 WSDL constructs.
 
-== 2.6.2 Binding Annotations
+==== Binding Annotations
 
 Binding annotations specify the network protocols and message formats
 that are supported by the Web Service. For example, the presence of a
@@ -417,13 +419,13 @@ object to the SOAP protocol binding. JSR-181 implementations MAY support
 additional binding annotations for other protocols. Non-normative
 examples of such binding annotations can be found in Appendix C.
 
-== 2.6.3 Handler Annotations
+==== Handler Annotations
 
 Handler annotations allow the developer to extend a Web Service with
 additional functionality that runs before and after the business methods
 of the Web Service.
 
-== 3 Server Programming Model
+== Server Programming Model
 
 This section describes the server programming model for JSR-181. The
 JSR-181 server programming model is a simplification of the existing
@@ -432,7 +434,7 @@ JSR-109. JSR-181 simplifies these models by allowing the developer to
 focus on business logic and using annotations to generate related
 artifacts.
 
-=== 3.1 Service Implementation Bean
+=== Service Implementation Bean
 
 A developer who implements Web Services with JSR-181 is responsible for
 implementing the service implementation bean containing the Web
@@ -464,7 +466,7 @@ interface by using the @WebService.endpointInterface annotation, the
 bean class implicitly defines a service endpoint interface (SEI). The
 SEI MUST meet the requirements specified in JAX-WS 2.0 [5], section 3.3
 
-=== 3.2 Service Endpoint Interface
+=== Service Endpoint Interface
 
 A JSR-181 service implementation bean MAY reference a service endpoint
 interface, thus separating the contract definition from the
@@ -490,7 +492,7 @@ control the mapping from Java to WSDL.
 elements portName, serviceName and endpointInterface of the annotation
 @WebService.
 
-=== 3.3 Web Method
+=== Web Method
 
 A method will be exposed as a Web Service operation, making it part of
 the Web Service’s public contract according to rules specified in _3.1
@@ -504,14 +506,15 @@ rules defined in JAX-WS 2.0 [5], section 3.6).
 * The method MAY throw java.rmi.RemoteException, but is not REQUIRED to do
 so.
 
-== 4 Web Services Metadata
+== Web Services Metadata
 
 This section contains the specifications of each individual Web Service
 metadata items. Both the _annotation type_ declarations (using JSR-175
 syntax) and usage examples are given for each metadata item.
 
-*__4.1 Annotation: javax.jws.WebService +
-__4.1.1 Description*
+=== Annotation: javax.jws.WebService
+
+==== Description
 
 Marks a Java class as implementing a Web Service, or a Java interface as
 defining a Web Service interface.
@@ -643,7 +646,7 @@ package with an implementation-defined name.
 
 |===
 
-== 4.1.2 Annotation Type Definition
+==== Annotation Type Definition
 
 @Retention(value=RetentionPolicy.RUNTIME)
 
@@ -665,7 +668,7 @@ String endpointInterface() default "";
 
 };
 
-*4.1.3 Example +
+==== Example +
 Java source:*
 
 /**
@@ -695,8 +698,9 @@ return input;
 
 }
 
-*__4.2 Annotation: javax.jws.WebMethod +
-__4.2.1 Description*
+=== Annotation: javax.jws.WebMethod
+
+==== Description
 
 Customizes a method that is exposed as a Web Service operation. The
 WebMethod annotation includes the following member-value pairs:
@@ -748,7 +752,7 @@ False
 
 This member-value is not allowed on endpoint interfaces.
 
-== 4.2.2 Annotation Type Definition
+==== Annotation Type Definition
 
 @Retention(value=RetentionPolicy.RUNTIME)
 
@@ -764,8 +768,8 @@ boolean exclude() default false;
 
 };
 
-*4.2.3 Example +
-Java source:*
+==== Example
+*Java source:*
 
 @WebService
 
@@ -781,7 +785,7 @@ return input;
 
 }
 
-== Resulting WSDL:
+*Resulting WSDL:*
 
 <definitions>
 
@@ -809,8 +813,9 @@ return input;
 
 </definitions>
 
-*__4.3 Annotation: javax.jws.Oneway +
-__4.3.1 Description*
+=== Annotation: javax.jws.Oneway 
+
+==== Description
 
 Indicates that the given web method has only an input message and no
 output. Typically, a oneway method returns the thread of control to the
@@ -820,7 +825,7 @@ JSR-181 processor is REQUIRED to report an error if an
 operation marked @Oneway has a return value, declares any checked
 exceptions or has any INOUT or OUT parameters.
 
-== 4.3.2 Annotation Type Definition
+==== Annotation Type Definition
 
 @Retention(value=RetentionPolicy.RUNTIME)
 
@@ -830,8 +835,8 @@ public @interface Oneway \{
 
 };
 
-*4.3.3 Example +
-Java source:*
+==== Example
+*Java source:*
 
 @WebService
 
@@ -862,8 +867,9 @@ Resulting WSDL:
 
 </definitions>
 
-*__4.4 Annotation: javax.jws.WebParam +
-__4.4.1 Description*
+=== Annotation: javax.jws.WebParam
+
+==== Description
 
 Customizes the mapping of an individual parameter to a Web Service
 message part and XML element.
@@ -998,7 +1004,7 @@ False
 
 |===
 
-== 4.4.2 Annotation Type Definition
+==== Annotation Type Definition
 
 @Retention(value=RetentionPolicy.RUNTIME)
 
@@ -1028,8 +1034,8 @@ boolean header() default false;
 
 };
 
-*4.4.3 Example +
-Java Source:*
+==== Example 
+*Java Source:*
 
 @WebService(targetNamespace="http://www.openuri.org/jsr181/WebParamExam[[.underline]#http://www.openuri.org/jsr181/WebParamExam#]
 
@@ -1070,7 +1076,7 @@ SecurityHeader secHeader) \{
 
 };
 
-== Resulting WSDL:
+*Resulting WSDL:*
 
 <definitions
 
@@ -1208,9 +1214,9 @@ use="literal"/>
 
 </definitions>
 
-=== 4.5 Annotation: javax.jws.WebResult
+=== Annotation: javax.jws.WebResult
 
-== 4.5.1 Description
+==== Description
 
 Customizes the mapping of the return value to a WSDL part and XML
 element.
@@ -1343,7 +1349,7 @@ False
 
 |===
 
-== 4.5.2 Annotation Type Definition
+==== Annotation Type Definition
 
 @Retention(value=RetentionPolicy.RUNTIME)
 
@@ -1361,8 +1367,8 @@ boolean header() default false;
 
 };
 
-*4.5.3 Example +
-Java Source:*
+==== Example
+*Java Source:*
 
 @WebService
 
@@ -1384,7 +1390,7 @@ public CustomerRecord locateCustomer(
 
 };
 
-== Resulting WSDL:
+*Resulting WSDL:*
 
 <definitions>
 
@@ -1462,8 +1468,9 @@ public CustomerRecord locateCustomer(
 
 </definitions>
 
-*__4.6 Annotation: javax.jws.HandlerChain +
-__4.6.1 Description*
+=== Annotation: javax.jws.HandlerChain
+
+==== Description
 
 The @HandlerChain annotation associates the Web Service with an
 externally defined handler chain (JAX-WS 2.0 [5], Section 9).
@@ -1535,7 +1542,7 @@ a|
 
 |===
 
-== 4.6.2 Annotation Type Definition
+==== Annotation Type Definition
 
 @Retention(value=RetentionPolicy.RUNTIME)
 
@@ -1549,12 +1556,13 @@ String name() default "";
 
 };
 
-**4.6.3 Examples +
-**Example 1
+==== Examples +
 
-== Java Source:
+Example 1
 
-== Located in /home/mywork/src/com/jsr181/examples/
+*Java Source:*
+
+Located in /home/mywork/src/com/jsr181/examples/
 
 package com.jsr181.examples
 
@@ -1566,9 +1574,8 @@ public class MyWebService \{
 
 };
 
-== Handler Chain Configuration File
-
-== Located in /home/mywork/src/com/jsr181/examples/config/
+*Handler Chain Configuration File*
+*Located in /home/mywork/src/com/jsr181/examples/config/*
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?> <bindings
 wsdlLocation="http://localhost:8080/jaxrpc-fromwsdl_handler/test?wsdl[[.underline]#http://localhost:8080/jaxrpc-fromwsdl_handler/test?wsdl#]"
@@ -1724,8 +1731,9 @@ class>fromwsdl.handler.common.BaseLogicalHandler</handler-class>
 
 </bindings
 
-*__4.7 Annotation: javax.jws.soap.SOAPBinding +
-__4.7.1 Description*
+=== Annotation: javax.jws.soap.SOAPBinding
+
+==== Description
 
 Specifies the mapping of the Web Service onto the SOAP message protocol.
 Section _6 SOAP Binding_ describes the effects of this annotation on
@@ -1792,7 +1800,7 @@ WRAPPED
 
 |===
 
-== 4.7.2 Annotation Type Definition
+==== Annotation Type Definition
 
 @Retention(value=RetentionPolicy.RUNTIME)
 
@@ -1831,11 +1839,11 @@ ParameterStyle parameterStyle() default ParameterStyle.WRAPPED;
 
 }
 
-== 4.7.3 Examples
+==== Examples
 
-== Example 1 – RPC/LITERAL
+Example 1 – RPC/LITERAL
 
-== Java source:
+*Java source:*
 
 @WebService(targetNamespace="http://www.openuri.org/jsr181/SoapBindingE[[.underline]#http://www.openuri.org/jsr181/SoapBindingE#]
 
@@ -1859,7 +1867,7 @@ return first + second + third;
 
 }
 
-== Resulting WSDL:
+*Resulting WSDL:*
 
 <definitions
 
@@ -1923,9 +1931,9 @@ soapAction="http://www.openuri.org/jsr181/SoapBindingExample1/concat[[.underline
 
 </definitions>
 
-== Example 2 – DOCUMENT/LITERAL/BARE
+Example 2 – DOCUMENT/LITERAL/BARE
 
-== Java source:
+*Java source:*
 
 @WebService(targetNamespace="http://www.openuri.org/jsr181/SoapBindingE[[.underline]#http://www.openuri.org/jsr181/SoapBindingE#]
 
@@ -1943,7 +1951,7 @@ public SubmitPOResponse submitPO(SubmitPORequest submitPORequest) \{
 
 }
 
-== Resulting WSDL:
+*Resulting WSDL:*
 
 <definitions
 
@@ -2029,9 +2037,9 @@ soapAction="http://www.openuri.org/jsr181/SoapBindingExample2/SubmitPO[[.underli
 
 </definitions>
 
-== Example 3 – DOCUMENT/LITERAL/WRAPPED
+Example 3 – DOCUMENT/LITERAL/WRAPPED
 
-== Java source:
+*Java source:*
 
 @WebService(targetNamespace="http://www.openuri.org/jsr181/[[.underline]#http://www.openuri.org/jsr181/#]
 
@@ -2058,7 +2066,7 @@ public PurchaseOrderAck submitPO(
 
 }
 
-== Resulting WSDL:
+*Resulting WSDL:*
 
 <definitions
 
@@ -2154,7 +2162,7 @@ soapAction="http://www.openuri.org/jsr181/SoapBindingExample3/SubmitPO[[.underli
 
 </definitions>
 
-=== 4.8 Annotation: javax.jws.soap.SOAPMessageHandlers
+=== Annotation: javax.jws.soap.SOAPMessageHandlers
 
 **Deprecated a**s of JSR-181 2.0 with no replacement.
 
@@ -2164,7 +2172,7 @@ In this version, the annotation is ALWAYS ignored.
 This annotation will be permanently removed in a future version of
 JSR-181.
 
-== 5 Java Mapping To XML/WSDL
+== Java Mapping To XML/WSDL
 
 A key goal of JSR-181 is to influence the shape of WSDL generated from a
 JWS. This section defines the mapping from Java to XML/WSDL. By default,
@@ -2175,7 +2183,7 @@ support or supporting alternate binding frameworks such as JAXB or SDO
 (JSR-235). Annotations for such extensions are out-of-scope for this
 specification.
 
-=== 5.1 Service Endpoint Interface
+=== Service Endpoint Interface
 
 JAX-WS defines a service endpoint interface as the Java representation
 of an abstract WSDL contract. A service endpoint interface MAY include
@@ -2197,7 +2205,7 @@ namespace of the wsdl:portType map to the values of the service endpoint
 interface’s @WebService.name and @WebService.targetNamespace annotation
 elements, respectively.
 
-=== 5.2 Web Service Class Mapping
+=== Web Service Class Mapping
 
 A service implementation bean maps to its own WSDL document,
 wsdl:portType, and wsdl:service. If the service implementation bean
@@ -2223,7 +2231,7 @@ bindings.
 * The name wsdl:binding sections is not significant and are left
 implementation-defined.
 
-=== 5.3 Web Method Mapping
+=== Web Method Mapping
 
 Each exposed web method in a JSR-181 annotated class or interface is
 mapped to a wsdl:operation on the class/interface WSDL portType. The
@@ -2241,7 +2249,7 @@ have only a wsdl:input element.
 Java types used as method parameters, return values, and exceptions are
 mapped according to the rules defined in JAX-WS 2.0 [5], section 3.6.
 
-== 6 SOAP Binding
+== SOAP Binding
 
 This section defines a standard mapping from a service endpoint
 interface or service implementation bean to the SOAP 1.1 binding.
@@ -2253,7 +2261,7 @@ these bindings.
 By default JSR-181 follows the SOAP binding defined in JAX-WS 2.0 [5],
 section 10.
 
-=== 6.1 Operation Modes
+=== Operation Modes
 
 JSR-181 implementations are REQUIRED to support the following WS-I
 compliant operation modes:
@@ -2266,7 +2274,7 @@ use (document or rpc style). The developer MAY indicate which operation
 mode is in effect by specifying the appropriate @SOAPBinding.style and
 @SOAPBinding.use annotations at the class or interface level.
 
-== 6.1.1 RPC Operation Style
+==== RPC Operation Style
 
 In the RPC operation style, the parameters and return values map to
 separate parts on the WSDL input and output messages. The @WebParam.mode
@@ -2281,7 +2289,7 @@ In the rpc/literal operation mode, each message part refers to a
 concrete schema type. The schema type is derived from the Java type for
 the parameter, as described in section 5 - Java Mapping To XML/WSDL.
 
-== 6.1.2 Document Operation Style
+==== Document Operation Style
 
 In the document operation style, the input and output WSDL messages have
 a single part referencing a schema element that defines the entire body.
@@ -2290,7 +2298,7 @@ styles of document / literal operation. The developer may specify which
 of these styles is in effect for a particular operation by using the
 @SOAPBinding.parameterStyle annotation.
 
-== 6.1.3 Document “Wrapped” Style
+==== Document “Wrapped” Style
 
 In the “wrapped” operation style, the input and output messages contain
 a single part which refers (through the _element_ attribute) to a global
@@ -2316,7 +2324,7 @@ the QName of the return value’s child element. The schema type for each
 child element is derived from the type of the Java parameter or return
 value, as described in section _5 Java Mapping To XML/WSDL._
 
-== 6.1.4 Document “Bare” Style
+==== Document “Bare” Style
 
 In the “bare” operation style, the input and output messages contain a
 single part which refers (through the _element_ attribute) to an element
@@ -2354,7 +2362,7 @@ map to distinct elements, or the developer MUST use the @WebParam and
 annotations to explicitly specify the QNames of the input and output XML
 elements for each operation.
 
-=== 6.2 Headers
+=== Headers
 
 Parameters annotated with the @WebParam.header annotation element map to
 SOAP headers instead of elements in the SOAP body. Header parameters
@@ -2375,14 +2383,14 @@ binding operation. Headers are always literal. The @WebResult.name and
 element representing the header. This QName MUST be unique within all
 headers of the method.
 
-== 7 Using JSR-181 Annotations to Affect the Shape of the WSDL
+== Using JSR-181 Annotations to Affect the Shape of the WSDL
 
-=== 7.1 RPC Literal Style
+=== RPC Literal Style
 
 Below is a complete example of a java source file with annotations
 followed by the resulting WSDL:
 
-== Java source:
+*Java source:*
 
 import javax.jws.*;
 
@@ -2438,7 +2446,7 @@ public void notifyTransfer(
 
 };
 
-== Resulting WSDL:
+*Resulting WSDL:*
 
 <definitions
 
@@ -2662,12 +2670,12 @@ Impl"/>
 
 </definitions>
 
-=== 7.2 Document Literal Style
+=== Document Literal Style
 
 Below is a complete example of a java source file with annotations
 followed by the resulting WSDL:
 
-== Java source:
+*Java source:*
 
 import javax.jws.*;
 
@@ -2722,7 +2730,7 @@ public void notifyTransfer(
 
 };
 
-== Resulting WSDL:
+*Resulting WSDL:*
 
 <?xml version='1.0' encoding='UTF-8'?>
 
@@ -2988,7 +2996,7 @@ Impl"/>
 
 </definitions>
 
-== 8 References
+== References
 
 [arabic]
 . JSR-175 A Metadata Facility for the Java^TM^ Programming Language
@@ -3022,180 +3030,4 @@ http://www.w3.org/TR/2000/NOTE-SOAP-20000508/[[.underline]#http://www.w3.org/TR/
 http://www.ietf.org/rfc/rfc2119.txt[[.underline]#http://www.ietf.org/rfc/rfc2119.txt#]
 . Common Annotations for the Java Platform +
 http://www.jcp.org/en/jsr/detail?id=250[[.underline]#http://www.jcp.org/en/jsr/detail?id=250#]
-
-== Appendix A: Relationship to Other Standards
-
-JSR-181 relies on Java standards, Web Services standards, XML standards
-and Internet standards.
-
-Java Language standards: J2SE 5.0 is needed for the JSR-175 defined
-Metadata Facility.
-
-Java runtime and container standards: JSR-181 does not define a
-container or runtime environment – implementers provide tools to map the
-Java classes to specific runtime environments. The functionality of the
-Java EE 5 containers is assumed. The features provided by JAX-WS 2.0 are
-needed for the Web Services runtime as well as the mapping conventions;
-Java to XML/WSDL and WSDL/XML to Java. An optional mapping to JSR-109
-deployment descriptors is provided in JSR-181.
-
-Web Services standards: SOAP 1.1 and WSDL 1.1 are used to describe the
-Web Service and define the XML messages.
-
-XML standards: The XML language and the XML Schema 1.0 are an integral
-part of JSR-181.
-
-Internet standards: HTTP and HTTP/S provide basic protocols for Web
-Services.
-
-== Appendix B: Handler Chain Configuration File Schema
-
-The XML Schema for the handler chain configuration file is described at
-[.underline]#http://java.sun.com/xml/ns/javaee/javaee web services
-metadata handler 2 0.xsd#
-
-== Appendix C: Non-Normative Examples of Alternate Binding Annotations
-
-This section defines non-normative examples of annotations for bindings
-to non-standard protocols and transports.
-
-*__C.1 Annotation Name: HttpGetBinding +
-__C.1.1 Description*
-
-Non-normative example of an alternate binding – in this case a raw HTTP
-binding as specified in WSDL 1.1 [7] section 4.
-
-[cols=",,",]
-|===
-a|
-Member-Value
-
-a|
-Meaning
-
-a|
-Default
-
-a|
-location
-
-a|
-The location of the HTTP GET endpoint. When defined at the class level,
-defines as the base URI for all operations on the service. When defined
-at the method level, defines the URI for a particular operation relative
-to the base URI for the service.
-
-a|
-Implementation-defined
-
-|===
-
-== C.1.2 Annotation Type Definition
-
-@Target(\{TYPE, METHOD})
-
-public @interface HttpGetBinding \{
-
-String location() default ""; +
-}
-
-== C.1.3 Example
-
-@WebService
-
-@HttpGetBinding(location="MyWebServices")
-
-public class MyWebServiceImpl \{ +
-@WebMethod +
-@HttpGetBinding(location="ExampleOperation") +
-public void myOperation() \{ +
-}
-
-};
-
-== Appendix D: Change Log
-
-Version 2.1
-
-* Changed specification version and license information.
-* Updated Handler Chain Configuration File Schema in Appendix B to fix
-errors, add missing elements, and make it valid.
-* Updated Section 3.1 to clarify the explanation of when an SEI is
-implicitly defined by an implementation bean. The revised text refers to
-the appropriate section 3.3 in the JAX-WS 2.0 specification for the
-actual SEI rules.
-* Updated the table in Section 4.4.1 describing the default "name" member
-value of the javax.jws.WebParam annotation to resolve the issue reported
-in [.underline]#https://jax-ws.dev.java.net/issues/show_bug.cgi?id=710[
-https://jax-ws.dev.java.net/issues/show_bug.cgi?id=710]#. The
-requirement to specify a name for "document" style, parameter style
-"BARE", and mode "OUT" or "INOUT" is lifted and default rules are
-defined. This change is consistent with section 3.6.2.2 of the JAX-WS
-2.0 specification.
-
-Version 2.0
-
-* Added @WebResult.header.
-* A document "bare" style operation can have a void return type and a
-Holder as a parameter. The Holder of course would have to be INOUT. It
-could also have 2 parameters one IN and one OUT.
-* Changed @SOAPBinding to be configurable on a per operation basis rather
-than on the entire interface.
-* Made @HandlerChain.name and @SOAPMessageHandlers deprecated.
-* Added support for JAX-WS.
-* Updated section 3.1 Service Implementation Bean, Item 6 to state that
-exposing all public methods if not @WebMethod annotations are declared
-to include consideration of annotation inheritence.
-* Changed default of @WebResult.name to @WebMethod.operationName +
-"Response" for Doc/lit/bare operations.
-* Clarified @WebService.targetNamespace usage
-* Clarified @WebParam.mode usage.
-* Added @WebMethod.exclude.
-* Explicitly stated that if an implementation bean references an endpoint
-interface, it must implement all the methods in the service endpoint
-interface.
-* Changed @WebParam.name to default to arg0, arg1, etc (based on position
-in the method signature).
-* Added @WebParam.partName and @WebResult.partName to specify part name
-used in the binding.
-* Added requirement that the name for headers must be unique with an
-operation.
-* Clairified that a target namespace of "" maps to the empty namespace,
-not the web service namespace.
-* For doc/lit bare, require that any INOUT or OUT parameters must have a
-@WebParam.name specified to avoid name clashes with the input parameter.
-
-
-* Added @WebService.portName for the wsdl:port
-* Updated Handler schema
-* Added document/literal example to Using JSR-181 annotation to affect the
-shape of the WSDL
-* Included various editorial changes.
-
-Version 0.9.4
-
-* Allowing @HandlerChain and @SOAPMessageHandler on implementation when an
-endpointInterface is used.
-
-Version 0.9.3
-
-* Using RFC 2119 Keyword convention.
-* Added Retention annotation to spec annotation definitions.
-* Fixed various Java and XML syntax errors.
-* Changed Implementation Bean to expose all public method by default.
-* WSDL generation is REQUIRED.
-* Clarified support for Start with WSDL, and Start with WSDL and Java
-development modes as OPTIONAL.
-* Clarified [.underline]#mailto:@HandlerChain.file[ @HandlerChain.file]#
-attribute syntax and processing requirements.
-
-Version 0.9.2
-
-* Removed security annotations as these will be defined by JSR-250 –
-Common Annotations.
-
-Version 0.9.1
-
-* Changed default name of @WebResult to be "return" instead of "result".
-* Fixed various Java and XML syntax errors.
 

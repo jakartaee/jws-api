@@ -30,3 +30,7 @@ include::scope.adoc[]
 // == Jakarta Web Services Metadata
 :sectnums:
 include::WebServicesMetadata.adoc[]
+
+// == Appendix
+:sectnums!:
+include::appendix.adoc[]
