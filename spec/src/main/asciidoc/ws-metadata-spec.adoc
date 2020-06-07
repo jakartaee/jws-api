@@ -23,7 +23,10 @@ endif::[]
 :sectnums!:
 include::license-efsl.adoc[]
 
+// == Scope
+:sectnums!:
+include::scope.adoc[]
+
 // == Jakarta Web Services Metadata
 :sectnums:
-include::ws-metadata.adoc[]
 include::WebServicesMetadata.adoc[]
