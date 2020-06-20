@@ -28,7 +28,7 @@ traditional coding tools that are used to develop source code with low
 level APIs.
 
 This specification relies on the JSR-175 specification “A Program
-Annotation Facility for the Java^TM^ Programming Language” for the Web
+Annotation Facility for the Java(TM) Programming Language” for the Web
 Services metadata that annotates a Web Service implementation. This
 document uses JSR-175 features as described in the Public Draft
 Specification of JSR-175.
@@ -2422,7 +2422,7 @@ public class ExampleWebServiceImpl {
 == References
 
 [arabic]
-. JSR-175 A Metadata Facility for the Java^TM^ Programming Language
+. JSR-175 A Metadata Facility for the Java(TM) Programming Language
 http://jcp.org/en/jsr/detail?id=175[[.underline]#http://jcp.org/en/jsr/detail?id=175#]
 . JSR-88 J2EE Application Deployment +
 http://jcp.org/en/jsr/detail?id=88[[.underline]#http://jcp.org/en/jsr/detail?id=88#]
