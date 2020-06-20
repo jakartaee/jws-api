@@ -16,7 +16,7 @@ This specification defines a simplified programming model that
 facilitates and accelerates the development of enterprise Web Services.
 Jakarta EE standard deployment technologies, APIs, and protocols require
 the Jakarta EE developer to master a substantial amount of information.
-This JSR reduces the amount of information required to implement Web
+This specification reduces the amount of information required to implement Web
 Services on Jakarta EE by using metadata to specify declaratively the Web
 Services that each application provides. The metadata annotates the Java
 source file that implements the Web Service. Although the metadata is
@@ -33,27 +33,28 @@ Services metadata that annotates a Web Service implementation. This
 document uses JSR-175 features as described in the Public Draft
 Specification of JSR-175.
 
-JSR-181 defines the syntax and semantics of Java Web Service (JWS)
+Jakarta Web Services Metadata defines the syntax and semantics of Java Web Service (JWS)
 metadata and default values and implementers are expected to provide
 tools that map the annotated Java classes onto a specific runtime
 environment. This specification does not define a Java environment in
 which Web Services are run; however, the use of a J2SE 5.0 compiler is
-assumed. In particular, it is assumed in JSR-181 that features such as
-JAX-WS 2.0 and JSR-109, along with the compiler and language extensions
+assumed. In particular, it is assumed in Jakarta Web Services Metadata that features such as
+Jakarta XML Web Services and Jakarta Enterprise Web Services, 
+along with the compiler and language extensions
 from JSR-175, are present.
 
-A JSR-181 implementation MUST produce a deployable JWS application that
+A Jakarta Web Services Metadata implementation MUST produce a deployable JWS application that
 can run in the target Java environment. The deployed application MUST
 exhibit the proper behavior described by the Web Services metadata and
-Java source code. Any two JSR-181 processors starting from the same
+Java source code. Any two Jakarta Web Services Metadata processors starting from the same
 valid annotated JWS file MUST produce equivalent Web Service
 applications, even though they may deploy in very different Java
-environments. This consistency ensures portability of JSR-181 compliant
+environments. This consistency ensures portability of Jakarta Web Services Metadata compliant
 Java files.
 
 === Expert Group Members
 
-The following people have been part of the JSR-181 Expert Group
+The following people have been part of the original Expert Group
 
 Alexander Aptus (Togethersoft Corporation)
 
@@ -127,47 +128,48 @@ This specification addresses the need to simplify:
 * Development of server applications that conform both to basic SOAP and
 WSDL standards.
 * Building Web Services that can be deployed with the core Web Services
-APIs and existing J2EE standards.
+APIs and existing Jakarta EE standards.
 * Separate control of public Web Service message contracts and private
 implementation signatures, because in practice public and private
 formats evolve on different schedules.
 
 It is not a goal of this specification to support every feature or to
 enable the creation of every Web Service that it is possible to write
-within existing specifications (JAX-WS 2.0 [5] provides finer control
+within existing specifications (Jakarta XML Web Services 2.3 [5] provides finer control
 over the resultant Web Service). The goal is to make it easy to build
 the most common types of Web Services.
 
 == Concepts
 
 This section summarizes the following concepts and processes of the
-JSR-181 specification:
+Jakarta Web Services Metadata specification:
 
-* Programming model for JSR-181 Web Services
-* Use of metadata in JSR-181
+* Programming model for Jakarta Web Services Metadata
+* Use of metadata in Jakarta Web Services
 * Non-normative processing model for a JWS file
-* Runtime requirements for a JSR-181 container
+* Runtime requirements for a Jakarta Web Services Metadata container
 * Annotations used for WSDL, binding and configuration
 
 The metadata is formally described in section 4.
 
 === Programming Model Overview
 
-JSR-181, along with JAX-WS and JSR-109, defines a programming model for
+Jakarta Web Services Metadata, along with Jakarta XML Web Services and 
+Jakarta Enterprise Web Services, defines a programming model for
 building a Web Service. A developer who builds a Web Service with these
 technologies is required to write and manage several artifacts: a WSDL
 document describing the external Web Service contract; a service
 endpoint interface defining the Java representation of the Web Service
 interface; a service implementation bean containing the Web Service
 implementation; and one or more deployment descriptors linking the WSDL,
-interface, and implementation into a single artifact. JSR-181 simplifies
+interface, and implementation into a single artifact. Jakarta Web Services Metadata simplifies
 this model by allowing the developer to write only the service
 implementation bean - _actual business logic_ – and use annotations to
 generate the remaining artifacts.
 
 === Development Models
 
-JSR-181 defines several different models of Web Service development.
+Jakarta Web Services Metadata defines several different models of Web Service development.
 Only the Start with Java development model is REQUIRED by
 implementations.
 
@@ -175,15 +177,15 @@ implementations.
 
 Following the “Start with Java” development model, the developer begins
 by writing a Java class to expose as a Web Service. The developer then
-runs this Java class through the JSR-181 processor, which produces WSDL,
+runs this Java class through the Jakarta Web Services Metadata processor, which produces WSDL,
 schema, and other deployment artifacts from the annotated Java code. By
 default, the WSDL produced from the Java source follows the Java to
-XML/WSDL mapping defined by JAX-WS 2.0. However, the developer may
+XML/WSDL mapping defined by Jakarta XML Web Services  2.3. However, the developer may
 customize the generated WSDL through annotations on the Java source. For
 example, the developer may use the @WebService.name annotation to set
 explicitly the name of the wsdl:portType representing the Web Service.
 
-JSR-181 also supports a development model where the service is defined
+Jakarta Web Services Metadata also supports a development model where the service is defined
 in Java but the messages and types are defined in XML schema. In this
 model, the developer starts by defining a set of types and elements in
 XML schema. The schema definitions are passed through a “schema to Java”
@@ -196,25 +198,25 @@ definitions that match the Java types used by the service.
 ==== Start with WSDL
 
 Following the “start with WSDL” development model, the developer uses
-JSR-181 to implement a predefined WSDL interface. Typically, this
+Jakarta Web Services Metadata to implement a predefined WSDL interface. Typically, this
 process begins with the developer passing a pre-existing WSDL 1.1 file
 through an implementation-supplied tool to produce a service endpoint
 interface that represents the Java contract, along with Java classes
 that represent the schema definitions and message parts contained in the
 WSDL. The developer then writes a service implementation bean that
-implements the service endpoint interface. In this model, JSR-181
+implements the service endpoint interface. In this model, Jakarta Web Services Metadata
 annotations supply implementation details that are left out of the
 original WSDL contract, such as binding or service location information.
 
 ==== Start with WSDL and Java
 
 Following the “start with WSDL and Java” development model, the
-developer uses JSR-181 annotations to associate a service implementation
-bean with an existing WSDL contract. In this model, the JSR-181
+developer uses Jakarta Web Services Metadata annotations to associate a service implementation
+bean with an existing WSDL contract. In this model, the Jakarta Web Services Metadata
 annotations map constructs on the Java class or interface to constructs
 on the WSDL contract. For example, the developer could use the
 @WebMethod.operationName annotation to associate a method on the service
-implementation bean with a predefined wsdl:operation. A JSR-181
+implementation bean with a predefined wsdl:operation. A Jakarta Web Services Metadata
 implementation that supports this model MUST provide feedback when a
 service implementation bean no longer adheres to the contract defined by
 the original WSDL. The form that this feedback takes depends on the
@@ -225,8 +227,8 @@ bean that does not match the associated WSDL.
 
 === Processor Responsibilities
 
-The term “JSR-181 processor” denotes the code that processes the
-annotations in a JSR-181 JWS file to create a runnable Web Service.
+The term “Jakarta Web Services Metadata processor” denotes the code that processes the
+annotations in a Jakarta Web Services Metadata JWS file to create a runnable Web Service.
 Typically this involves generating the WSDL and schemas that represent
 the service and its messages and the deployment descriptors that
 configure the service for the target runtime. It may also result in the
@@ -236,13 +238,13 @@ This specification does not require implementations to follow a
 particular processing model. An implementation MAY use whatever
 processing model is appropriate to its environment, as long as it
 produces a running Web Service with the proper contract and runtime
-behavior. For example, one implementation might process the JSR-181
+behavior. For example, one implementation might process the Jakarta Web Services Metadata
 annotations directly within the Java compiler to generate a deployable
 Web Service as the output of compilation; another might provide tools to
 convert a compiled service implementation bean into a set of artifacts
 that can be deployed into the container; and a third might configure its
 runtime container directly off the Java source or class file. Each
-implementation is conformant with JSR-181 as long as it produces a Web
+implementation is conformant with Jakarta Web Services Metadata as long as it produces a Web
 Service with the proper runtime behavior.
 
 === Runtime Responsibilities
@@ -251,7 +253,7 @@ The runtime environment provides lifecycle management, concurrency
 management, transport services, and security services. This
 specification defines the set of annotations that a developer may use to
 specify declaratively the behavior of an application, but does not
-define a specific runtime environment or container. Instead, the JSR-181
+define a specific runtime environment or container. Instead, the Jakarta Web Services Metadata
 processor is responsible for mapping the annotated Java classes onto a
 specific runtime environment. This specification envisions – but does
 not require – several such runtime environments:
@@ -271,9 +273,9 @@ administrator to customize the behavior or configuration of the Web
 Service – such as the endpoint URL - without changing the Java source.
 * Generation of Jakarta Web Services - In this model, a tool uses the
 metadata in the annotated Java class to generate a Jakarta Web Service based on
-JSR-109 and JAX-WS. The initial Web Service is generated from the
+Jakarta Enterprise Web Services and Jakarta XML Web Services. The initial Web Service is generated from the
 annotated Java source, and the result can be further customized through
-standard deployment tools, including JSR-88 deployment plans. This
+standard deployment tools, including Jakarta Deployment plans. This
 feature allows customization of externally modifiable properties at
 deployment or runtime, without requiring access to the source file for
 modification and recompilation.
@@ -281,12 +283,12 @@ modification and recompilation.
 === Metadata Use
 
 The metadata that annotates the service implementation bean conforms to
-the JSR-175 specification and the specific JSR-181 _annotation type_
+the JSR-175 specification and the specific Jakarta Web Services Metadata _annotation type_
 declarations that are defined in this specification in conjunction with
 the JSR-175 metadata facility. These _annotation type_ declarations are
-contained in packages that MUST be imported by every JSR-181 JWS source
+contained in packages that MUST be imported by every Jakarta Web Services Metadata JWS source
 file. JSR-175 provides the syntax for expressing the annotation element
-declarations that are in these packages. This JSR specifies the contents
+declarations that are in these packages. This specification specifies the contents
 of the javax.jws and javax.jws.soap packages (see attached APIs).
 
 Developers use a standard Java compiler with support for JSR-175 to
@@ -317,17 +319,17 @@ specified in the annotation type declaration. However, JSR-175 restricts
 annotations to simple types such as primitives, Strings, and enums. As a
 result, the compiler cannot ensure that, for example, an annotation
 member is a valid URL. It can only verify that the member is a String.
-The JSR-181 implementation MUST perform the additional type checking to
+The Jakarta Web Services Metadata implementation MUST perform the additional type checking to
 ensure that the value is a valid URL.
 * Ensuring that annotations match the code. For example, the developer MAY
 use the @Oneway annotation to indicate that a particular operation does
 not produce an output message. If the operation is marked @Oneway, it
-MUST NOT have a return value or out/in-out parameters. The JSR-181
+MUST NOT have a return value or out/in-out parameters. The Jakarta Web Services Metadata
 implementation MUST provide feedback if this constraint is violated.
 * Ensuring that annotations are consistent with respect to other
 annotations. For example, it is not legal to annotate a method with the
 @Oneway annotation unless there is also a corresponding @WebMethod
-annotation. The JSR-181 implementation MUST ensure these constraints are
+annotation. The Jakarta Web Services Metadata implementation MUST ensure these constraints are
 met.
 
 *Note:* Certain types of errors MAY only be caught when the Web Service
@@ -335,7 +337,7 @@ is deployed or run.
 
 ==== Default Values
 
-JSR-181 defines appropriate defaults for most annotation members. This
+Jakarta Web Services Metadata defines appropriate defaults for most annotation members. This
 feature exempts the JWS author from providing tags for the most common
 Web Service definitions. Although this specification uses the JSR-175
 default mechanism wherever possible, this mechanism is only suitable for
@@ -346,16 +348,16 @@ source or other annotations. For example, the default value for the
 interface. This value cannot be represented directly as a JSR-175
 default. In scenarios where JSR-175 defaults are not sufficient to
 describe the required default, a “marker” constant is used instead. When
-the JSR-181 processor encounters this marker constant, the processor
+the Jakarta Web Services Metadata processor encounters this marker constant, the processor
 treats the member-value as though it had the computed default described
-in Section 4. For example, when the JSR-181 processor encounters a
+in Section 4. For example, when the Jakarta Web Services Metadata processor encounters a
 @WebService.name annotation with a value of “” (the empty string), it
 behaves as though the name of the Web Service were the name of the Java
 class.
 
 === Web Services Metadata
 
-JSR-181 metadata describes declaratively how the logic of a service
+Jakarta Web Services Metadata describes declaratively how the logic of a service
 implementation bean is exposed over networking protocols as a Web
 Service. The @WebService tag marks a Java class as implementing a Web
 Service. @WebMethod tags identify the individual methods of the Java
@@ -387,7 +389,7 @@ The JWS author can avoid providing tags for the most common Web Service
 definitions.
 
 Sections 2.6.1 through 2.6.3 describe the types of annotations provided
-by JSR-181. 
+by Jakarta Web Services Metadata. 
 
 ==== WSDL Mapping Annotations
 
@@ -408,8 +410,8 @@ available over the SOAP 1.1 message. Fields on this annotation allow the
 developer to customize the way the mapping of the implementation object
 onto SOAP messages.
 
-JSR-181 defines a single set of annotations that map the implementation
-object to the SOAP protocol binding. JSR-181 implementations MAY support
+Jakarta Web Services Metadata defines a single set of annotations that map the implementation
+object to the SOAP protocol binding. Jakarta Web Services Metadata implementations MAY support
 additional binding annotations for other protocols. Non-normative
 examples of such binding annotations can be found in Appendix C.
 
@@ -421,18 +423,18 @@ of the Web Service.
 
 == Server Programming Model
 
-This section describes the server programming model for JSR-181. The
-JSR-181 server programming model is a simplification of the existing
-Jakarta Web Services server programming models, as defined in JAX-WS and
-JSR-109. JSR-181 simplifies these models by allowing the developer to
+This section describes the server programming model for Jakarta Web Services Metadata. The
+Jakarta Web Services Metadata server programming model is a simplification of the existing
+Jakarta Web Services server programming models, as defined in Jakarta XML Web Services and
+Jakarta Enterprise Web Services. Jakarta Web Services Metadata simplifies these models by allowing the developer to
 focus on business logic and using annotations to generate related
 artifacts.
 
 === Service Implementation Bean
 
-A developer who implements Web Services with JSR-181 is responsible for
+A developer who implements Web Services with Jakarta Web Services Metadata is responsible for
 implementing the service implementation bean containing the Web
-Service’s business logic. A JSR-181 service implementation bean MUST
+Service’s business logic. A Jakarta Web Services Metadata service implementation bean MUST
 meet the following requirements:
 
 * The implementation bean MUST be an outer public class, MUST NOT be
@@ -450,7 +452,7 @@ implement all the methods on the service endpoint interface. If the
 implementation bean references a service endpoint interface, that
 service endpoint interface is used to determine the abstract WSDL
 contract (portType and bindings). In this case, the service
-implementation bean MUST NOT include any JSR-181 annotations other than
+implementation bean MUST NOT include any Jakarta Web Services Metadata annotations other than
 @WebService and @HandlerChain. In addition, the @WebService annotation
 MUST NOT include the name annotation element. More information on the
 @WebService.endpointInterface annotation element may be found in 4.1
@@ -458,14 +460,14 @@ Annotation: javax.jws.WebService.
 * If the implementation bean does not reference a service endpoint
 interface by using the @WebService.endpointInterface annotation, the
 bean class implicitly defines a service endpoint interface (SEI). The
-SEI MUST meet the requirements specified in JAX-WS 2.0 [5], section 3.3
+SEI MUST meet the requirements specified in Jakarta XML Web Services 2.3 [5], section 3.3
 
 === Service Endpoint Interface
 
-A JSR-181 service implementation bean MAY reference a service endpoint
+A Jakarta Web Services Metadata service implementation bean MAY reference a service endpoint
 interface, thus separating the contract definition from the
-implementation. A JSR-181 service endpoint interface MUST meet the
-requirements specified in JAX-WS 2.0 [5], section 3.4, with the
+implementation. A Jakarta Web Services Metadata service endpoint interface MUST meet the
+requirements specified in Jakarta XML Web Services  2.3 [5], section 3.4, with the
 following exceptions:
 
 * The service endpoint interface MUST be an outer public interface.
@@ -480,9 +482,9 @@ inherited from super-interfaces, are mapped to WSDL operations
 regardless of whether they include a @WebMethod annotation. A method MAY
 include a @WebMethod annotation to customize the mapping to WSDL, but is
 not REQUIRED to do so.
-* The service endpoint interface MAY include other JSR-181 annotations to
+* The service endpoint interface MAY include other Jakarta Web Services Metadata annotations to
 control the mapping from Java to WSDL.
-* The service endpoint interface MUST NOT include the JSR-181 annotation
+* The service endpoint interface MUST NOT include the Jakarta Web Services Metadata annotation
 elements portName, serviceName and endpointInterface of the annotation
 @WebService.
 
@@ -496,7 +498,7 @@ An exposed method MUST meet the following requirements.
 
 * The method MUST be public.
 * The method’s parameters, return value, and exceptions MUST follow the
-rules defined in JAX-WS 2.0 [5], section 3.6).
+rules defined in Jakarta XML Web Services 2.3 [5], section 3.6).
 * The method MAY throw java.rmi.RemoteException, but is not REQUIRED to do
 so.
 
@@ -554,7 +556,7 @@ implementation bean that does reference a service endpoint interface
 is used for only the wsdl:service (and associated XML elements).
 
 a|
-Implementation-defined, as described in JAX-WS 2.0 [5], section 3.2.
+Implementation-defined, as described in Jakarta XML Web Services 2.3 [5], section 3.2.
 
 a|
 serviceName
@@ -601,7 +603,7 @@ The location of a pre-defined WSDL describing the service. The
 wsdlLocation is a URL (relative or absolute) that refers to a
 pre-existing WSDL file. The presence of a wsdlLocation value indicates
 that the service implementation bean is implementing a pre-defined WSDL
-contract. The JSR-181 tool MUST provide feedback if the service
+contract. The Jakarta Web Services Metadata tool MUST provide feedback if the service
 implementation bean is inconsistent with the portType and bindings
 declared in this WSDL. Note that a single WSDL file might contain
 multiple portTypes and multiple bindings. The annotations on the service
@@ -622,7 +624,7 @@ Service contract. This annotation allows the +
 developer to separate the interface contract from the implementation. If
 this annotation is present, the service endpoint interface is used to
 determine the abstract WSDL contract (portType and bindings). The
-service endpoint interface MAY include JSR-181 annotations to customize
+service endpoint interface MAY include Jakarta Web Services Metadata annotations to customize
 the mapping from Java to WSDL.
 
 The service implementation bean MAY implement the service endpoint
@@ -784,7 +786,7 @@ public class MyWebService {
 Indicates that the given web method has only an input message and no
 output. Typically, a oneway method returns the thread of control to the
 calling application prior to executing the actual business method. A
-JSR-181 processor is REQUIRED to report an error if an
+Jakarta Web Services Metadata processor is REQUIRED to report an error if an
 
 operation marked @Oneway has a return value, declares any checked
 exceptions or has any INOUT or OUT parameters.
@@ -948,7 +950,7 @@ mode
 a|
 The direction in which the parameter is flowing. One of IN, OUT, or
 INOUT. The OUT and INOUT modes may only be specified for parameter types
-that conform to the definition of Holder types (JAX-WS 2.0 [5], section
+that conform to the definition of Holder types (Jakarta XML Web Services 2.3 [5], section
 2.3.3). Parameters that are Holder Types MUST be OUT or INOUT.
 
 a|
@@ -993,7 +995,7 @@ public @interface WebParam {
 
 [source,java]
 ----
-@WebService(targetNamespace="http://www.openuri.org/jsr181/WebParamExample")
+@WebService(targetNamespace="http://www.openuri.org/jwsm/WebParamExample")
 @SOAPBinding(style=SOAPBinding.Style.RPC)
 public class PingService {
 
@@ -1024,15 +1026,15 @@ public class PingService {
 ----
 <definitions
   xmlns="http://schemas.xmlsoap.org/wsdl/"
-  xmlns:tns="http://www.openuri.org/jsr181/WebParamExample"
-  xmlns:wsdl="http://www.openuri.org/jsr181/WebParamExample"
+  xmlns:tns="http://www.openuri.org/jwsm/WebParamExample"
+  xmlns:wsdl="http://www.openuri.org/jwsm/WebParamExample"
   xmlns:s="http://www.w3.org/2001/XMLSchema"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-  targetNamespace="http://www.openuri.org/jsr181/WebParamExample">
+  targetNamespace="http://www.openuri.org/jwsm/WebParamExample">
 
   <types>
      <s:schema elementFormDefault="qualified"
-targetNamespace="http://www.openuri.org/jsr181/WebParamExample">
+targetNamespace="http://www.openuri.org/jwsm/WebParamExample">
         <s:complexType name="PingDocument">
            . . .
         </s:complexType>
@@ -1327,7 +1329,7 @@ public class CustomerService {
 ==== Description
 
 The @HandlerChain annotation associates the Web Service with an
-externally defined handler chain (JAX-WS 2.0 [5], Section 9).
+externally defined handler chain (Jakarta XML Web Services 2.3 [5], Section 9).
 
 It is an error to combine this annotation with the @SOAPMessageHandlers
 annotation.
@@ -1339,8 +1341,8 @@ used if +
 @HandlerChain is present on both.
 
 The @HandlerChain annotation MAY be specified on the type only. The
-annotation target includes METHOD and FIELD for use by JAX-WS 2.0 [5]. A
-JSR-181 Processor is REQUIRED to report an error if the @HanderChain
+annotation target includes METHOD and FIELD for use by Jakarta XML Web Services 2.3 [5]. A
+Jakarta Web Services Metadata Processor is REQUIRED to report an error if the @HanderChain
 annotation is used on a method.
 
 The @HandlerChain annotation contains the following member-values:
@@ -1381,15 +1383,15 @@ a|
 name
 
 a|
-*Deprecated* as of JSR-181 2.0 with no replacement.
+*Deprecated* as of Jakarta Web Services Metadata 2.0 with no replacement.
 
-The name was originally used to associate a JAX-RPC handler in a handler
-chain with the web service it is declared in. JAX-WS handlers are
+The name was originally used to associate a Jakarta XML RPC handler in a handler
+chain with the web service it is declared in. Jakarta XML Web Services handlers are
 associated to Web Services through elements in the handler chain itself.
 In this version, the name is ALWAYS ignored.
 
 This member-value will be permanently removed in a future version of
-JSR-181.
+Jakarta Web Services Metadata.
 
 a|
 ””
@@ -1414,11 +1416,11 @@ Example 1
 
 *Java Source:*
 
-Located in /home/mywork/src/com/jsr181/examples/
+Located in /home/mywork/src/com/jwsm/examples/
 
 [source,java]
 ----
-package com.jsr181.examples
+package com.jwsm.examples
 
 @WebService
 @HandlerChain(file="config/ProjectHandlers.xml")
@@ -1428,7 +1430,7 @@ public class MyWebService {
 
 *Handler Chain Configuration File*
 
-Located in /home/mywork/src/com/jsr181/examples/config/
+Located in /home/mywork/src/com/jwsm/examples/config/
 
 [source,xml]
 ----
@@ -1612,7 +1614,7 @@ Example 1 – RPC/LITERAL
 
 [source,java]
 ----
-@WebService(targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample1")
+@WebService(targetNamespace="http://www.openuri.org/jwsm/SoapBindingExample1")
 @SOAPBinding(
     style = SOAPBinding.Style.RPC,
     use = SOAPBinding.Use.LITERAL)
@@ -1630,10 +1632,10 @@ public class ExampleService {
 ----
 <definitions
   xmlns="http://schemas.xmlsoap.org/wsdl/"
-  xmlns:tns="http://www.openuri.org/jsr181/SoapBindingExample1"
+  xmlns:tns="http://www.openuri.org/jwsm/SoapBindingExample1"
   xmlns:s="http://www.w3.org/2001/XMLSchema"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-  targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample1">
+  targetNamespace="http://www.openuri.org/jwsm/SoapBindingExample1">
 
   <message name="concat">
      <part name="first" type="xs:string"/> +
@@ -1655,7 +1657,7 @@ public class ExampleService {
   <binding name="ExampleServiceHttpSoap" type="ExampleService">
     <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http[[.underline]#http://schemas.xmlsoap.org/soap/http#]"/>
     <operation name="concat">
-      <soap:operation soapAction="http://www.openuri.org/jsr181/SoapBindingExample1/concat"/>
+      <soap:operation soapAction="http://www.openuri.org/jwsm/SoapBindingExample1/concat"/>
       <input>
         <soap:body parts="first second third" use="literal"/>
       </input>
@@ -1673,7 +1675,7 @@ Example 2 – DOCUMENT/LITERAL/BARE
 
 [source,java]
 ----
-@WebService(targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample2")
+@WebService(targetNamespace="http://www.openuri.org/jwsm/SoapBindingExample2")
 @SOAPBinding(parameterStyle=SOAPBinding.ParameterStyle.BARE)
 public class DocBareService {
 
@@ -1689,13 +1691,13 @@ public class DocBareService {
 ----
 <definitions
   xmlns="http://schemas.xmlsoap.org/wsdl/"
-  xmlns:tns="http://www.openuri.org/jsr181/SoapBindingExample2"
+  xmlns:tns="http://www.openuri.org/jwsm/SoapBindingExample2"
   xmlns:s="http://www.w3.org/2001/XMLSchema"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-  targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample2">
+  targetNamespace="http://www.openuri.org/jwsm/SoapBindingExample2">
 
   <types>
-     <s:schema elementFormDefault="qualified" targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample2">
+     <s:schema elementFormDefault="qualified" targetNamespace="http://www.openuri.org/jwsm/SoapBindingExample2">
         <s:element name="SubmitPORequest">
             . . .
         </s:element>
@@ -1723,7 +1725,7 @@ public class DocBareService {
   <binding name="DocBareServiceHttpSoap" type="ExampleService">
      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
      <operation name="SubmitPO">
-        <soap:operation soapAction="http://www.openuri.org/jsr181/SoapBindingExample2/SubmitPO />
+        <soap:operation soapAction="http://www.openuri.org/jwsm/SoapBindingExample2/SubmitPO />
         <input>
            <soap:body parts="parameters" use="literal"/>
         </input>
@@ -1741,7 +1743,7 @@ Example 3 – DOCUMENT/LITERAL/WRAPPED
 
 [source,java]
 ----
-@WebService(targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample3")
+@WebService(targetNamespace="http://www.openuri.org/jwsm/SoapBindingExample3")
 @SOAPBinding(
   style = SOAPBinding.Style.DOCUMENT,
   use = SOAPBinding.Use.LITERAL,
@@ -1762,13 +1764,13 @@ public class DocWrappedService {
 ----
 <definitions
   xmlns="http://schemas.xmlsoap.org/wsdl/"
-  xmlns:tns="http://www.openuri.org/jsr181/SoapBindingExample3"
+  xmlns:tns="http://www.openuri.org/jwsm/SoapBindingExample3"
   xmlns:s="http://www.w3.org/2001/XMLSchema"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-  targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample3">
+  targetNamespace="http://www.openuri.org/jwsm/SoapBindingExample3">
 
   <types>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://www.openuri.org/jsr181/SoapBindingExample3">
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.openuri.org/jwsm/SoapBindingExample3">
        <s:element name="SubmitPO">
          <complexType>
            <sequence>
@@ -1801,7 +1803,7 @@ public class DocWrappedService {
   <binding name="ExampleServiceHttpSoap" type="ExampleService">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="SubmitPO">
-      <soap:operation soapAction="http://www.openuri.org/jsr181/SoapBindingExample3/SubmitPO" />
+      <soap:operation soapAction="http://www.openuri.org/jwsm/SoapBindingExample3/SubmitPO" />
       <input>
         <soap:body parts="parameters" use="literal"/>
       </input>
@@ -1815,30 +1817,30 @@ public class DocWrappedService {
 
 === Annotation: javax.jws.soap.SOAPMessageHandlers
 
-**Deprecated a**s of JSR-181 2.0 with no replacement.
+**Deprecated a**s of Jakarta Web Services Metadata 2.0 with no replacement.
 
-This annotation was originally used to create a JAX-RPC handler chain.
+This annotation was originally used to create a Jakarta XML RPC handler chain.
 In this version, the annotation is ALWAYS ignored.
 
 This annotation will be permanently removed in a future version of
-JSR-181.
+Jakarta Web Services Metadata.
 
 == Java Mapping To XML/WSDL
 
-A key goal of JSR-181 is to influence the shape of WSDL generated from a
+A key goal of Jakarta Web Services Metadata is to influence the shape of WSDL generated from a
 JWS. This section defines the mapping from Java to XML/WSDL. By default,
-JSR-181 follows the Java to XML/WSDL mapping defined in JAX-WS 2.0 [5]
+Jakarta Web Services Metadata follows the Java to XML/WSDL mapping defined in Jakarta XML Web Services 2.3 [5]
 section 3), except as noted in this section. Implementations MAY extend
 or supplement this mapping, for example, by adding more complete schema
-support or supporting alternate binding frameworks such as JAXB or SDO
+support or supporting alternate binding frameworks such as Jakarta XML Binding or SDO
 (JSR-235). Annotations for such extensions are out-of-scope for this
 specification.
 
 === Service Endpoint Interface
 
-JAX-WS defines a service endpoint interface as the Java representation
+Jakarta XML Web Services defines a service endpoint interface as the Java representation
 of an abstract WSDL contract. A service endpoint interface MAY include
-the following JSR-181 annotations to customize its mapping to WSDL:
+the following Jakarta Web Services Metadata annotations to customize its mapping to WSDL:
 
 * @WebService.name, @WebService.targetNamespace, and @WebService.wsdlLocation
 * @WebMethod (all annotation elements)
@@ -1881,37 +1883,37 @@ implementation-defined.
 
 === Web Method Mapping
 
-Each exposed web method in a JSR-181 annotated class or interface is
+Each exposed web method in a Jakarta Web Services Metadata annotated class or interface is
 mapped to a wsdl:operation on the class/interface WSDL portType. The
 wsdl:operation local name maps to the value of the
 @WebMethod.operationName member-value, if
 mailto:@WebMethod.operationName[[.underline]#@WebMethod.operationName#]
 is present. If @WebMethod.operationName is not present, the
 wsdl:operation local name is mapped from the name of the Java method
-according to the rules defined in JAX-WS 2.0 [5], section 3.5.
+according to the rules defined in Jakarta XML Web Services 2.3 [5], section 3.5.
 
 The mapped wsdl:operation contains both wsdl:input and wsdl:output
 elements, unless the method is annotated as @Oneway. @Oneway methods
 have only a wsdl:input element.
 
 Java types used as method parameters, return values, and exceptions are
-mapped according to the rules defined in JAX-WS 2.0 [5], section 3.6.
+mapped according to the rules defined in Jakarta XML Web Services [5], section 3.6.
 
 == SOAP Binding
 
 This section defines a standard mapping from a service endpoint
 interface or service implementation bean to the SOAP 1.1 binding.
 Implementers MAY also support other bindings, but these bindings are
-non-standard. If JSR-181 implementation supports bindings other than
+non-standard. If Jakarta Web Services Metadata implementation supports bindings other than
 SOAP 1.1, it MUST include a mechanism to selectively enable or disable
 these bindings.
 
-By default JSR-181 follows the SOAP binding defined in JAX-WS 2.0 [5],
+By default Jakarta Web Services Metadata follows the SOAP binding defined in Jakarta XML Web Services 2.3 [5],
 section 10.
 
 === Operation Modes
 
-JSR-181 implementations are REQUIRED to support the following WS-I
+Jakarta Web Services Metadata implementations are REQUIRED to support the following WS-I
 compliant operation modes:
 
 * Operations with the rpc style and literal use (rpc/literal)
@@ -1941,7 +1943,7 @@ the parameter, as described in section 5 - Java Mapping To XML/WSDL.
 
 In the document operation style, the input and output WSDL messages have
 a single part referencing a schema element that defines the entire body.
-JSR-181 implementations MUST support both the “wrapped” and “bare”
+Jakarta Web Services Metadata implementations MUST support both the “wrapped” and “bare”
 styles of document / literal operation. The developer may specify which
 of these styles is in effect for a particular operation by using the
 @SOAPBinding.parameterStyle annotation.
@@ -2031,7 +2033,7 @@ binding operation. Headers are always literal. The @WebResult.name and
 element representing the header. This QName MUST be unique within all
 headers of the method.
 
-== Using JSR-181 Annotations to Affect the Shape of the WSDL
+== Using Jakarta Web Services Metadata Annotations to Affect the Shape of the WSDL
 
 === RPC Literal Style
 
@@ -2420,36 +2422,37 @@ public class ExampleWebServiceImpl {
 
 == References
 
-[arabic]
 . JSR-175 A Metadata Facility for the Java(TM) Programming Language
-http://jcp.org/en/jsr/detail?id=175[[.underline]#http://jcp.org/en/jsr/detail?id=175#]
-. JSR-88 J2EE Application Deployment +
-http://jcp.org/en/jsr/detail?id=88[[.underline]#http://jcp.org/en/jsr/detail?id=88#]
+https://jcp.org/en/jsr/detail?id=175
+
+. Jakarta Deployment 1.7 
+https://jakarta.ee/specifications/deployment/1.7/
+
 . XML Schema 1.0
+https://www.w3.org/TR/xmlschema-1/
 
-http://www.w2.org/TR/xmlschema-1/[[.underline]#http://www.w3.org/TR/xmlschema-1/#]
+. Jakarta EE
+https://jakarta.ee/specifications/
 
-[arabic, start=4]
-. J2EE 1.4
+. Jakarta XML Web Services 2.3
+https://jakarta.ee/specifications/xml-web-services/2.3/
 
-http://jcp.org/en/jsr/detail?id=151[[.underline]#http://jcp.org/en/jsr/detail?id=151#]
+. Jakarta Enterprise Web Services 1.4
+https://jakarta.ee/specifications/enterprise-ws/1.4/
 
-[arabic, start=5]
-. JAX-WS 2.0
+. Web Services Definition Language (WSDL) 1.1
+https://www.w3.org/TR/wsdl/
 
-http://www.jcp.org/en/jsr/detail?id=224[[.underline]#http://www.jcp.org/en/jsr/detail?id=224#]
-
-[arabic, start=6]
-. Implementing Enterprise Web Services 1.1 (was JSR-109)
-http://www.jcp.org/en/jsr/detail?id=921[[.underline]#http://www.jcp.org/en/jsr/detail?id=921#]
-. Web Services Definition Language (WSDL) 1.1 +
-http://www.w3.org/TR/wsdl[[.underline]#http://www.w3.org/TR/wsdl#]
 . Simple Object Access Protocol (SOAP) 1.1
-http://www.w3.org/TR/2000/NOTE-SOAP-20000508/[[.underline]#http://www.w3.org/TR/2000/NOTE-SOAP-20000508/#]
+https://www.w3.org/TR/2000/NOTE-SOAP-20000508/
+
 . Apache AXIS "JWS" drop-in deployment of Web Services
+
 . BEA WebLogic Workshop "JWS" annotated Java Web Services
+
 . RFC 2119: Keywords for use in RFCs to Indicate Requirement Levels
-http://www.ietf.org/rfc/rfc2119.txt[[.underline]#http://www.ietf.org/rfc/rfc2119.txt#]
-. Common Annotations for the Java Platform +
-http://www.jcp.org/en/jsr/detail?id=250[[.underline]#http://www.jcp.org/en/jsr/detail?id=250#]
+https://www.ietf.org/rfc/rfc2119.txt
+
+. Common Annotations for the Java Platform
+https://jcp.org/en/jsr/detail?id=250
 

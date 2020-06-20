@@ -1,24 +1,24 @@
 == Appendix A: Relationship to Other Standards
 
-JSR-181 relies on Java standards, Web Services standards, XML standards
+Jakarta Web Services Metadata relies on Java standards, Web Services standards, XML standards
 and Internet standards.
 
 Java Language standards: J2SE 5.0 is needed for the JSR-175 defined
 Metadata Facility.
 
-Java runtime and container standards: JSR-181 does not define a
+Java runtime and container standards: Jakarta Web Services Metadata does not define a
 container or runtime environment – implementers provide tools to map the
 Java classes to specific runtime environments. The functionality of the
-Jakarta containers is assumed. The features provided by JAX-WS 2.0 are
+Jakarta containers is assumed. The features provided by Jakarta XML Web Services 2.3 are
 needed for the Web Services runtime as well as the mapping conventions;
-Java to XML/WSDL and WSDL/XML to Java. An optional mapping to JSR-109
-deployment descriptors is provided in JSR-181.
+Java to XML/WSDL and WSDL/XML to Java. An optional mapping to Jakarta Enterprise Web Services
+deployment descriptors is provided in Jakarta Web Services Metadata.
 
 Web Services standards: SOAP 1.1 and WSDL 1.1 are used to describe the
 Web Service and define the XML messages.
 
 XML standards: The XML language and the XML Schema 1.0 are an integral
-part of JSR-181.
+part of Jakarta Web Services Metadata.
 
 Internet standards: HTTP and HTTP/S provide basic protocols for Web
 Services.
@@ -26,8 +26,7 @@ Services.
 == Appendix B: Handler Chain Configuration File Schema
 
 The XML Schema for the handler chain configuration file is described at
-[.underline]#http://java.sun.com/xml/ns/javaee/javaee web services
-metadata handler 2 0.xsd#
+http://java.sun.com/xml/ns/javaee/javaee_web_services_metadata_handler_2_0.xsd
 
 == Appendix C: Non-Normative Examples of Alternate Binding Annotations
 
@@ -99,15 +98,13 @@ Version 2.1
 errors, add missing elements, and make it valid.
 * Updated Section 3.1 to clarify the explanation of when an SEI is
 implicitly defined by an implementation bean. The revised text refers to
-the appropriate section 3.3 in the JAX-WS 2.0 specification for the
+the appropriate section 3.3 in the Jakarta XML Web Services 2.0 specification for the
 actual SEI rules.
 * Updated the table in Section 4.4.1 describing the default "name" member
-value of the javax.jws.WebParam annotation to resolve the issue reported
-in [.underline]#https://jax-ws.dev.java.net/issues/show_bug.cgi?id=710[
-https://jax-ws.dev.java.net/issues/show_bug.cgi?id=710]#. The
+value of the javax.jws.WebParam annotation to resolve the issue reported. The
 requirement to specify a name for "document" style, parameter style
 "BARE", and mode "OUT" or "INOUT" is lifted and default rules are
-defined. This change is consistent with section 3.6.2.2 of the JAX-WS
+defined. This change is consistent with section 3.6.2.2 of the Jakarta XML Web Services
 2.0 specification.
 
 Version 2.0
@@ -119,7 +116,7 @@ could also have 2 parameters one IN and one OUT.
 * Changed @SOAPBinding to be configurable on a per operation basis rather
 than on the entire interface.
 * Made @HandlerChain.name and @SOAPMessageHandlers deprecated.
-* Added support for JAX-WS.
+* Added support for Jakarta XML Web Services.
 * Updated section 3.1 Service Implementation Bean, Item 6 to state that
 exposing all public methods if not @WebMethod annotations are declared
 to include consideration of annotation inheritence.
@@ -145,7 +142,7 @@ not the web service namespace.
 
 * Added @WebService.portName for the wsdl:port
 * Updated Handler schema
-* Added document/literal example to Using JSR-181 annotation to affect the
+* Added document/literal example to Using Jakarta Web Services Metadata annotation to affect the
 shape of the WSDL
 * Included various editorial changes.
 
@@ -163,8 +160,7 @@ Version 0.9.3
 * WSDL generation is REQUIRED.
 * Clarified support for Start with WSDL, and Start with WSDL and Java
 development modes as OPTIONAL.
-* Clarified [.underline]#mailto:@HandlerChain.file[ @HandlerChain.file]#
-attribute syntax and processing requirements.
+* Clarified @HandlerChain.file attribute syntax and processing requirements.
 
 Version 0.9.2
 
