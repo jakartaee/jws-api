@@ -1365,15 +1365,13 @@ a|
 Location of the handler chain file. The location supports 2 formats.
 
 [arabic]
-* An absolute http://java.net[[.underline]#java.net#].URL in externalForm.
-(ex:
-http://myhandlers.foo.com/handlerfile1.xml[[.underline]#http://myhandlers.foo.com/handlerfile1.xml#])
+* An absolute java.net.URL in externalForm.
+(ex: http://myhandlers.foo.com/handlerfile1.xml)
 
 a|
 None
 
 | a|
-[arabic, start=2]
 * A relative path from the source file or class file. (ex:
 bar/handlerfile1.xml)
 
@@ -1655,7 +1653,7 @@ public class ExampleService {
   </portType>
   
   <binding name="ExampleServiceHttpSoap" type="ExampleService">
-    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http[[.underline]#http://schemas.xmlsoap.org/soap/http#]"/>
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="concat">
       <soap:operation soapAction="http://www.openuri.org/jwsm/SoapBindingExample1/concat"/>
       <input>
@@ -1886,8 +1884,7 @@ implementation-defined.
 Each exposed web method in a Jakarta Web Services Metadata annotated class or interface is
 mapped to a wsdl:operation on the class/interface WSDL portType. The
 wsdl:operation local name maps to the value of the
-@WebMethod.operationName member-value, if
-mailto:@WebMethod.operationName[[.underline]#@WebMethod.operationName#]
+@WebMethod.operationName member-value, if @WebMethod.operationName
 is present. If @WebMethod.operationName is not present, the
 wsdl:operation local name is mapped from the name of the Java method
 according to the rules defined in Jakarta XML Web Services 2.3 [5], section 3.5.
