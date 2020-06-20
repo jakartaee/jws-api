@@ -9,7 +9,7 @@ Metadata Facility.
 Java runtime and container standards: JSR-181 does not define a
 container or runtime environment – implementers provide tools to map the
 Java classes to specific runtime environments. The functionality of the
-Java EE 5 containers is assumed. The features provided by JAX-WS 2.0 are
+Jakarta containers is assumed. The features provided by JAX-WS 2.0 are
 needed for the Web Services runtime as well as the mapping conventions;
 Java to XML/WSDL and WSDL/XML to Java. An optional mapping to JSR-109
 deployment descriptors is provided in JSR-181.

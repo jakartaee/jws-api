@@ -14,10 +14,10 @@ affiliates. Other names may be trademarks of their respective owners.
 
 This specification defines a simplified programming model that
 facilitates and accelerates the development of enterprise Web Services.
-Java EE standard deployment technologies, APIs, and protocols require
-the Java EE developer to master a substantial amount of information.
+Jakarta EE standard deployment technologies, APIs, and protocols require
+the Jakarta EE developer to master a substantial amount of information.
 This JSR reduces the amount of information required to implement Web
-Services on Java EE by using metadata to specify declaratively the Web
+Services on Jakarta EE by using metadata to specify declaratively the Web
 Services that each application provides. The metadata annotates the Java
 source file that implements the Web Service. Although the metadata is
 human-readable and editable with a simple text editor, graphical
@@ -269,9 +269,8 @@ but with the addition of an external configuration file containing
 overrides to annotations. The additional configuration file allows an
 administrator to customize the behavior or configuration of the Web
 Service – such as the endpoint URL - without changing the Java source.
-* Generation of Java EE 5 Web Services - In this model, a tool uses the
-metadata in +
-the annotated Java class to generate a Java EE 5 Web Service based on
+* Generation of Jakarta Web Services - In this model, a tool uses the
+metadata in the annotated Java class to generate a Jakarta Web Service based on
 JSR-109 and JAX-WS. The initial Web Service is generated from the
 annotated Java source, and the result can be further customized through
 standard deployment tools, including JSR-88 deployment plans. This
@@ -424,7 +423,7 @@ of the Web Service.
 
 This section describes the server programming model for JSR-181. The
 JSR-181 server programming model is a simplification of the existing
-Java EE Web Services server programming models, as defined in JAX-WS and
+Jakarta Web Services server programming models, as defined in JAX-WS and
 JSR-109. JSR-181 simplifies these models by allowing the developer to
 focus on business logic and using annotations to generate related
 artifacts.
