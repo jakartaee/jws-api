@@ -515,32 +515,19 @@ syntax) and usage examples are given for each metadata item.
 Marks a Java class as implementing a Web Service, or a Java interface as
 defining a Web Service interface.
 
-[cols=",,",]
+[cols=3, options=header]
 |===
-a|
-Member-Value
+|Member-Value
+|Meaning
+|Default
 
-a|
-Meaning
-
-a|
-Default
-
-a|
-name
-
-a|
-The name of the Web Service. Used as the name of the wsdl:portType when
+|name
+|The name of the Web Service. Used as the name of the wsdl:portType when
 mapped to WSDL 1.1
+|Simple name of the Java class or interface
 
-a|
-Simple name of the Java class or interface
-
-a|
-targetNamespace
-
-a|
-If the @WebService.targetNamespace annotation is on a service endpoint
+|targetNamespace
+|If the @WebService.targetNamespace annotation is on a service endpoint
 interface, the targetNamespace is used for the namespace for the
 wsdl:portType (and associated XML elements).
 
@@ -554,52 +541,31 @@ If the @WebService.targetNamespace annotation is on a service
 implementation bean that does reference a service endpoint interface
 (through the endpointInterface annotation element), the targetNamespace
 is used for only the wsdl:service (and associated XML elements).
+|Implementation-defined, as described in Jakarta XML Web Services 2.3 [5], section 3.2.
 
-a|
-Implementation-defined, as described in Jakarta XML Web Services 2.3 [5], section 3.2.
-
-a|
-serviceName
-
-a|
-The service name of the Web Service. Used as the name of the
+|serviceName
+|The service name of the Web Service. Used as the name of the
 wsdl:service when mapped to WSDL 1.1.
 
 This member-value is not allowed on endpoint interfaces.
-
-a|
-Simple name of the Java class + “Service"
-
+|Simple name of the Java class + “Service"
 |===
 
 
-[cols=",,",]
+[cols=3, options=header]
 |===
-a|
-Member-Value
+|Member-Value
+|Meaning
+|Default
 
-a|
-Meaning
-
-a|
-Default
-
-a|
-portName
-
-a|
-Used as the name of the wsdl:port when mapped to WSDL 1.1.
+|portName
+|Used as the name of the wsdl:port when mapped to WSDL 1.1.
 
 This member-value is not allowed on endpoint interfaces.
+|@WebService.name +”Port”
 
-a|
-@WebService.name +”Port”
-
-a|
-wsdlLocation
-
-a|
-The location of a pre-defined WSDL describing the service. The
+|wsdlLocation
+|The location of a pre-defined WSDL describing the service. The
 wsdlLocation is a URL (relative or absolute) that refers to a
 pre-existing WSDL file. The presence of a wsdlLocation value indicates
 that the service implementation bean is implementing a pre-defined WSDL
@@ -609,37 +575,26 @@ declared in this WSDL. Note that a single WSDL file might contain
 multiple portTypes and multiple bindings. The annotations on the service
 implementation bean determine the specific portType and bindings that
 correspond to the Web Service.
+|None
 
-a|
-None
-
-a|
-endpointInterface
-
-a|
-The complete name of the service endpoint interface defining the
-service’s abstract Web
-
-Service contract. This annotation allows the +
+|endpointInterface
+|The complete name of the service endpoint interface defining the
+service’s abstract Web Service contract. This annotation allows the +
 developer to separate the interface contract from the implementation. If
 this annotation is present, the service endpoint interface is used to
 determine the abstract WSDL contract (portType and bindings). The
 service endpoint interface MAY include Jakarta Web Services Metadata annotations to customize
 the mapping from Java to WSDL.
-
 The service implementation bean MAY implement the service endpoint
 interface, but is not REQUIRED to do so.
 
 This member-value is not allowed on endpoint interfaces.
-
-a|
-None.
+|None.
 
 The Web Service contract is generated from annotations on the service
 implementation bean. If a service endpoint interface is required by the
 target environment, it will be generated into an implementation-defined
 package with an implementation-defined name.
-
 |===
 
 ==== Annotation Type Definition
@@ -685,49 +640,28 @@ public class EchoServiceImpl {
 Customizes a method that is exposed as a Web Service operation. The
 WebMethod annotation includes the following member-value pairs:
 
-[cols=",,",]
+[cols=3, options=header]
 |===
-a|
-Member-Value
+|Member-Value
+|Meaning
+|Default
 
-a|
-Meaning
+|operationName
+|Name of the wsdl:operation matching this method.
+|Name of the Java method
 
-a|
-Default
-
-a|
-operationName
-
-a|
-Name of the wsdl:operation matching this method.
-
-a|
-Name of the Java method
-
-a|
-action
-
-a|
-The action for this operation. For SOAP bindings, this determines the
+|action
+|The action for this operation. For SOAP bindings, this determines the
 value of the soap action.
+|""
 
-a|
-""
-
-a|
-exclude
-
-a|
-Marks a method to NOT be exposed as a web method. Used to stop an
+|exclude
+|Marks a method to NOT be exposed as a web method. Used to stop an
 inherited method from being exposed as part of this web service.
 
 If this element is specified, other elements MUST NOT be specified for
 the @WebMethod.
-
-a|
-False
-
+|False
 |===
 
 This member-value is not allowed on endpoint interfaces.
@@ -838,72 +772,33 @@ public class PingService {
 Customizes the mapping of an individual parameter to a Web Service
 message part and XML element.
 
-[cols=",,",]
+[cols=3, options=header]
 |===
-a|
-Member-Value
+|Member-Value
+|Meaning
+|Default
 
-a|
-Meaning
+|name
+|Name of the parameter.
 
-a|
-Default
-
-a|
-name
-
-a|
-Name of the parameter.
-
-a|
-@WebMethod.operation
-
-| | a|
-Name, if the operation is
-
-| a|
 If the operation is rpc style and
-
-a|
-document style and the
-
-| a|
 @WebParam.partName has not been
-
-a|
-parameter style is
-
-| a|
 specified, this is name of the
-
-a|
-BARE, and the
-
-| a|
 wsdl:part representing the
-
-a|
-parameter does not map
-
-| a|
 parameter.
 
-a|
-to a header, and the
-
-|===
-
-
-[cols=",,",]
-|===
-| a|
 If the operation is document style or the parameter maps to a header,
 this is the local name of the XML element representing the parameter.
 
 A name MUST be specified if the operation is document style, the
 parameter style is BARE, and the mode is OUT or INOUT.
-
-a|
+|@WebMethod.operation
+Name, if the operation is
+document style and the
+parameter style is
+BARE, and the
+parameter does not map
+to a header, and the
 mode is IN or INOUT.
 
 @WebMethod operation Name+”Response”, if the operation is document style
@@ -913,59 +808,37 @@ header, and the mode is OUT.
 Otherwise, the default is arg__N,__ where _N_ represents the index of
 the parameter in the method signature (starting at arg0).
 
-a|
-partName
-
-a|
-The name of the wsdl:part
-
+|partName
+|The name of the wsdl:part
 representing this parameter. This is only used if the operation is rpc
 style or if the operation is document style and the parameter style is
 BARE.
+|@WebParam.name
 
-a|
-@WebParam.name
-
-a|
-targetNamespace
-
-a|
-The XML namespace for the parameter.
+|targetNamespace
+|The XML namespace for the parameter.
 
 Only used if the operation is document style or the paramater maps to a
 header.
 
-If the target namespace is set to “”, this represents the empty
+If the target namespace is set to "", this represents the empty
 namespace.
-
-a|
-The empty namespace, if the operation is document style, the parameter
+|The empty namespace, if the operation is document style, the parameter
 style is WRAPPED, and the parameter does not map to a header.
 
 Otherwise, the default is the targetNamespace for the Web Service.
 
-a|
-mode
-
-a|
-The direction in which the parameter is flowing. One of IN, OUT, or
+|mode
+|The direction in which the parameter is flowing. One of IN, OUT, or
 INOUT. The OUT and INOUT modes may only be specified for parameter types
 that conform to the definition of Holder types (Jakarta XML Web Services 2.3 [5], section
 2.3.3). Parameters that are Holder Types MUST be OUT or INOUT.
+|IN if not a Holder type. INOUT if a Holder type.
 
-a|
-IN if not a Holder type. INOUT if a Holder type.
-
-a|
-header
-
-a|
-If true, the parameter is pulled from a message header rather then the
+|header
+|If true, the parameter is pulled from a message header rather then the
 message body.
-
-a|
-False
-
+|False
 |===
 
 ==== Annotation Type Definition
@@ -1114,132 +987,61 @@ targetNamespace="http://www.openuri.org/jwsm/WebParamExample">
 Customizes the mapping of the return value to a WSDL part and XML
 element.
 
-[cols=",,",]
+[cols=3, options=header]
 |===
-a|
-Member-Value
+|Member-Value
+|Meaning
+|Default
 
-a|
-Meaning
+|name
+|Name of return value.
 
-a|
-Default
-
-a|
-name
-
-a|
-Name of return value.
-
-a|
-@WebParam.operation
-
-| | a|
-Name+”Response,” if
-
-| a|
 If the operation is rpc style and
-
-a|
-the operation is
-
-| a|
 @WebResult.partName has not been
-
-a|
-document style and the
-
-| a|
 specified, this is the name of the
-
-a|
-parameter style is
-
-| a|
 wsdl:part representing the return value.
 
-a|
-BARE.
-
-| | a|
-Otherwise, the default is
-
-| a|
 If the operation is document style or the return value maps to a header,
 this is the local name of the XML element representing the return value.
+|@WebParam.operation
+Name+”Response,” if
+the operation is
+document style and the
+parameter style is
+BARE.
 
-a|
+Otherwise, the default is
 “return.”
 
-a|
-partName
-
-a|
-The name of the wsdl:part
-
+|partName
+|The name of the wsdl:part
 representing this return value. This is only used if the operation is
 rpc style, or if the operation is document
-
-a|
-@WebResult.name
-
-|===
-
-
-[cols=",,",]
-|===
-| a|
 style and the parameter style is BARE.
+|@WebResult.name
 
-|
 
-a|
-targetNamespace
+|targetNamespace
+|The XML namespace for the return value.
 
-a|
-The XML namespace for the return value.
-
-a|
-The empty namespace, if the operation is document style, the
-
-| a|
 Only used if the operation is
-
-a|
-parameter style is
-
-| a|
 document style or the return value
-
-a|
-WRAPPED, and the
-
-| a|
 maps to a header.
 
-If the target namespace is set to “”, this represents the empty
-
-a|
+If the target namespace is set to “ ”, this represents the empty
+namespace.
+|The empty namespace, if the operation is document style, the
+parameter style is
+WRAPPED, and the
 return value does not map to a header,
 
 Otherwise, the default is
-
-| a|
-namespace.
-
-a|
 the targetNamespace for the Web Service.
 
-a|
-header
-
-a|
-If true, the parameter is in the message header rather then the message
+|header
+|If true, the parameter is in the message header rather then the message
 body.
-
-a|
-False
-
+|False
 |===
 
 ==== Annotation Type Definition
@@ -1347,41 +1149,24 @@ annotation is used on a method.
 
 The @HandlerChain annotation contains the following member-values:
 
-[cols=",,",]
+[cols=3, options=header]
 |===
-a|
-Member-Value
+|Member-Value
+|Meaning
+|Default
 
-a|
-Meaning
+|File
+|Location of the handler chain file. The location supports 2 formats.
 
-a|
-Default
-
-a|
-File
-
-a|
-Location of the handler chain file. The location supports 2 formats.
-
-[arabic]
-* An absolute java.net.URL in externalForm.
+1. An absolute java.net.URL in externalForm.
 (ex: http://myhandlers.foo.com/handlerfile1.xml)
 
-a|
-None
-
-| a|
-* A relative path from the source file or class file. (ex:
+2. A relative path from the source file or class file. (ex:
 bar/handlerfile1.xml)
+|None
 
-|
-
-a|
-name
-
-a|
-*Deprecated* as of Jakarta Web Services Metadata 2.0 with no replacement.
+|name
+|*Deprecated* as of Jakarta Web Services Metadata 2.0 with no replacement.
 
 The name was originally used to associate a Jakarta XML RPC handler in a handler
 chain with the web service it is declared in. Jakarta XML Web Services handlers are
@@ -1391,9 +1176,7 @@ In this version, the name is ALWAYS ignored.
 This member-value will be permanently removed in a future version of
 Jakarta Web Services Metadata.
 
-a|
-””
-
+|””
 |===
 
 ==== Annotation Type Definition
@@ -1522,58 +1305,28 @@ annotation accept the SOAPBinding behavior defined on the type.
 
 The @SOAPBinding annotation includes the following member-value pairs.
 
-[cols=",,",]
+[cols=3, options=header]
 |===
-a|
-Member-Value
+|Member-Value
+|Meaning
+|Default
 
-a|
-Meaning
-
-a|
-Default
-
-a|
-Style
-
-a|
-Defines the encoding style for messages send to and from the Web
+|Style
+|Defines the encoding style for messages send to and from the Web
 Service. One of
-
-a|
-DOCUMENT
-
-|===
-
-
-[cols=",,",]
-|===
-| a|
 DOCUMENT or RPC.
+|DOCUMENT
 
-|
-
-a|
-Use
-
-a|
-Defines the formatting style for messages sent to and from the Web
+|Use
+|Defines the formatting style for messages sent to and from the Web
 Service. One of LITERAL or ENCODED.
+|LITERAL
 
-a|
-LITERAL
-
-a|
-parameterStyle
-
-a|
-Determines whether method parameters represent the entire message body,
+|parameterStyle
+|Determines whether method parameters represent the entire message body,
 or whether the parameters are elements wrapped inside a top-level
 element named after the operation.
-
-a|
-WRAPPED
-
+|WRAPPED
 |===
 
 ==== Annotation Type Definition

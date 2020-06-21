@@ -40,29 +40,18 @@ to non-standard protocols and transports.
 Non-normative example of an alternate binding – in this case a raw HTTP
 binding as specified in WSDL 1.1 [7] section 4.
 
-[cols=",,",]
+[cols=3, options=header]
 |===
-a|
-Member-Value
+|Member-Value
+|Meaning
+|Default
 
-a|
-Meaning
-
-a|
-Default
-
-a|
-location
-
-a|
-The location of the HTTP GET endpoint. When defined at the class level,
+|location
+|The location of the HTTP GET endpoint. When defined at the class level,
 defines as the base URI for all operations on the service. When defined
 at the method level, defines the URI for a particular operation relative
 to the base URI for the service.
-
-a|
-Implementation-defined
-
+|Implementation-defined
 |===
 
 ==== C.1.2 Annotation Type Definition
