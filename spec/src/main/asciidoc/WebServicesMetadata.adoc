@@ -258,7 +258,6 @@ processor is responsible for mapping the annotated Java classes onto a
 specific runtime environment. This specification envisions – but does
 not require – several such runtime environments:
 
-[loweralpha]
 * Automatic deployment to a server directory – This is a “drag and drop”
 deployment model, similar to that used by JSPs. The annotated JWS file
 is copied in source or class form to a directory monitored by the
@@ -579,7 +578,7 @@ correspond to the Web Service.
 
 |endpointInterface
 |The complete name of the service endpoint interface defining the
-service’s abstract Web Service contract. This annotation allows the +
+service’s abstract Web Service contract. This annotation allows the
 developer to separate the interface contract from the implementation. If
 this annotation is present, the service endpoint interface is used to
 determine the abstract WSDL contract (portType and bindings). The
@@ -937,7 +936,7 @@ targetNamespace="http://www.openuri.org/jwsm/WebParamExample">
   
   <portType name="PingService">
      <operation name="PingOneWay">
-        <input message="tns:PingOneWay"/> +
+        <input message="tns:PingOneWay"/> 
      </operation>
      
      <operation name="PingTwoWay">
@@ -946,7 +945,7 @@ targetNamespace="http://www.openuri.org/jwsm/WebParamExample">
      </operation>
      
      <operation name="SecurePing">
-        <input message="tns:SecurePing"/> +
+        <input message="tns:SecurePing"/>
      </operation>
   </portType>
   
@@ -1137,10 +1136,8 @@ It is an error to combine this annotation with the @SOAPMessageHandlers
 annotation.
 
 The @HandlerChain annotation MAY be present on the endpoint interface
-and service +
-implementation bean. The service implementation bean’s @HandlerChain is
-used if +
-@HandlerChain is present on both.
+and service implementation bean. The service implementation bean’s @HandlerChain is
+used if @HandlerChain is present on both.
 
 The @HandlerChain annotation MAY be specified on the type only. The
 annotation target includes METHOD and FIELD for use by Jakarta XML Web Services 2.3 [5]. A
@@ -1191,7 +1188,7 @@ public @interface HandlerChain {
 };
 ----
 
-==== Examples +
+==== Examples
 
 Example 1
 
@@ -1225,7 +1222,7 @@ Located in /home/mywork/src/com/jwsm/examples/config/
   </bindings>
 
   <bindings node="ns1:definitions/ns1:types/xs:schema[@targetNamespace='urn:test:types']"
-      xmlns:xs="http://www.w3.org/2001/XMLSchema" +
+      xmlns:xs="http://www.w3.org/2001/XMLSchema"
       xmlns:ns1="http://schemas.xmlsoap.org/wsdl/">
     <ns2:schemaBindings xmlns:ns2="http://java.sun.com/xml/ns/jaxb">
        <ns2:package name="fromwsdl.handler.client"/>
@@ -1244,7 +1241,7 @@ Located in /home/mywork/src/com/jwsm/examples/config/
         </handler>
       </handler-chain>
       <handler-chain>
-        <port-name-pattern xmlns:ns2="urn:test">ns2:Report*</port-name-pattern>
+        <port-name-pattern xmlns:ns2="urn:test">ns2:Report</port-name-pattern>
         <handler>
           <handler-class>fromwsdl.handler.common.BaseLogicalHandler</handler-class>
           <init-param>
@@ -1389,9 +1386,9 @@ public class ExampleService {
   targetNamespace="http://www.openuri.org/jwsm/SoapBindingExample1">
 
   <message name="concat">
-     <part name="first" type="xs:string"/> +
-     <part name="second" type="xs:string"/> +
-     <part name="third" type="xs:string"/> +
+     <part name="first" type="xs:string"/>
+     <part name="second" type="xs:string"/>
+     <part name="third" type="xs:string"/>
   </message>
   
   <message name="concatResponse">
@@ -1568,7 +1565,7 @@ public class DocWrappedService {
 
 === Annotation: javax.jws.soap.SOAPMessageHandlers
 
-**Deprecated a**s of Jakarta Web Services Metadata 2.0 with no replacement.
+*Deprecated* as of Jakarta Web Services Metadata 2.0 with no replacement.
 
 This annotation was originally used to create a Jakarta XML RPC handler chain.
 In this version, the annotation is ALWAYS ignored.
@@ -1804,7 +1801,7 @@ import javax.jws.soap.*;
 public class ExampleWebServiceImpl {
 
    @WebMethod(action="urn:login")
-   @WebResult(name="Token") +
+   @WebResult(name="Token")
    public LoginToken login(
       @WebParam(name="UserName") String username,
       @WebParam(name="Password") String password) {
@@ -1896,9 +1893,9 @@ public class ExampleWebServiceImpl {
       <input message="tns:notifyTransfer"/>
     </operation>
 
-    <operation name="login" parameterOrder="UserName Password"> +
+    <operation name="login" parameterOrder="UserName Password">
       <input message="tns:login"/>
-      <output message="tns:loginResponse"/> +
+      <output message="tns:loginResponse"/>
     </operation>
 
   </portType>
@@ -1990,7 +1987,7 @@ import javax.jws.soap.*;
 public class ExampleWebServiceImpl {
 
    @WebMethod(action="urn:login")
-   @WebResult(name="Token") +
+   @WebResult(name="Token")
    public LoginToken login(
       @WebParam(name="UserName") String username,
       @WebParam(name="Password") String password) {

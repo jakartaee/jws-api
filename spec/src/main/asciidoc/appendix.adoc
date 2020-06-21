@@ -109,8 +109,8 @@ than on the entire interface.
 * Updated section 3.1 Service Implementation Bean, Item 6 to state that
 exposing all public methods if not @WebMethod annotations are declared
 to include consideration of annotation inheritence.
-* Changed default of @WebResult.name to @WebMethod.operationName +
-"Response" for Doc/lit/bare operations.
+* Changed default of @WebResult.name to 
+@WebMethod.operationName + "Response" for Doc/lit/bare operations.
 * Clarified @WebService.targetNamespace usage
 * Clarified @WebParam.mode usage.
 * Added @WebMethod.exclude.
