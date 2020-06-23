@@ -37,7 +37,7 @@ Jakarta Web Services Metadata Specification defines the syntax and semantics of 
 metadata and default values and implementers are expected to provide
 tools that map the annotated Java classes onto a specific runtime
 environment. This specification does not define a Java environment in
-which Web Services are run; however, the use of a J2SE 5.0 compiler is
+which Web Services are run; however, the use of a Java SE 8 compiler is
 assumed. In particular, it is assumed in Jakarta Web Services Metadata that features such as
 Jakarta XML Web Services and Jakarta Enterprise Web Services, 
 along with the compiler and language extensions
@@ -266,7 +266,7 @@ container. The container examines the annotations in the file to build a
 WSDL and configures the runtime machinery required for dispatching. This
 approach provides a simplified deployment model for prototyping and
 rapid application development (RAD).
-* Automatic deployment with external overrides – Similar to approach a),
+* Automatic deployment with external overrides – Similar to previous approach,
 but with the addition of an external configuration file containing
 overrides to annotations. The additional configuration file allows an
 administrator to customize the behavior or configuration of the Web
@@ -372,11 +372,9 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 
 @WebService
-public class HelloWorldService
-{
+public class HelloWorldService {
    @WebMethod
-   public String helloWorld()
-   {
+   public String helloWorld() {
      return "Hello World!";
    }
 }
@@ -654,10 +652,11 @@ inherited method from being exposed as part of this web service.
 
 If this element is specified, other elements MUST NOT be specified for
 the @WebMethod.
+
+This member-value is not allowed on endpoint interfaces.
 |False
 |===
 
-This member-value is not allowed on endpoint interfaces.
 
 ==== Annotation Type Definition
 
