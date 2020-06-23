@@ -3,7 +3,7 @@
 //
 
 :sectnums:
-= Jakarta Web Services Metadata Specification, Version 2.1
+= Jakarta Web Services Metadata Specification, Version 3.0
 
 Copyright (c) 2019 Eclipse Foundation.
 
@@ -260,7 +260,7 @@ specific runtime environment. This specification envisions – but does
 not require – several such runtime environments:
 
 * Automatic deployment to a server directory – This is a “drag and drop”
-deployment model, similar to that used by JSPs. The annotated JWS file
+deployment model, similar to that used by Jakarta Server Pages. The annotated JWS file
 is copied in source or class form to a directory monitored by the
 container. The container examines the annotations in the file to build a
 WSDL and configures the runtime machinery required for dispatching. This
@@ -271,9 +271,9 @@ but with the addition of an external configuration file containing
 overrides to annotations. The additional configuration file allows an
 administrator to customize the behavior or configuration of the Web
 Service – such as the endpoint URL - without changing the Java source.
-* Generation of Jakarta Web Services - In this model, a tool uses the
-metadata in the annotated Java class to generate a Jakarta Web Service based on
-Jakarta Enterprise Web Services and Jakarta XML Web Services. The initial Web Service is generated from the
+* Generation of Jakarta EE Web Services - In this model, a tool uses the
+metadata in the annotated Java class to generate a Jakarta EE Web Service based on
+Jakarta Enterprise Web Services and Jakarta XML Web Services Specifications. The initial Web Service is generated from the
 annotated Java source, and the result can be further customized through
 standard deployment tools, including Jakarta Deployment plans. This
 feature allows customization of externally modifiable properties at
@@ -2180,14 +2180,17 @@ https://jakarta.ee/specifications/deployment/1.7/
 . XML Schema 1.0
 https://www.w3.org/TR/xmlschema-1/
 
-. Jakarta EE
-https://jakarta.ee/specifications/
+. Jakarta EE 9
+https://jakarta.ee/specifications/platform/9/
 
-. Jakarta XML Web Services 2.3
-https://jakarta.ee/specifications/xml-web-services/2.3/
+. Jakarta XML Web Services 3.0
+https://jakarta.ee/specifications/xml-web-services/3.0/
 
-. Jakarta Enterprise Web Services 1.4
-https://jakarta.ee/specifications/enterprise-ws/1.4/
+. Jakarta Enterprise Web Services 2.0
+https://jakarta.ee/specifications/enterprise-ws/2.0/
+
+. Jakarta Annotations
+https://jakarta.ee/specifications/annotations/2.0/
 
 . Web Services Definition Language (WSDL) 1.1
 https://www.w3.org/TR/wsdl/
@@ -2201,7 +2204,4 @@ https://www.w3.org/TR/2000/NOTE-SOAP-20000508/
 
 . RFC 2119: Keywords for use in RFCs to Indicate Requirement Levels
 https://www.ietf.org/rfc/rfc2119.txt
-
-. Common Annotations for the Java Platform
-https://jcp.org/en/jsr/detail?id=250
 
