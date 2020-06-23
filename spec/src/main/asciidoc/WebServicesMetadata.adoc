@@ -144,7 +144,7 @@ the most common types of Web Services.
 This section summarizes the following concepts and processes of the
 Jakarta Web Services Metadata specification:
 
-* Programming model for Jakarta Web Services Metadata
+* Programming model for Jakarta Web Services Metadata annotated Web services
 * Use of metadata in Jakarta Web Services
 * Non-normative processing model for a JWS file
 * Runtime requirements for a Jakarta Web Services Metadata container
@@ -550,14 +550,6 @@ wsdl:service when mapped to WSDL 1.1.
 
 This member-value is not allowed on endpoint interfaces.
 |Simple name of the Java class + “Service"
-|===
-
-
-[cols=3, options=header]
-|===
-|Member-Value
-|Meaning
-|Default
 
 |portName
 |Used as the name of the wsdl:port when mapped to WSDL 1.1.
@@ -722,7 +714,6 @@ Indicates that the given web method has only an input message and no
 output. Typically, a oneway method returns the thread of control to the
 calling application prior to executing the actual business method. A
 Jakarta Web Services Metadata processor is REQUIRED to report an error if an
-
 operation marked @Oneway has a return value, declares any checked
 exceptions or has any INOUT or OUT parameters.
 
@@ -1200,7 +1191,7 @@ Located in /home/mywork/src/com/jwsm/examples/
 
 [source,java]
 ----
-package com.jwsm.examples
+package com.jwsm.examples;
 
 @WebService
 @HandlerChain(file="config/ProjectHandlers.xml")
@@ -1216,7 +1207,7 @@ Located in /home/mywork/src/com/jwsm/examples/config/
 ----
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?> 
 <bindings
-  wsdlLocation="http://localhost:8080/jaxrpc-fromwsdl_handler/test?wsdl"
+  wsdlLocation="http://localhost:8080/fromwsdl_handler/test?wsdl"
   xmlns="http://java.sun.com/xml/ns/jaxws">
   
   <bindings node="ns1:definitions" xmlns:ns1="http://schemas.xmlsoap.org/wsdl/">
@@ -1310,13 +1301,13 @@ The @SOAPBinding annotation includes the following member-value pairs.
 |Meaning
 |Default
 
-|Style
+|style
 |Defines the encoding style for messages send to and from the Web
 Service. One of
 DOCUMENT or RPC.
 |DOCUMENT
 
-|Use
+|use
 |Defines the formatting style for messages sent to and from the Web
 Service. One of LITERAL or ENCODED.
 |LITERAL
@@ -1580,7 +1571,7 @@ Jakarta Web Services Metadata Specification.
 A key goal of Jakarta Web Services Metadata is to influence the shape of WSDL generated from a
 JWS. This section defines the mapping from Java to XML/WSDL. By default,
 Jakarta Web Services Metadata follows the Java to XML/WSDL mapping defined in Jakarta XML Web Services Specification [5]
-section 3), except as noted in this section. Implementations MAY extend
+section 3, except as noted in this section. Implementations MAY extend
 or supplement this mapping, for example, by adding more complete schema
 support or supporting alternate binding frameworks such as Jakarta XML Binding or SDO
 (JSR-235). Annotations for such extensions are out-of-scope for this
@@ -1702,7 +1693,6 @@ of these styles is in effect for a particular operation by using the
 In the “wrapped” operation style, the input and output messages contain
 a single part which refers (through the _element_ attribute) to a global
 element declaration (the _wrapper_)
-
 of complexType defined using the xsd:sequence compositor. The global
 element declaration for the input message has a local name equal to
 @WebMethod.operationName. The global element declaration for the output
@@ -1757,7 +1747,6 @@ all operations on the Web Service. Consequently, either every document
 “bare” operation on the Web Service MUST take and return Java types that
 map to distinct elements, or the developer MUST use the @WebParam and
 @WebResult
-
 annotations to explicitly specify the QNames of the input and output XML
 elements for each operation.
 
