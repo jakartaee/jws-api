@@ -90,7 +90,7 @@ implicitly defined by an implementation bean. The revised text refers to
 the appropriate section 3.3 in the Jakarta XML Web Services 2.0 specification for the
 actual SEI rules.
 * Updated the table in Section 4.4.1 describing the default "name" member
-value of the javax.jws.WebParam annotation to resolve the issue reported. The
+value of the jakarta.jws.WebParam annotation to resolve the issue reported. The
 requirement to specify a name for "document" style, parameter style
 "BARE", and mode "OUT" or "INOUT" is lifted and default rules are
 defined. This change is consistent with section 3.6.2.2 of the Jakarta XML Web Services

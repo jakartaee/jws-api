@@ -290,11 +290,11 @@ the JSR-175 metadata facility. These _annotation type_ declarations are
 contained in packages that MUST be imported by every Jakarta Web Services Metadata JWS source
 file. JSR-175 provides the syntax for expressing the annotation element
 declarations that are in these packages. This specification specifies the contents
-of the javax.jws and javax.jws.soap packages (see attached APIs).
+of the jakarta.jws and jakarta.jws.soap packages (see attached APIs).
 
 Developers use a standard Java compiler with support for JSR-175 to
 compile and validate the service implementation bean. The compiler uses
-the annotation type declarations in the javax.jws and javax.jws.soap
+the annotation type declarations in the jakarta.jws and jakarta.jws.soap
 packages to check for syntax and type mismatch errors in the Web Service
 metadata. The result of compilation is a Java .class file containing the
 Web Service metadata along with the compiled Java code. The class file
@@ -364,13 +364,13 @@ Service. The @WebService tag marks a Java class as implementing a Web
 Service. @WebMethod tags identify the individual methods of the Java
 class that are exposed externally as Web Service operations, as
 illustrated in the following example. The example uses JSR-175 syntax
-and the _annotation type_ declarations defined in the javax.jws and
-javax.jws.soap packages.
+and the _annotation type_ declarations defined in the jakarta.jws and
+jakarta.jws.soap packages.
 
 [source, java]
 ----
-import javax.jws.WebService;
-import javax.jws.WebMethod;
+import jakarta.jws.WebService;
+import jakarta.jws.WebMethod;
 
 @WebService
 public class HelloWorldService {
@@ -444,8 +444,7 @@ final, and MUST NOT be abstract.
 * The implementation MUST NOT define a finalize() method.
 * The implementation bean MUST include a @WebService class-level
 annotation, indicating that it implements a Web Service. More
-information on the @WebService annotation may be found in 4.1Annotation:
-javax.jws.WebService.
+information on the @WebService annotation may be found in <<SectionAnnotationWebService, section _4.1 Annotation: jakarta.jws.WebService_>>..
 * The implementation bean MAY reference a service endpoint interface by
 using the @WebService.endpointInterface annotation. If the
 implementation bean references a service endpoint interface, it MUST
@@ -456,7 +455,7 @@ contract (portType and bindings). In this case, the service
 implementation bean MUST NOT include any Jakarta Web Services Metadata annotations other than
 @WebService and @HandlerChain. In addition, the @WebService annotation
 MUST NOT include the name annotation element. More information on the
-@WebService.endpointInterface annotation element may be found in <<SectionAnnotationWebService, section _4.1 Annotation: javax.jws.WebService_>>.
+@WebService.endpointInterface annotation element may be found in <<SectionAnnotationWebService, section _4.1 Annotation: jakarta.jws.WebService_>>.
 * If the implementation bean does not reference a service endpoint
 interface by using the @WebService.endpointInterface annotation, the
 bean class implicitly defines a service endpoint interface (SEI). The
@@ -512,7 +511,7 @@ metadata items. Both the _annotation type_ declarations (using JSR-175
 syntax) and usage examples are given for each metadata item.
 
 [[SectionAnnotationWebService]]
-=== Annotation: javax.jws.WebService
+=== Annotation: jakarta.jws.WebService
 
 ==== Description
 
@@ -629,7 +628,7 @@ public class EchoServiceImpl {
 }
 ----
 
-=== Annotation: javax.jws.WebMethod
+=== Annotation: jakarta.jws.WebMethod
 
 ==== Description
 
@@ -710,7 +709,7 @@ public class MyWebService {
 </definitions>
 ----
 
-=== Annotation: javax.jws.Oneway 
+=== Annotation: jakarta.jws.Oneway 
 
 ==== Description
 
@@ -761,7 +760,7 @@ public class PingService {
 </definitions>
 ----
 
-=== Annotation: javax.jws.WebParam
+=== Annotation: jakarta.jws.WebParam
 
 ==== Description
 
@@ -976,7 +975,7 @@ targetNamespace="http://www.openuri.org/jwsm/WebParamExample">
 </definitions>
 ----
 
-=== Annotation: javax.jws.WebResult
+=== Annotation: jakarta.jws.WebResult
 
 ==== Description
 
@@ -1122,7 +1121,7 @@ public class CustomerService {
 </definitions>
 ----
 
-=== Annotation: javax.jws.HandlerChain
+=== Annotation: jakarta.jws.HandlerChain
 
 ==== Description
 
@@ -1284,7 +1283,7 @@ Located in /home/mywork/src/com/jwsm/examples/config/
 </bindings
 ----
 
-=== Annotation: javax.jws.soap.SOAPBinding
+=== Annotation: jakarta.jws.soap.SOAPBinding
 
 ==== Description
 
@@ -1560,7 +1559,7 @@ public class DocWrappedService {
 </definitions>
 ----
 
-=== Annotation: javax.jws.soap.SOAPMessageHandlers
+=== Annotation: jakarta.jws.soap.SOAPMessageHandlers
 
 *Deprecated* as of Jakarta Web Services Metadata 2.0 with no replacement.
 
@@ -1787,8 +1786,8 @@ followed by the resulting WSDL:
 
 [source, java]
 ----
-import javax.jws.*;
-import javax.jws.soap.*;
+import jakarta.jws.*;
+import jakarta.jws.soap.*;
 
 @WebService(
   name="ExampleWebService",
@@ -1972,8 +1971,8 @@ followed by the resulting WSDL:
 
 [source,java]
 ----
-import javax.jws.*;
-import javax.jws.soap.*;
+import jakarta.jws.*;
+import jakarta.jws.soap.*;
 
 @WebService(
   name="ExampleWebService",
