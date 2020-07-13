@@ -26,7 +26,7 @@ Services.
 == Appendix B: Handler Chain Configuration File Schema
 
 The XML Schema for the handler chain configuration file is described at
-http://java.sun.com/xml/ns/javaee/javaee_web_services_metadata_handler_2_0.xsd
+https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_metadata_handler_3_0.xsd
 
 == Appendix C: Non-Normative Examples of Alternate Binding Annotations
 
@@ -79,6 +79,13 @@ public class MyWebServiceImpl {
 ----
 
 == Appendix D: Change Log
+
+Version 3.0
+
+* Changed specification version and license.
+* Changed package name to jakarta.jws.
+* Updated Handler Chain Configuration File Schema in Appendix B to accommodate changed
+namespace.
 
 Version 2.1
 
