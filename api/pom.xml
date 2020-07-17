@@ -27,7 +27,7 @@
         <copyright.update>false</copyright.update>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.0.0</spotbugs.version>
+        <spotbugs.version>4.0.4</spotbugs.version>
 
         <release.spec.feedback>jaxws-dev@eclipse.org</release.spec.feedback>
         <non.final>false</non.final>
@@ -96,7 +96,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.glassfish.copyright</groupId>
@@ -116,7 +116,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>4.2.1</version>
+                    <version>5.1.1</version>
                     <configuration>
                         <instructions>
                             <_noextraheaders>true</_noextraheaders>
