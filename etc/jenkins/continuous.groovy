@@ -66,6 +66,7 @@ pipeline {
                         etc/jenkins/continuous.sh
                     '''
                 }
+		jacoco()
 		recordIssues(tools: [java(), javaDoc(), spotBugs(useRankAsPriority: true)])
             }
         }
